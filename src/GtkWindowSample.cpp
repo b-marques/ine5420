@@ -8,6 +8,7 @@
 
 #include <gtk/gtk.h>
 
+
 static void
 activate (GtkApplication* app, gpointer user_data)
 {
@@ -18,6 +19,7 @@ activate (GtkApplication* app, gpointer user_data)
   gtk_window_set_default_size (GTK_WINDOW (window), 500, 500);
   gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER_ALWAYS);
   gtk_widget_show_all (window);
+  
 }
 
 
