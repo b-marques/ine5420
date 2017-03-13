@@ -10,10 +10,6 @@ int a = 0;
 
 extern "C" gboolean desenha(GtkWidget *widget, cairo_t *cr,
 		gpointer user_data) {
-	guint width, height;
-	GdkRGBA color;
-	GtkStyleContext *context;
-
 	cairo_set_line_width(cr, 1);
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_rectangle(cr, 20, 20, 200, 200);
