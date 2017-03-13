@@ -2,4 +2,4 @@
 .cproject
 /Debug/
 .settings
-/src/gui/exec
+exec
