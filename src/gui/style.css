@@ -5,15 +5,17 @@
 GtkButton {
     background-image: none;
     background-color: white;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
-#myButton_red{
+#myButton_default{
     font-family: DejaVu Sans;
     font-style: normal;
     font-weight: bold;
 }
 
-#myButton_red:hover{
+#myButton_default:hover{
    background-color: orange;
    color: #1450a0;
+   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
