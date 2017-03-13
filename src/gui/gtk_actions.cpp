@@ -2,7 +2,7 @@
 
 void GtkActions::on_button1_clicked(GtkWidget *widget, gpointer data)
 {
-	g_print("Hello World\n");
+	   g_print("Hello World\n");
 }
 
 void GtkActions::style_css()

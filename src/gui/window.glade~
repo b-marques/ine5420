@@ -5,7 +5,6 @@
   <object class="GtkWindow" id="window1">
     <property name="can_focus">False</property>
     <property name="opacity">0.98999999999999999</property>
-    <property name="halign">center</property>
     <property name="default_width">200</property>
     <property name="default_height">400</property>
     <child>
@@ -19,8 +18,6 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="margin_left">50</property>
-            <property name="margin_right">50</property>
           </object>
           <packing>
             <property name="expand">False</property>
