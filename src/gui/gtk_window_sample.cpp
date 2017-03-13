@@ -58,7 +58,7 @@ static void clicked(){
       draw_slice();
       switch_cairo = FALSE;
     } else {
-      clear_surface();
+      // clear_surface();
       draw_rect();
       switch_cairo = TRUE;
     } 
@@ -73,9 +73,7 @@ int main (int argc, char **argv)
   gtk_init(&argc, &argv);
   GtkActions::style_css();
 
-  // GtkWidget *main_window;
   GtkBuilder *gtk_builder;
-  // GtkWidget *drawing_area;
 
   gtk_builder = gtk_builder_new();
   gtk_builder_add_from_file(gtk_builder, "src/gui/window.glade", NULL);
