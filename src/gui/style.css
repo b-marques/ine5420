@@ -1,3 +1,19 @@
+/*GtkWindow {
+    background-color: #1450a0;
+}*/
+
 GtkButton {
-	background-color:rgba(233,23,34,1);
+    background-image: none;
+    background-color: white;
+}
+
+#myButton_red{
+    font-family: DejaVu Sans;
+    font-style: normal;
+    font-weight: bold;
+}
+
+#myButton_red:hover{
+   background-color: orange;
+   color: #1450a0;
 }
