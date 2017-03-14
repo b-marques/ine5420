@@ -6,8 +6,6 @@
     <property name="can_focus">False</property>
     <property name="opacity">0.98999999999999999</property>
     <property name="halign">center</property>
-    <property name="default_width">200</property>
-    <property name="default_height">400</property>
     <child>
       <object class="GtkBox" id="box1">
         <property name="visible">True</property>
