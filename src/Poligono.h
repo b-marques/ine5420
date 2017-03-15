@@ -8,9 +8,10 @@
 #ifndef POLIGONO_H_
 #define POLIGONO_H_
 #include "Figura.h"
+#include <vector>
 class Poligono : public Figura{
 public:
-	Poligono(string nome, double* x, double* y, int bufSize);
+	Poligono(string nome, vector<double> x, vector<double> y);
 	virtual ~Poligono();
 };
 

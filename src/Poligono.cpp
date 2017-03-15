@@ -7,9 +7,12 @@
 
 #include "Poligono.h"
 #include "Coordenada.h"
-Poligono::Poligono(string nome, double* x, double* y, int bufSize) : Figura(nome){
-	for (int i = 0; i < bufSize; i++) {
-		this->coordenadas.adiciona(Coordenada(x[i], y[i]));
+Poligono::Poligono(string nome, vector<double> xvec, vector<double> yvec) : Figura(nome){
+	double x, y;
+	for (int i = 0; i < (int) xvec.size(); i++) {
+		x = xvec.at(i);
+		y = yvec.at(i);
+		this->coordenadas.adiciona(Coordenada(x, y));
 	}
 }
 
