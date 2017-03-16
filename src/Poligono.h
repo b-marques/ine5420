@@ -11,7 +11,7 @@
 #include <vector>
 class Poligono : public Figura{
 public:
-	Poligono(string nome, vector<double> x, vector<double> y);
+	Poligono(string nome, ListaEnc<Coordenada> coord);
 	virtual ~Poligono();
 };
 

@@ -177,7 +177,8 @@ class ListaEnc {
 	 * 	cando o espaço da memoria.
 	 */
 	void destroiLista();
-	int getSize();
+	int tamanho();
+	T retornaDado(int pos);
 };
 
 template<typename T> ListaEnc<T>::ListaEnc() {
@@ -379,6 +380,24 @@ template<typename T> void ListaEnc<T>::destroiLista() {
 	head = nullptr;
 }
 
-template<typename T> int ListaEnc<T>::getSize() {
+template<typename T> int ListaEnc<T>::tamanho() {
 	return size;
 }
+
+template<typename T> T ListaEnc<T>::retornaDado(int pos) {
+	Elemento<T> *percorredorDeElementos = head;
+
+	if ((pos < size) && (pos >= 0) && !(listaVazia())) {
+		if (pos == 0) {
+			return retiraDoInicio();
+		} else {
+			for (int i = 0; i < pos - 1; i++) {
+				percorredorDeElementos = percorredorDeElementos->getProximo();
+			}
+			return percorredorDeElementos->getInfo();
+		}
+	} else {
+		throw "ERROLISTAVAZIA ou PosicaoInvaida";
+	}
+}
+

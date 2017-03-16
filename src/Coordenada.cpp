@@ -33,6 +33,17 @@ void Coordenada::setY(double y) {
 	this->y = y;
 }
 
+
+
+Coordenada Coordenada::operator+(const Coordenada& c2) {
+	Coordenada soma;
+	double xs, ys;
+	xs = this->x + c2.x;
+	ys = this->y + c2.y;
+	soma = Coordenada(xs, ys);
+	return soma;
+}
+
 Coordenada::~Coordenada() {
 	// TODO Auto-generated destructor stub
 }

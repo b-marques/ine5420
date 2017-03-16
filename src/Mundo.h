@@ -8,15 +8,19 @@
 #ifndef MUNDO_H_
 #define MUNDO_H_
 #include "Figura.h"
+
 class Mundo {
 private:
 	ListaEnc<Figura*> *figuras;
 	Coordenada deslocamento;
 public:
 	Mundo();
-	void desloca(double dx, double dy);
-	ListaEnc<Figura*>* getFiguras();
-	void adicionaReta(string nome, double xi, double yi, double xf, double yf);
+	void desloca(Coordenada somaDeslocador);
+	ListaEnc<Figura*> getFiguras();
+	Coordenada getDeslocamento();
+	void adicionaPonto(string nome, ListaEnc<Coordenada> coord);
+	void adicionaReta(string nome, ListaEnc<Coordenada> coord);
+	void adicionaPoligono(string nome, ListaEnc<Coordenada> coord);
 	virtual ~Mundo();
 };
 

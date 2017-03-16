@@ -11,7 +11,7 @@
 
 class Ponto : public Figura{
 public:
-	Ponto(string nome, double x, double y);
+	Ponto(string nome, ListaEnc<Coordenada> coord);
 	virtual ~Ponto();
 };
 

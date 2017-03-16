@@ -21,6 +21,7 @@ public:
 	void setY(double y);
 	//void setZ(double z);
 	virtual ~Coordenada();
+	Coordenada operator+(const Coordenada& c2);
 };
 
 #endif /* COORDENADA_H_ */

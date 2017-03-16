@@ -10,6 +10,7 @@
 #include "ListaEnc.hpp"
 #include "Coordenada.h"
 #include <string>
+#include <vector>
 using namespace std;
 
 class Figura {
@@ -17,7 +18,7 @@ protected:
 	ListaEnc<Coordenada> coordenadas;
 	string nome;
 public:
-	Figura(string nome);
+	Figura(string nome, ListaEnc<Coordenada> coord);
 	ListaEnc<Coordenada> getCoord();
 	void corrigeCoordNavegacao(double dx, double dy);
 	virtual ~Figura();

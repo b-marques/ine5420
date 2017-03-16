@@ -7,8 +7,9 @@
 
 #include "Figura.h"
 
-Figura::Figura(string nome) {
+Figura::Figura(string nome, ListaEnc<Coordenada> coord) {
 	this->nome = nome;
+	this->coordenadas = coord;
 }
 
 ListaEnc<Coordenada> Figura::getCoord() {
@@ -23,7 +24,7 @@ ListaEnc<Coordenada> Figura::getCoord() {
  */
 void Figura::corrigeCoordNavegacao(double dx, double dy) {
 	Coordenada coord;
-	int size = coordenadas.getSize();
+	int size = coordenadas.tamanho();
 	for (int pos = 0; pos < size; pos++) {
 		coord = coordenadas.retiraDaPosicao(pos);
 		coordenadas.adicionaNaPosicao(

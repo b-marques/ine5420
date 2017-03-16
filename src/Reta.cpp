@@ -7,10 +7,8 @@
 
 #include "Reta.h"
 
-Reta::Reta(string nome, double xi, double yi, double xf, double yf) :
-		Figura(nome) {
-	this->coordenadas.adiciona(Coordenada(xi, yi));
-	this->coordenadas.adiciona(Coordenada(xf, yf));
+Reta::Reta(string nome, ListaEnc<Coordenada> coord) :
+		Figura(nome, coord) {
 }
 
 Reta::~Reta() {

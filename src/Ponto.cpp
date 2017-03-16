@@ -7,8 +7,8 @@
 
 #include "Ponto.h"
 
-Ponto::Ponto(string nome, double x, double y) : Figura(nome){
-	this->coordenadas.adiciona(Coordenada(x, y));
+Ponto::Ponto(string nome, ListaEnc<Coordenada> coord) :
+		Figura(nome, coord) {
 }
 
 Ponto::~Ponto() {

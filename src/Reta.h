@@ -11,7 +11,7 @@
 
 class Reta: public Figura {
 public:
-	Reta(string nome, double xi, double yi, double xf, double yf);
+	Reta(string nome, ListaEnc<Coordenada> coord);
 	virtual ~Reta();
 };
 

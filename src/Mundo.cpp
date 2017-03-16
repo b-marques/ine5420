@@ -7,26 +7,41 @@
 
 #include "Mundo.h"
 #include "Reta.h"
+#include "Ponto.h"
+#include "Poligono.h"
 Mundo::Mundo() {
 	this->deslocamento = Coordenada(0, 0);
 	figuras = new ListaEnc<Figura*>();
 }
 
-void Mundo::desloca(double dx, double dy) {
-	deslocamento.setX(deslocamento.getX() + dx);
-	deslocamento.setY(deslocamento.getY() + dy);
+void Mundo::desloca(Coordenada somaDeslocador) {
+	deslocamento = deslocamento + somaDeslocador;
+}
+
+Coordenada Mundo::getDeslocamento() {
+	return deslocamento;
+}
+
+void Mundo::adicionaPonto(string nome, ListaEnc<Coordenada> coord) {
+	Ponto* p = new Ponto(nome, coord);
+	figuras->adiciona(p);
+}
+
+void Mundo::adicionaReta(string nome, ListaEnc<Coordenada> coord) {
+	Reta* r = new Reta(nome, coord);
+	figuras->adiciona(r);
+}
+
+void Mundo::adicionaPoligono(string nome, ListaEnc<Coordenada> coord) {
+	Poligono* p = new Poligono(nome, coord);
+	figuras->adiciona(p);
 }
 
 Mundo::~Mundo() {
 	delete figuras;
 }
 
-ListaEnc<Figura*>* Mundo::getFiguras() {
-	return figuras;
+ListaEnc<Figura*> Mundo::getFiguras() {
+	return *figuras;
 }
 
-void Mundo::adicionaReta(string nome, double xi, double yi, double xf,
-		double yf) {
-	Reta *r = new Reta(nome, xi, yi, xf, yf);
-	figuras->adiciona(r);
-}
