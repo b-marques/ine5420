@@ -10,13 +10,15 @@
 #include "Poligono.hpp"
 #include "Ponto.hpp"
 #include "Reta.h"
-Mundo::Mundo() {
+Mundo::Mundo(double larguraArea, double alturaArea) {
 	deslocamento = Coordenada(0, 0);
 	zoom = Coordenada(1, 1);
 	figuras = new ListaEnc<Figura*>();
+	this->larguraArea = larguraArea;
+	this->alturaArea = alturaArea;
 }
 
-void Mundo::desloca(double passo, double larguraArea, double alturaArea, TipoMovimento sentido) {
+void Mundo::desloca(double passo, TipoMovimento sentido) {
 	Coordenada deltaDesloc;
 	double dx = passo * larguraArea / 100;
 	double dy = passo * alturaArea / 100;

@@ -15,10 +15,9 @@ using namespace std;
 Tela* tela;
 
 /*coisas a fazer:
+NOME OBJETO ADICIONADO NA TREE VIEW
 janela para adicionar figuras
 metodos janela de adicao
-metodo virtual com string da figura(reta, poligono, etc)
-Adicionar texto ao terminal apos adicao
 */
 
 extern "C"{
@@ -29,7 +28,7 @@ gboolean configura(GtkWidget *widget, GdkEventConfigure *event,
 }
 
 gboolean redraw(GtkWidget *widget, cairo_t *cr, gpointer data) {
-	return tela->reconfigura(widget, cr);
+	return tela->redraw(widget, cr);
 }
 
 void focaDrawArea(GtkWidget *button, gpointer user_data) {
@@ -57,7 +56,6 @@ void adicionaFigura(GtkWidget *button, gpointer user_data){
 	cords.adiciona(Coordenada(300, 0));
 	tela->setCoordTemp(cords);
 	tela->adicionaFigura("TRIANGULO", POLIGONO);
-	tela->escreveTerminal("OI");
 }
 
 }

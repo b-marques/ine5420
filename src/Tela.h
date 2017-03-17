@@ -20,7 +20,7 @@
 
 class Tela {
 private:
-	Mundo mundo;
+	Mundo *mundo;
 	cairo_surface_t* surface;
 	GtkWidget *drawArea;
 	ListaEnc<Coordenada> coordTemp;
@@ -36,6 +36,7 @@ private:
 	double getPasso();
 	void transViewPort(Coordenada& coord);
 	void limpaDesenho();
+	string coordenadasTxt(const ListaEnc<Coordenada>& coords);
 public:
 	void escreveTerminal(string texto);
 	Tela();
@@ -47,7 +48,7 @@ public:
 	void maisZoom();
 	void menosZoom();
 	void move(GdkEvent *event);
-	gboolean reconfigura(GtkWidget *widget, cairo_t *cr);
+	gboolean redraw(GtkWidget *widget, cairo_t *cr);
 	gboolean criaSurface(GtkWidget *widget);
 	void setCoordTemp(ListaEnc<Coordenada>& coordTemp); //TEMPORARIO
 	virtual ~Tela();

@@ -13,9 +13,10 @@ class Mundo {
 private:
 	ListaEnc<Figura*> *figuras;
 	Coordenada deslocamento, zoom;
+	double larguraArea, alturaArea;
 public:
-	Mundo();
-	void desloca(double passo, double larguraArea, double alturaArea, TipoMovimento sentido);
+	Mundo(double larguraArea, double alturaArea);
+	void desloca(double passo, TipoMovimento sentido);
 	ListaEnc<Figura*>* getFiguras();
 	Coordenada getDeslocamento();
 	Coordenada getZoom();
