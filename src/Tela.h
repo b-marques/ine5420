@@ -11,11 +11,10 @@
 #include <glib.h>
 #include <iostream>
 #include <stdio.h>
-#include <string>
 #include <stdlib.h>
 #include <cairo.h>
 #include <gdk/gdkcairo.h>
-
+#include <pango.h>
 #include "Mundo.hpp"
 #include "tipofiguraenum.hpp"
 
@@ -38,6 +37,7 @@ private:
 	void transViewPort(Coordenada& coord);
 	void limpaDesenho();
 public:
+	void escreveTerminal(string texto);
 	Tela();
 	void abrePopup();
 	void adicionaFigura(string nome, TipoFigura tipo);

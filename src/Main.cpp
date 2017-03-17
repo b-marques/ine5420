@@ -15,10 +15,10 @@ using namespace std;
 Tela* tela;
 
 /*coisas a fazer:
+janela para adicionar figuras
 metodos janela de adicao
-usar caixa de relatorio
-metodos de zoom -- testar
-"inverter" Y -- testar
+metodo virtual com string da figura(reta, poligono, etc)
+Adicionar texto ao terminal apos adicao
 */
 
 extern "C"{
@@ -54,8 +54,10 @@ void adicionaFigura(GtkWidget *button, gpointer user_data){
 	ListaEnc<Coordenada> cords;
 	cords.adiciona(Coordenada(0, 0));
 	cords.adiciona(Coordenada(300, 250));
+	cords.adiciona(Coordenada(300, 0));
 	tela->setCoordTemp(cords);
-	tela->adicionaFigura("RETA", RETA);
+	tela->adicionaFigura("TRIANGULO", POLIGONO);
+	tela->escreveTerminal("OI");
 }
 
 }

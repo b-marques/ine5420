@@ -22,10 +22,10 @@ void Mundo::desloca(double passo, double larguraArea, double alturaArea, TipoMov
 	double dy = passo * alturaArea / 100;
 	switch (sentido) {
 		case CIMA:
-			deltaDesloc = Coordenada(0, dy);
+			deltaDesloc = Coordenada(0, -dy);
 			break;
 		case BAIXO:
-			deltaDesloc = Coordenada(0, -dy);
+			deltaDesloc = Coordenada(0, +dy);
 			break;
 		case DIREITA:
 			deltaDesloc = Coordenada(-dx, 0);
