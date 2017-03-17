@@ -14,14 +14,19 @@ private:
 public:
 	Coordenada();
 	explicit Coordenada(double x, double y);
-	double getX();
-	double getY();
+	double getX() const;
+	double getY() const;
 	//double getZ();
 	void setX(double x);
 	void setY(double y);
 	//void setZ(double z);
 	virtual ~Coordenada();
+	bool xMaiorQue(const Coordenada& c2);
+	bool yMaiorQue(const Coordenada& c2);
+	bool xMenorQue(const Coordenada& c2);
+	bool yMenorQue(const Coordenada& c2);
 	Coordenada operator+(const Coordenada& c2);
+	Coordenada operator-(const Coordenada& c2);
 	Coordenada operator*(const Coordenada& c2);
 };
 

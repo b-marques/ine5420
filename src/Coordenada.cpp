@@ -17,11 +17,11 @@ Coordenada::Coordenada(double x, double y) {
 	this->y = y;
 }
 
-double Coordenada::getX() {
+double Coordenada::getX() const{
 	return x;
 }
 
-double Coordenada::getY() {
+double Coordenada::getY() const{
 	return y;
 }
 
@@ -35,6 +35,27 @@ void Coordenada::setY(double y) {
 
 
 
+
+Coordenada::~Coordenada() {
+	// TODO Auto-generated destructor stub
+}
+
+bool Coordenada::xMaiorQue(const Coordenada& c2) {
+	return x > c2.getX();
+}
+
+bool Coordenada::yMaiorQue(const Coordenada& c2) {
+	return y > c2.getY();
+}
+
+bool Coordenada::xMenorQue(const Coordenada& c2) {
+	return x < c2.getX();
+}
+
+bool Coordenada::yMenorQue(const Coordenada& c2) {
+	return y < c2.getY();
+}
+
 Coordenada Coordenada::operator+(const Coordenada& c2) {
 	Coordenada soma;
 	double xs, ys;
@@ -44,8 +65,13 @@ Coordenada Coordenada::operator+(const Coordenada& c2) {
 	return soma;
 }
 
-Coordenada::~Coordenada() {
-	// TODO Auto-generated destructor stub
+Coordenada Coordenada::operator -(const Coordenada& c2) {
+	Coordenada sub;
+	double xs, ys;
+	xs = this->x - c2.x;
+	ys = this->y - c2.y;
+	sub = Coordenada(xs, ys);
+	return sub;
 }
 
 Coordenada Coordenada::operator*(const Coordenada& c2) {

@@ -56,6 +56,11 @@ void adicionaFigura(GtkWidget *button, gpointer user_data){
 	cords.adiciona(Coordenada(300, 0));
 	tela->setCoordTemp(cords);
 	tela->adicionaFigura("TRIANGULO", POLIGONO);
+	cords.destroiLista();
+	cords.adiciona(Coordenada(500, 275));
+	tela->setCoordTemp(cords);
+	tela->adicionaFigura("PONTO", PONTO);
+
 }
 
 }
