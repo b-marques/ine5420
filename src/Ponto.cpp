@@ -5,9 +5,9 @@
  *      Author: johann
  */
 
-#include "Ponto.h"
+#include "Ponto.hpp"
 
-Ponto::Ponto(string nome, ListaEnc<Coordenada> coord) :
+Ponto::Ponto(string nome, ListaEnc<Coordenada>& coord) :
 		Figura(nome, coord) {
 }
 

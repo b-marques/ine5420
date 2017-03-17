@@ -7,11 +7,13 @@
 
 #ifndef RETA_H_
 #define RETA_H_
-#include "Figura.h"
+#include "Figura.hpp"
+#include <list>
 
 class Reta: public Figura {
 public:
-	Reta(string nome, ListaEnc<Coordenada> coord);
+
+	Reta(string nome, ListaEnc<Coordenada>& coord);
 	virtual ~Reta();
 };
 

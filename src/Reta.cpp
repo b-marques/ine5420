@@ -7,8 +7,8 @@
 
 #include "Reta.h"
 
-Reta::Reta(string nome, ListaEnc<Coordenada> coord) :
-		Figura(nome, coord) {
+Reta::Reta(string nomeReta, ListaEnc<Coordenada>& coordReta) :
+		Figura(nomeReta, coordReta) {
 }
 
 Reta::~Reta() {

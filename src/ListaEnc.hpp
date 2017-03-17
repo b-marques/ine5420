@@ -9,11 +9,11 @@
 #include "Elemento.hpp"
 template<typename T>
 class ListaEnc {
- private:
+private:
 	Elemento<T>* head; /*!< Ponteiro para primeiro elemento da lista.*/
 	int size; /*!< Inteiro para definir quantos elmentos estao na lista.*/
 
- public:
+public:
 	/*! \brief Construtor da lista.
 	 *
 	 * Inicializa as variaveis size, em zero,
@@ -177,8 +177,9 @@ class ListaEnc {
 	 * 	cando o espaço da memoria.
 	 */
 	void destroiLista();
-	int tamanho();
-	T retornaDado(int pos);
+	int tamanho() const;
+	T retornaDado(int pos) const;
+	void operator=(ListaEnc<T>& l2);
 };
 
 template<typename T> ListaEnc<T>::ListaEnc() {
@@ -380,18 +381,18 @@ template<typename T> void ListaEnc<T>::destroiLista() {
 	head = nullptr;
 }
 
-template<typename T> int ListaEnc<T>::tamanho() {
+template<typename T> int ListaEnc<T>::tamanho() const{
 	return size;
 }
 
-template<typename T> T ListaEnc<T>::retornaDado(int pos) {
+template<typename T> T ListaEnc<T>::retornaDado(int pos) const{
 	Elemento<T> *percorredorDeElementos = head;
 
 	if ((pos < size) && (pos >= 0) && !(listaVazia())) {
 		if (pos == 0) {
-			return retiraDoInicio();
+			return head->getInfo();
 		} else {
-			for (int i = 0; i < pos - 1; i++) {
+			for (int i = 0; i < pos; i++) {
 				percorredorDeElementos = percorredorDeElementos->getProximo();
 			}
 			return percorredorDeElementos->getInfo();
@@ -401,3 +402,12 @@ template<typename T> T ListaEnc<T>::retornaDado(int pos) {
 	}
 }
 
+template<typename T> void ListaEnc<T>::operator =(ListaEnc<T>& l2) {
+	destroiLista();
+	ListaEnc<T>();
+	if (l2.tamanho() > 0) {
+		for (int i = 0; i < l2.tamanho(); i++) {
+			adiciona(l2.retornaDado(i));
+		}
+	}
+}

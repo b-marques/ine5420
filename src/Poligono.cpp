@@ -5,9 +5,10 @@
  *      Author: johann
  */
 
-#include "Poligono.h"
-#include "Coordenada.h"
-Poligono::Poligono(string nome, ListaEnc<Coordenada> coord) :
+#include "Poligono.hpp"
+
+#include "Coordenada.hpp"
+Poligono::Poligono(string nome, ListaEnc<Coordenada>& coord) :
 		Figura(nome, coord) {
 }
 

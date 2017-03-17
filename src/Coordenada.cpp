@@ -5,7 +5,7 @@
  *      Author: johann
  */
 
-#include "Coordenada.h"
+#include "Coordenada.hpp"
 
 Coordenada::Coordenada() {
 	x=0;
@@ -46,5 +46,14 @@ Coordenada Coordenada::operator+(const Coordenada& c2) {
 
 Coordenada::~Coordenada() {
 	// TODO Auto-generated destructor stub
+}
+
+Coordenada Coordenada::operator*(const Coordenada& c2) {
+	Coordenada mult;
+	double xs, ys;
+	xs = this->x * c2.x;
+	ys = this->y * c2.y;
+	mult = Coordenada(xs, ys);
+	return mult;
 }
 
