@@ -64,15 +64,18 @@ void adicionaFigura(GtkWidget *button, gpointer user_data){
 
 
 	if (!buttonName.compare("Adicionar Ponto")) {
+		cout << buttonName << endl;
 		GtkWidget *coord_x = GTK_WIDGET(gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_x_point"));
 		GtkWidget *coord_y = GTK_WIDGET(gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_y_point"));
-		int x = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(coord_x));
-		int y = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(coord_y));
+		double x = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(coord_x));
+		double y = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(coord_y));
 		cords.adiciona(Coordenada(x,y));
 		tela->setCoordTemp(cords);
 		tela->adicionaFigura("PONTO", PONTO);
+		
 
 	} else if (!buttonName.compare("Adicionar Reta")) {
+		cout << buttonName << endl;
 		GtkWidget *coord_x1 = GTK_WIDGET( gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_x_line1"));
 		GtkWidget *coord_y1 = GTK_WIDGET( gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_y_line1"));
 		GtkWidget *coord_x2 = GTK_WIDGET( gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_x_line2"));
@@ -87,6 +90,7 @@ void adicionaFigura(GtkWidget *button, gpointer user_data){
 		tela->adicionaFigura("RETA", RETA);
 
 	} else if (!buttonName.compare("Adicionar Poligono")) {
+		cout << buttonName << endl;
 		tela->adicionaFigura("POLIGONO", POLIGONO);
 	}
 	
