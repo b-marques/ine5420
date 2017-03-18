@@ -29,25 +29,21 @@ Tela::Tela() {
 
 void Tela::desenhaPonto(ListaEnc<Coordenada>& coordLista) {
 	cairo_t* cr = cairo_create(surface);
-	Coordenada coord = (coordLista.retiraDoInicio() + mundo->getDeslocamento());
-	transViewPort(coord);
+	Coordenada coord = corrigeCoord(coordLista.retornaDado(0));
 	cairo_move_to(cr, coord.getX(), coord.getY());
-	cairo_arc(cr, coord.getX(), coord.getY(), 1.0, 0.0, 2.0 * M_PI);
+	cairo_arc(cr, coord.getX(), coord.getY(), 4.0, 0.0, 2.0 * M_PI);
 	cairo_fill_preserve(cr);
 }
 
 void Tela::desenhaFiguraMultiplasCoordenadas(ListaEnc<Coordenada>& coordLista) {
 	cairo_t* cr = cairo_create(surface);
-	Coordenada coord1, coord2, deslocamento = mundo->getDeslocamento(), zoom =
-			mundo->getZoom();
-	coord1 = (coordLista.retornaDado(0) + deslocamento) * zoom;
-	transViewPort(coord1);
+	Coordenada coord1, coord2;
+	coord1 = corrigeCoord((coordLista.retornaDado(0)));
 	cairo_set_line_width(cr, 0.5);
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_move_to(cr, coord1.getX(), coord1.getY());
 	for (int ponto = 1; ponto < coordLista.tamanho(); ponto++) {
-		coord2 = (coordLista.retornaDado(ponto) + deslocamento) * zoom;
-		transViewPort(coord2);
+		coord2 = corrigeCoord((coordLista.retornaDado(ponto)));
 		cairo_line_to(cr, coord2.getX(), coord2.getY());
 		cairo_move_to(cr, coord2.getX(), coord2.getY());
 	}
@@ -155,6 +151,17 @@ void Tela::escreveTerminal(string texto) {
 	texto = texto + "\n";
 	GtkTextBuffer *textoBuf = gtk_text_view_get_buffer(terminal);
 	gtk_text_buffer_insert_at_cursor(textoBuf, texto.c_str(), texto.length());
+}
+
+Coordenada Tela::corrigeCoord(Coordenada coord) {
+	coord = coord + mundo->getDeslocamento();
+	Coordenada centroDesenho = mundo->getCentroDesenho();
+	Coordenada zoom = mundo->getZoom();
+	Coordenada variacao;
+	variacao = (coord - centroDesenho) * zoom - (coord - centroDesenho);
+	coord = coord + variacao;
+	transViewPort(coord);
+	return coord;
 }
 
 Tela::~Tela() {

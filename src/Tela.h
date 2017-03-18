@@ -36,6 +36,7 @@ private:
 	void transViewPort(Coordenada& coord);
 	void limpaDesenho();
 	string coordenadasTxt(const ListaEnc<Coordenada>& coords);
+	Coordenada corrigeCoord(Coordenada coord);
 public:
 	void escreveTerminal(string texto);
 	Tela();

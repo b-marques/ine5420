@@ -11,11 +11,12 @@
 #include "Ponto.hpp"
 #include "Reta.h"
 Mundo::Mundo(double larguraArea, double alturaArea) {
-	deslocamento = Coordenada(0, 0);
-	zoom = Coordenada(1, 1);
-	figuras = new ListaEnc<Figura*>();
 	this->larguraArea = larguraArea;
 	this->alturaArea = alturaArea;
+	deslocamento = Coordenada(0, 0);
+	zoom = Coordenada(1, 1);
+	centroDesenho = Coordenada(larguraArea/2, alturaArea/2);
+	figuras = new ListaEnc<Figura*>();
 }
 
 void Mundo::desloca(double passo, TipoMovimento sentido) {
@@ -33,12 +34,13 @@ void Mundo::desloca(double passo, TipoMovimento sentido) {
 			deltaDesloc = Coordenada(-dx, 0);
 			break;
 		case ESQUERDA:
-			deltaDesloc = Coordenada(dx, 0);
+			deltaDesloc = Coordenada(+dx, 0);
 			break;
 		default:
 			break;
 	}
 	deslocamento = deslocamento + deltaDesloc;
+	centroDesenho = centroDesenho - deltaDesloc;
 }
 
 Coordenada Mundo::getDeslocamento() {
@@ -47,6 +49,10 @@ Coordenada Mundo::getDeslocamento() {
 
 Coordenada Mundo::getZoom() {
 	return zoom;
+}
+
+Coordenada Mundo::getCentroDesenho() {
+	return centroDesenho;
 }
 
 void Mundo::adicionaPonto(string nome, ListaEnc<Coordenada>& coord) {
@@ -75,6 +81,7 @@ void Mundo::menosZoom(double passo) {
 	double dy = 1 + (passo / 100);
 	zoom = zoom * Coordenada(1/dx, 1/dy);
 }
+
 
 Mundo::~Mundo() {
 	delete figuras;

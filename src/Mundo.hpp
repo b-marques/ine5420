@@ -12,7 +12,7 @@
 class Mundo {
 private:
 	ListaEnc<Figura*> *figuras;
-	Coordenada deslocamento, zoom;
+	Coordenada deslocamento, zoom, centroDesenho;
 	double larguraArea, alturaArea;
 public:
 	Mundo(double larguraArea, double alturaArea);
@@ -20,6 +20,7 @@ public:
 	ListaEnc<Figura*>* getFiguras();
 	Coordenada getDeslocamento();
 	Coordenada getZoom();
+	Coordenada getCentroDesenho();
 	void adicionaPonto(string nome, ListaEnc<Coordenada>& coord);
 	void adicionaReta(string nome, ListaEnc<Coordenada>& coord);
 	void adicionaPoligono(string nome, ListaEnc<Coordenada>& coord);
