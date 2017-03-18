@@ -40,7 +40,6 @@ void Mundo::desloca(double passo, TipoMovimento sentido) {
 			break;
 	}
 	deslocamento = deslocamento + deltaDesloc;
-	centroDesenho = centroDesenho - deltaDesloc;
 }
 
 Coordenada Mundo::getDeslocamento() {
