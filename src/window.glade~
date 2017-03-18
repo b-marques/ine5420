@@ -341,7 +341,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkSpinButton" id="coord_x_polig">
+                      <object class="GtkSpinButton" id="coord_x_point1">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                       </object>
@@ -364,7 +364,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkSpinButton" id="coord_y_polig">
+                      <object class="GtkSpinButton" id="coord_y_point1">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                       </object>
@@ -387,7 +387,6 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <signal name="clicked" handler="addCord" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>

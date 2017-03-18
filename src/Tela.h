@@ -12,9 +12,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
-#include <cairo.h>
-#include <gdk/gdkcairo.h>
-#include <pango.h>
+#include <math.h>
 #include "Mundo.hpp"
 #include "tipofiguraenum.hpp"
 
@@ -25,6 +23,7 @@ private:
 	GtkWidget *drawArea;
 	ListaEnc<Coordenada> coordTemp;
 	GtkBuilder *gtkBuilder;
+	GtkWindow *adicionarWindow;
 
 	void limpaListaCoord();
 	void moveCima();
@@ -51,6 +50,8 @@ public:
 	gboolean redraw(GtkWidget *widget, cairo_t *cr);
 	gboolean criaSurface(GtkWidget *widget);
 	void setCoordTemp(ListaEnc<Coordenada>& coordTemp); //TEMPORARIO
+	ListaEnc<Coordenada> getCoordTemp();
+	void abrirTelaAdicionar();
 	virtual ~Tela();
 };
 

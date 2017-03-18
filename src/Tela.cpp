@@ -6,11 +6,11 @@
  */
 
 #include "Tela.h"
-#include <math.h>
 Tela::Tela() {
 	GtkWidget *window_widget;
 	gtkBuilder = gtk_builder_new();
-	gtk_builder_add_from_file(gtkBuilder, "window.glade", NULL);
+
+	gtk_builder_add_from_file (gtkBuilder, "window.glade", NULL);
 	window_widget = GTK_WIDGET(
 			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "main_window"));
 	drawArea = GTK_WIDGET(
@@ -18,8 +18,13 @@ Tela::Tela() {
 	surface = NULL;
 	mundo = new Mundo(gtk_widget_get_allocated_width(drawArea),
 			gtk_widget_get_allocated_height(drawArea));
+
+	g_signal_connect_swapped(G_OBJECT(window_widget), "destroy",
+                             G_CALLBACK(gtk_main_quit), NULL);
 	gtk_builder_connect_signals(gtkBuilder, NULL);
 	gtk_widget_show_all(window_widget);
+
+
 }
 
 void Tela::desenhaPonto(ListaEnc<Coordenada>& coordLista) {
@@ -63,7 +68,7 @@ void Tela::adicionaFigura(string nome, TipoFigura tipo) {
 		desenhaFiguraMultiplasCoordenadas(coordTemp);
 		break;
 	case POLIGONO:
-		mundo->adicionaPonto(nome, coordTemp);
+		mundo->adicionaPoligono(nome, coordTemp);
 		desenhaFiguraMultiplasCoordenadas(coordTemp);
 		break;
 	default:
@@ -138,6 +143,10 @@ void Tela::transViewPort(Coordenada& coord) {
 
 void Tela::setCoordTemp(ListaEnc<Coordenada>& coord) {
 	coordTemp = coord;
+}
+
+ListaEnc<Coordenada> Tela::getCoordTemp() {
+	return coordTemp;
 }
 
 void Tela::escreveTerminal(string texto) {
@@ -218,4 +227,10 @@ string Tela::coordenadasTxt(const ListaEnc<Coordenada>& coords) {
 				+ to_string(coordAux.getY()) + ")\n";
 	}
 	return texto;
+}
+
+void Tela::abrirTelaAdicionar() {
+	GtkWindow *adicionarWindow = GTK_WINDOW(gtk_builder_get_object(gtkBuilder, "add_object_window"));
+	g_signal_connect (GTK_WIDGET(adicionarWindow), "delete_event", G_CALLBACK (gtk_widget_hide_on_delete), NULL);
+	gtk_window_present(adicionarWindow);
 }
