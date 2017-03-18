@@ -51,13 +51,6 @@ void addCord(GtkWidget *button, gpointer user_data) {
 
 void adicionaFigura(GtkWidget *button, gpointer user_data){
 	tela->adicionar(button);
-	
-	// cords.adiciona(Coordenada(50, 50));
-	// cords.adiciona(Coordenada(300, 250));
-	// cords.adiciona(Coordenada(300, 0));
-	// tela->setCoordTemp(cords);
-	// tela->adicionaFigura("TRIANGULO", POLIGONO);
-
 }
 
 void abrirAdicionaFigura(GtkWidget *button, gpointer user_data){

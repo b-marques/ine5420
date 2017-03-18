@@ -24,6 +24,7 @@ Tela::Tela() {
 	
 	g_signal_connect_swapped(G_OBJECT(window_widget), "destroy",
                              G_CALLBACK(gtk_main_quit), NULL);
+	
 	gtk_builder_connect_signals(gtkBuilder, NULL);
 
 	gtk_widget_show_all(window_widget);
@@ -37,6 +38,7 @@ void Tela::desenhaPonto(ListaEnc<Coordenada>& coordLista) {
 	cairo_move_to(cr, coord.getX(), coord.getY());
 	cairo_arc(cr, coord.getX(), coord.getY(), 4.0, 0.0, 2.0 * M_PI);
 	cairo_fill_preserve(cr);
+	gtk_widget_queue_draw(drawArea);
 }
 
 void Tela::desenhaFiguraMultiplasCoordenadas(ListaEnc<Coordenada>& coordLista) {
@@ -152,6 +154,7 @@ ListaEnc<Coordenada> Tela::getCoordTemp() {
 void Tela::escreveTerminal(string texto) {
 	GtkTextView *terminal = GTK_TEXT_VIEW(
 			gtk_builder_get_object(gtkBuilder, "terminal"));
+
 	texto = texto + "\n";
 	GtkTextBuffer *textoBuf = gtk_text_view_get_buffer(terminal);
 	gtk_text_buffer_insert_at_cursor(textoBuf, texto.c_str(), texto.length());
@@ -262,7 +265,6 @@ void Tela::adicionar(GtkWidget* button) {
 		double x = gtk_spin_button_get_value (GTK_SPIN_BUTTON(coord_x));
 		double y = gtk_spin_button_get_value (GTK_SPIN_BUTTON(coord_y));
 		
-		cout << buttonName << x << y << endl;
 		cords.adiciona(Coordenada(x,y));
 		setCoordTemp(cords);
 		adicionaFigura("PONTO", PONTO);
@@ -294,6 +296,5 @@ void Tela::addCord() {
 	GtkWidget *coord_y = GTK_WIDGET(gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_y_polig"));
 	double x = gtk_spin_button_get_value (GTK_SPIN_BUTTON(coord_x));
 	double y = gtk_spin_button_get_value (GTK_SPIN_BUTTON(coord_y));
-	cout << x << " " << y << endl;
 	coordTemp.adiciona(Coordenada(x,y));
 }

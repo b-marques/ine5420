@@ -24,13 +24,12 @@ private:
 	ListaEnc<Coordenada> coordTemp;
 	GtkBuilder *gtkBuilder;
 	GtkWidget* adicionarWindow;
-
+	void redesenhaTudo();
 	void limpaListaCoord();
 	void moveCima();
 	void moveBaixo();
 	void moveDireita();
 	void moveEsquerda();
-	void redesenhaTudo();
 	void redesenhaFigura(Figura *f);
 	double getPasso();
 	void transViewPort(Coordenada& coord);
