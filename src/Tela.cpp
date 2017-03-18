@@ -16,12 +16,16 @@ Tela::Tela() {
 	drawArea = GTK_WIDGET(
 			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "drawing_area"));
 	surface = NULL;
-	mundo = new Mundo(gtk_widget_get_allocated_width(drawArea),
+	mundo = new Mundo(gtk_widget_get_allocated_width(GTK_WIDGET(drawArea)),
 			gtk_widget_get_allocated_height(drawArea));
 
+	adicionarWindow = GTK_WIDGET(gtk_builder_get_object(gtkBuilder, "add_object_window"));
+	g_signal_connect (GTK_WIDGET(adicionarWindow), "delete_event", G_CALLBACK (gtk_widget_hide), NULL);
+	
 	g_signal_connect_swapped(G_OBJECT(window_widget), "destroy",
                              G_CALLBACK(gtk_main_quit), NULL);
 	gtk_builder_connect_signals(gtkBuilder, NULL);
+
 	gtk_widget_show_all(window_widget);
 
 
@@ -237,7 +241,59 @@ string Tela::coordenadasTxt(const ListaEnc<Coordenada>& coords) {
 }
 
 void Tela::abrirTelaAdicionar() {
-	GtkWindow *adicionarWindow = GTK_WINDOW(gtk_builder_get_object(gtkBuilder, "add_object_window"));
-	g_signal_connect (GTK_WIDGET(adicionarWindow), "delete_event", G_CALLBACK (gtk_widget_hide_on_delete), NULL);
-	gtk_window_present(adicionarWindow);
+
+	gtk_widget_show(adicionarWindow);
+}
+
+void Tela::adicionar(GtkWidget* button) {
+	const gchar* buttonNameTemp = gtk_button_get_label(GTK_BUTTON(button));
+	std::string buttonName = std::string(buttonNameTemp);
+
+	ListaEnc<Coordenada> cords;
+	
+	cout << "teste" << "      X = " <<  endl;
+
+	if (!buttonName.compare("Adicionar Ponto")) {
+		cout << buttonName << endl;
+		GtkWidget* coord_x = GTK_WIDGET(
+			gtk_builder_get_object(gtkBuilder, "coord_x_point"));
+		GtkWidget* coord_y = GTK_WIDGET(
+			gtk_builder_get_object(gtkBuilder, "coord_y_point"));
+		double x = gtk_spin_button_get_value (GTK_SPIN_BUTTON(coord_x));
+		double y = gtk_spin_button_get_value (GTK_SPIN_BUTTON(coord_y));
+		
+		cout << buttonName << x << y << endl;
+		cords.adiciona(Coordenada(x,y));
+		setCoordTemp(cords);
+		adicionaFigura("PONTO", PONTO);
+		
+
+	} else if (!buttonName.compare("Adicionar Reta")) {
+		cout << buttonName << endl;
+		GtkWidget *coord_x1 = GTK_WIDGET( gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_x_line1"));
+		GtkWidget *coord_y1 = GTK_WIDGET( gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_y_line1"));
+		GtkWidget *coord_x2 = GTK_WIDGET( gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_x_line2"));
+		GtkWidget *coord_y2 = GTK_WIDGET(gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_y_line2"));
+		double x1 = gtk_spin_button_get_value (GTK_SPIN_BUTTON(coord_x1));
+		double y1 = gtk_spin_button_get_value (GTK_SPIN_BUTTON(coord_y1));
+		double x2 = gtk_spin_button_get_value (GTK_SPIN_BUTTON(coord_x2));
+		double y2 = gtk_spin_button_get_value (GTK_SPIN_BUTTON(coord_y2));
+		cout << x1 << " "<< y1 << " "<< x2 << " "<< y2 << " "<< endl;
+		cords.adiciona(Coordenada(x1,y1));
+		cords.adiciona(Coordenada(x2,y2));
+		setCoordTemp(cords);
+		adicionaFigura("RETA", RETA);
+
+	} else if (!buttonName.compare("Adicionar Poligono")) {
+		cout << buttonName << endl;
+		adicionaFigura("POLIGONO", POLIGONO);
+	}
+}
+void Tela::addCord() {
+	GtkWidget *coord_x = GTK_WIDGET(gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_x_polig"));
+	GtkWidget *coord_y = GTK_WIDGET(gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_y_polig"));
+	double x = gtk_spin_button_get_value (GTK_SPIN_BUTTON(coord_x));
+	double y = gtk_spin_button_get_value (GTK_SPIN_BUTTON(coord_y));
+	cout << x << " " << y << endl;
+	coordTemp.adiciona(Coordenada(x,y));
 }

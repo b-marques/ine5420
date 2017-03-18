@@ -23,7 +23,7 @@ private:
 	GtkWidget *drawArea;
 	ListaEnc<Coordenada> coordTemp;
 	GtkBuilder *gtkBuilder;
-	GtkWindow *adicionarWindow;
+	GtkWidget* adicionarWindow;
 
 	void limpaListaCoord();
 	void moveCima();
@@ -54,6 +54,8 @@ public:
 	ListaEnc<Coordenada> getCoordTemp();
 	void abrirTelaAdicionar();
 	virtual ~Tela();
+	void adicionar(GtkWidget *widget);
+	void addCord();
 };
 
 #endif /* TELA_H_ */

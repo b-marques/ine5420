@@ -87,7 +87,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
-                  <object class="GtkLabel" id="c">
+                  <object class="GtkLabel" id="label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">Coordenada X: </property>
@@ -102,6 +102,7 @@
                   <object class="GtkSpinButton" id="coord_x_point">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="input_purpose">number</property>
                     <property name="adjustment">adjustment1</property>
                     <property name="numeric">True</property>
                   </object>
@@ -128,7 +129,6 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="adjustment">adjustment2</property>
-                    <property name="numeric">True</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -324,7 +324,7 @@
             </child>
             <child>
               <object class="GtkButton" id="button_add_line">
-                <property name="label" translatable="yes">Adicionar Linha</property>
+                <property name="label" translatable="yes">Adicionar Reta</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -333,7 +333,6 @@
                 <property name="margin_right">100</property>
                 <property name="resize_mode">immediate</property>
                 <property name="xalign">0.47999998927116394</property>
-                <property name="yalign">0.50999999046325684</property>
                 <property name="image_position">bottom</property>
                 <signal name="clicked" handler="adicionaFigura" swapped="no"/>
               </object>
@@ -451,6 +450,8 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <property name="focus_on_click">False</property>
+                    <property name="yalign">0.51999998092651367</property>
                     <signal name="clicked" handler="addCord" swapped="no"/>
                   </object>
                   <packing>
@@ -757,5 +758,8 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkRecentAction" id="recentaction1">
+    <property name="limit">10</property>
   </object>
 </interface>
