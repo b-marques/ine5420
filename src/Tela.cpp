@@ -5,7 +5,7 @@
  *      Author: johann
  */
 
-#include "Tela.h"
+#include "Tela.hpp"
 Tela::Tela() {
 	GtkWidget *window_widget;
 	gtkBuilder = gtk_builder_new();
@@ -154,6 +154,7 @@ ListaEnc<Coordenada> Tela::getCoordTemp() {
 void Tela::escreveTerminal(string texto) {
 	GtkTextView *terminal = GTK_TEXT_VIEW(
 			gtk_builder_get_object(gtkBuilder, "terminal"));
+	gtk_text_view_set_monospace (terminal, TRUE);
 
 	texto = texto + "\n";
 	GtkTextBuffer *textoBuf = gtk_text_view_get_buffer(terminal);
@@ -254,10 +255,8 @@ void Tela::adicionar(GtkWidget* button) {
 
 	ListaEnc<Coordenada> cords;
 	
-	cout << "teste" << "      X = " <<  endl;
-
 	if (!buttonName.compare("Adicionar Ponto")) {
-		cout << buttonName << endl;
+		limpaListaCoord();
 		GtkWidget* coord_x = GTK_WIDGET(
 			gtk_builder_get_object(gtkBuilder, "coord_x_point"));
 		GtkWidget* coord_y = GTK_WIDGET(
@@ -271,7 +270,7 @@ void Tela::adicionar(GtkWidget* button) {
 		
 
 	} else if (!buttonName.compare("Adicionar Reta")) {
-		cout << buttonName << endl;
+		limpaListaCoord();
 		GtkWidget *coord_x1 = GTK_WIDGET( gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_x_line1"));
 		GtkWidget *coord_y1 = GTK_WIDGET( gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_y_line1"));
 		GtkWidget *coord_x2 = GTK_WIDGET( gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_x_line2"));
@@ -280,15 +279,17 @@ void Tela::adicionar(GtkWidget* button) {
 		double y1 = gtk_spin_button_get_value (GTK_SPIN_BUTTON(coord_y1));
 		double x2 = gtk_spin_button_get_value (GTK_SPIN_BUTTON(coord_x2));
 		double y2 = gtk_spin_button_get_value (GTK_SPIN_BUTTON(coord_y2));
-		cout << x1 << " "<< y1 << " "<< x2 << " "<< y2 << " "<< endl;
 		cords.adiciona(Coordenada(x1,y1));
 		cords.adiciona(Coordenada(x2,y2));
 		setCoordTemp(cords);
 		adicionaFigura("RETA", RETA);
 
 	} else if (!buttonName.compare("Adicionar Poligono")) {
-		cout << buttonName << endl;
-		adicionaFigura("POLIGONO", POLIGONO);
+		if (coordTemp.tamanho() < 3) { 
+			escreveTerminal("Número de pontos insuficientes para criação de polígono!");
+		} else {
+			adicionaFigura("POLIGONO", POLIGONO);
+		}
 	}
 }
 void Tela::addCord() {

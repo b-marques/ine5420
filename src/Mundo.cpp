@@ -9,7 +9,8 @@
 
 #include "Poligono.hpp"
 #include "Ponto.hpp"
-#include "Reta.h"
+#include "Reta.hpp"
+
 Mundo::Mundo(double larguraArea, double alturaArea) {
 	this->larguraArea = larguraArea;
 	this->alturaArea = alturaArea;

@@ -5,8 +5,8 @@
  *      Author: johann
  */
 
-#ifndef RETA_H_
-#define RETA_H_
+#ifndef RETA_HPP_
+#define RETA_HPP_
 #include "Figura.hpp"
 #include <list>
 
@@ -17,4 +17,4 @@ public:
 	virtual ~Reta();
 };
 
-#endif /* RETA_H_ */
+#endif /* RETA_HPP_ */

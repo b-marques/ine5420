@@ -5,8 +5,8 @@
  *      Author: johann
  */
 
-#ifndef TELA_H_
-#define TELA_H_
+#ifndef TELA_HPP_
+#define TELA_HPP_
 #include <gtk/gtk.h>
 #include <glib.h>
 #include <iostream>
@@ -57,4 +57,4 @@ public:
 	void addCord();
 };
 
-#endif /* TELA_H_ */
+#endif /* TELA_HPP_ */

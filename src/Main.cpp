@@ -6,8 +6,8 @@
 #include <string>
 #include <stdlib.h>
 #include "Mundo.hpp"
-#include "Tela.h"
-#include "Reta.h"
+#include "Tela.hpp"
+#include "Reta.hpp"
 using namespace std;
 
 Tela* tela;

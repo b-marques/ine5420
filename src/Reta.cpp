@@ -5,7 +5,7 @@
  *      Author: johann
  */
 
-#include "Reta.h"
+#include "Reta.hpp"
 
 Reta::Reta(string nomeReta, ListaEnc<Coordenada>& coordReta) :
 		Figura(nomeReta, coordReta) {
