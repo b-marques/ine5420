@@ -32,14 +32,16 @@ private:
 	void moveEsquerda();
 	void redesenhaFigura(Figura *f);
 	double getPasso();
+	string getNomeFigAdd();
 	void transViewPort(Coordenada& coord);
 	void limpaDesenho();
+	void escreveListaObjetos(string nome);
+	int posicaoFigSelecionada();
 	string coordenadasTxt(const ListaEnc<Coordenada>& coords);
 	Coordenada corrigeCoord(Coordenada coord);
 public:
 	void escreveTerminal(string texto);
 	Tela();
-	void abrePopup();
 	void adicionaFigura(string nome, TipoFigura tipo);
 	void desenhaPonto(ListaEnc<Coordenada>& coord);
 	void desenhaFiguraMultiplasCoordenadas(ListaEnc<Coordenada>& coord);
