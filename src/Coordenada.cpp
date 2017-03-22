@@ -8,8 +8,8 @@
 #include "Coordenada.hpp"
 
 Coordenada::Coordenada() {
-	x=0;
-	y=0;
+	x = 0;
+	y = 0;
 }
 
 Coordenada::Coordenada(double x, double y) {
@@ -17,11 +17,11 @@ Coordenada::Coordenada(double x, double y) {
 	this->y = y;
 }
 
-double Coordenada::getX() const{
+double Coordenada::getX() const {
 	return x;
 }
 
-double Coordenada::getY() const{
+double Coordenada::getY() const {
 	return y;
 }
 
@@ -32,9 +32,6 @@ void Coordenada::setX(double x) {
 void Coordenada::setY(double y) {
 	this->y = y;
 }
-
-
-
 
 Coordenada::~Coordenada() {
 	// TODO Auto-generated destructor stub
@@ -83,6 +80,10 @@ Coordenada Coordenada::operator*(const Coordenada& c2) {
 	return mult;
 }
 
+string Coordenada::toString() {
+	return "( " + to_string(x) + ", " + to_string(y) + ")";
+}
+
 Coordenada Coordenada::operator /(const double divisor) {
-	return Coordenada(x/divisor, y/divisor);
+	return Coordenada(x / divisor, y / divisor);
 }

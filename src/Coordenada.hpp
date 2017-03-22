@@ -7,6 +7,8 @@
 
 #ifndef COORDENADA_HPP_
 #define COORDENADA_HPP_
+#include <string>
+using namespace std;
 
 class Coordenada {
 private:
@@ -25,6 +27,7 @@ public:
 	bool yMaiorQue(const Coordenada& c2);
 	bool xMenorQue(const Coordenada& c2);
 	bool yMenorQue(const Coordenada& c2);
+	string toString();
 	Coordenada operator+(const Coordenada& c2);
 	Coordenada operator-(const Coordenada& c2);
 	Coordenada operator*(const Coordenada& c2);

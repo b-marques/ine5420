@@ -240,8 +240,7 @@ string Tela::coordenadasTxt(const ListaEnc<Coordenada>& coords) {
 	Coordenada coordAux;
 	for (int i = 0; i < coords.tamanho(); ++i) {
 		coordAux = coords.retornaDado(i);
-		texto = texto + "( " + to_string(coordAux.getX()) + ", "
-				+ to_string(coordAux.getY()) + ")\n";
+		texto = texto + coordAux.toString() + "\n";
 	}
 	return texto;
 }
@@ -259,34 +258,18 @@ void Tela::adicionar(GtkWidget* button) {
 
 	if (!buttonName.compare("Adicionar Ponto")) {
 		limpaListaCoord();
-		GtkWidget* coord_x = GTK_WIDGET(
-				gtk_builder_get_object(gtkBuilder, "coord_x_point"));
-		GtkWidget* coord_y = GTK_WIDGET(
-				gtk_builder_get_object(gtkBuilder, "coord_y_point"));
-		double x = gtk_spin_button_get_value(GTK_SPIN_BUTTON(coord_x));
-		double y = gtk_spin_button_get_value(GTK_SPIN_BUTTON(coord_y));
+		double x = getSpinButtonValue("coord_x_point");
+		double y = getSpinButtonValue("coord_y_point");
 		cords.adiciona(Coordenada(x, y));
 		setCoordTemp(cords);
 		adicionaFigura(nomeFigura, PONTO);
 
 	} else if (!buttonName.compare("Adicionar Reta")) {
 		limpaListaCoord();
-		GtkWidget *coord_x1 =
-				GTK_WIDGET(
-						gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_x_line1"));
-		GtkWidget *coord_y1 =
-				GTK_WIDGET(
-						gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_y_line1"));
-		GtkWidget *coord_x2 =
-				GTK_WIDGET(
-						gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_x_line2"));
-		GtkWidget *coord_y2 =
-				GTK_WIDGET(
-						gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_y_line2"));
-		double x1 = gtk_spin_button_get_value(GTK_SPIN_BUTTON(coord_x1));
-		double y1 = gtk_spin_button_get_value(GTK_SPIN_BUTTON(coord_y1));
-		double x2 = gtk_spin_button_get_value(GTK_SPIN_BUTTON(coord_x2));
-		double y2 = gtk_spin_button_get_value(GTK_SPIN_BUTTON(coord_y2));
+		double x1 = getSpinButtonValue("coord_x_line1");
+		double y1 = getSpinButtonValue("coord_y_line1");
+		double x2 = getSpinButtonValue("coord_x_line2");
+		double y2 = getSpinButtonValue("coord_y_line2");
 		cords.adiciona(Coordenada(x1, y1));
 		cords.adiciona(Coordenada(x2, y2));
 		setCoordTemp(cords);
@@ -325,12 +308,8 @@ int Tela::posicaoFigSelecionada() {
 }
 
 void Tela::addCord() {
-	GtkWidget *coord_x = GTK_WIDGET(
-			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_x_polig"));
-	GtkWidget *coord_y = GTK_WIDGET(
-			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_y_polig"));
-	double x = gtk_spin_button_get_value(GTK_SPIN_BUTTON(coord_x));
-	double y = gtk_spin_button_get_value(GTK_SPIN_BUTTON(coord_y));
+	double x = getSpinButtonValue("coord_x_polig");
+	double y = getSpinButtonValue("coord_y_polig");
 	coordTemp.adiciona(Coordenada(x, y));
 }
 
@@ -396,21 +375,30 @@ double Tela::getSpinButtonValue(string nome) {
 
 void Tela::rotacionaFigura() {
 	int posFigura = posicaoFigSelecionada();
-
 	if (posFigura > -1) {
 		double angulo = getSpinButtonValue("angulo");
+		string nome = mundo->getFiguras()->retornaDado(posFigura)->getNome();
 
 		switch (tipoRotacao()) {
 		case 0:
 			mundo->rotacionaFiguraCentroTela(posFigura, angulo);
+			escreveTerminal(
+					nome + " girou " + to_string(angulo)
+							+ " graus em torno do centro da tela");
 			break;
 		case 1:
 			mundo->rotacionaFiguraProprioCentro(posFigura, angulo);
+			escreveTerminal(
+					nome + " girou " + to_string(angulo)
+							+ " graus em torno do seu centro");
 			break;
 		case 2:
 			Coordenada coord = Coordenada(getSpinButtonValue("x_rotacao"),
 					getSpinButtonValue("y_rotacao"));
 			mundo->rotacionaFigura(posFigura, coord, angulo);
+			escreveTerminal(
+					nome + " girou " + to_string(angulo)
+							+ " graus em torno do ponto " + coord.toString());
 			break;
 		}
 		redesenhaTudo();

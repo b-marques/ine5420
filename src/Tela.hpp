@@ -24,6 +24,7 @@ private:
 	ListaEnc<Coordenada> coordTemp;
 	GtkBuilder *gtkBuilder;
 	GtkWidget* adicionarWindow;
+
 	void redesenhaTudo();
 	void limpaListaCoord();
 	void moveCima();

@@ -20,6 +20,7 @@ protected:
 public:
 	Figura(string nome, ListaEnc<Coordenada>& coord);
 	ListaEnc<Coordenada>& getCoord();
+	string getNome();
 	virtual ~Figura();
 };
 

@@ -17,6 +17,9 @@ ListaEnc<Coordenada>& Figura::getCoord() {
 	return coordenadas;
 }
 
+string Figura::getNome() {
+	return nome;
+}
 
 Figura::~Figura() {
 	// TODO Auto-generated destructor stub
