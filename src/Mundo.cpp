@@ -85,24 +85,13 @@ void Mundo::menosZoom(double passo) {
 
 void Mundo::transladaFigura(int posicaoLista, Coordenada desloc) {
 	Figura* f = figuras->retornaDado(posicaoLista);
-	ListaEnc<Coordenada>* coords = &f->getCoord();
-	Coordenada coord;
-	for (int i = 0; i < coords->tamanho(); i++) {
-		coord = coords->retiraDoInicio();
-		coord = coord + desloc;
-		coords->adiciona(coord);
-	}
+	f->translada(desloc);
+
 }
 
 void Mundo::escalonaFigura(int posicaoLista, Coordenada escala) {
 	Figura* f = figuras->retornaDado(posicaoLista);
-	ListaEnc<Coordenada>* coords = &f->getCoord();
-	Coordenada coord;
-	for (int i = 0; i < coords->tamanho(); i++) {
-		coord = coords->retiraDoInicio();
-		coord = coord * escala;
-		coords->adiciona(coord);
-	}
+	f->escalona(escala);
 }
 
 void Mundo::rotacionaFiguraCentroTela(int posicaoLista, double anguloGraus) {
@@ -111,14 +100,7 @@ void Mundo::rotacionaFiguraCentroTela(int posicaoLista, double anguloGraus) {
 
 void Mundo::rotacionaFiguraProprioCentro(int posicaoLista, double anguloGraus) {
 	Figura *f = figuras->retornaDado(posicaoLista);
-	ListaEnc<Coordenada>* coords = &f->getCoord();
-	Coordenada centroFigura = Coordenada(0, 0);
-	int nCoords;
-	for (nCoords = 0; nCoords < coords->tamanho(); nCoords++) {
-		centroFigura = centroFigura + coords->retornaDado(nCoords);
-	}
-	centroFigura = centroFigura / nCoords;
-	rotacionaFigura(posicaoLista, centroFigura, anguloGraus);
+	f->rotacionaFiguraProprioCentro(anguloGraus);
 }
 
 Mundo::~Mundo() {
@@ -132,18 +114,5 @@ ListaEnc<Figura*>* Mundo::getFiguras() {
 void Mundo::rotacionaFigura(int posicaoLista, Coordenada centroRotacao,
 		double anguloGraus) {
 	Figura* f = figuras->retornaDado(posicaoLista);
-	Coordenada coordRelativa, coord;
-	ListaEnc<Coordenada>* coords = &f->getCoord();
-	double anguloRad = anguloGraus / 180 * M_PI;
-	double cosAngulo = cos(anguloRad), senAngulo = sin(anguloRad);
-	for (int i = 0; i < coords->tamanho(); i++) {
-		coord = coords->retiraDoInicio();
-		coordRelativa = coord - centroRotacao;
-		coord = Coordenada(
-				coordRelativa.getX() * cosAngulo
-						- coordRelativa.getY() * senAngulo,
-				coordRelativa.getX() * senAngulo
-						+ coordRelativa.getY() * cosAngulo) + centroRotacao;
-		coords->adiciona(coord);
-	}
+	f->rotaciona(centroRotacao, anguloGraus);
 }

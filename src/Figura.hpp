@@ -21,6 +21,10 @@ public:
 	Figura(string nome, ListaEnc<Coordenada>& coord);
 	ListaEnc<Coordenada>& getCoord();
 	string getNome();
+	void escalona(Coordenada escala);
+	void translada(Coordenada desloc);
+	void rotacionaFiguraProprioCentro(double anguloGraus);
+	void rotaciona(Coordenada centroRotacao, double anguloGraus);
 	virtual ~Figura();
 };
 
