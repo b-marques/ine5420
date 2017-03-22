@@ -24,6 +24,11 @@ public:
 	void adicionaPonto(string nome, ListaEnc<Coordenada>& coord);
 	void adicionaReta(string nome, ListaEnc<Coordenada>& coord);
 	void adicionaPoligono(string nome, ListaEnc<Coordenada>& coord);
+	void transladaFigura(int posicaoLista, Coordenada desloc);
+	void escalonaFigura(int posicaoLista, Coordenada escala);
+	void rotacionaFiguraCentroTela(int posicaoLista, double anguloGraus);
+	void rotacionaFiguraProprioCentro(int posicaoLista, double anguloGraus);
+	void rotacionaFigura(int posicaoLista, Coordenada centroRotacao, double anguloGraus);
 	void maisZoom(double passo);
 	void menosZoom(double passo);
 	virtual ~Mundo();

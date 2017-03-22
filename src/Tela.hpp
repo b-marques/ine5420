@@ -39,6 +39,10 @@ private:
 	int posicaoFigSelecionada();
 	string coordenadasTxt(const ListaEnc<Coordenada>& coords);
 	Coordenada corrigeCoord(Coordenada coord);
+	Coordenada FatorOuDeslocamento();
+	Coordenada rotacaoPontoEspecifico();
+	int tipoRotacao();
+	double getSpinButtonValue(string nomeBotao);
 public:
 	void escreveTerminal(string texto);
 	Tela();
@@ -57,6 +61,9 @@ public:
 	virtual ~Tela();
 	void adicionar(GtkWidget *widget);
 	void addCord();
+	void escalonaFigura();
+	void trasladaFigura();
+	void rotacionaFigura();
 };
 
 #endif /* TELA_HPP_ */

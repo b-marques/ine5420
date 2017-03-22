@@ -83,3 +83,6 @@ Coordenada Coordenada::operator*(const Coordenada& c2) {
 	return mult;
 }
 
+Coordenada Coordenada::operator /(const double divisor) {
+	return Coordenada(x/divisor, y/divisor);
+}

@@ -164,12 +164,12 @@ void Tela::escreveTerminal(string texto) {
 }
 
 Coordenada Tela::corrigeCoord(Coordenada coord) {
-	coord = coord + mundo->getDeslocamento();
 	Coordenada centroDesenho = mundo->getCentroDesenho();
 	Coordenada zoom = mundo->getZoom();
 	Coordenada variacao;
 	variacao = (coord - centroDesenho) * zoom - (coord - centroDesenho);
 	coord = coord + variacao;
+	coord = coord + mundo->getDeslocamento();
 	transViewPort(coord);
 	return coord;
 }
@@ -179,7 +179,6 @@ Tela::~Tela() {
 
 void Tela::focaDrawArea() {
 	gtk_widget_grab_focus(drawArea);
-	escreveTerminal(to_string(posicaoFigSelecionada()));
 }
 
 void Tela::move(GdkEvent* event) {
@@ -341,4 +340,88 @@ void Tela::escreveListaObjetos(string nome) {
 	GtkTreeIter iterator;
 	gtk_list_store_append(lista, &iterator);
 	gtk_list_store_set(lista, &iterator, 0, nome.c_str(), -1);
+}
+
+void Tela::escalonaFigura() {
+	int posFigura = posicaoFigSelecionada();
+	if (posFigura > -1) {
+		Coordenada coord = FatorOuDeslocamento();
+		mundo->escalonaFigura(posFigura, coord);
+		redesenhaTudo();
+	} else {
+		escreveTerminal("Selecione figura!");
+	}
+}
+
+void Tela::trasladaFigura() {
+	int posFigura = posicaoFigSelecionada();
+	if (posFigura > -1) {
+		Coordenada coord = FatorOuDeslocamento();
+		mundo->transladaFigura(posFigura, coord);
+		redesenhaTudo();
+	} else {
+		escreveTerminal("Selecione figura!");
+	}
+}
+
+int Tela::tipoRotacao() {
+	GtkRadioButton *rotacaoCentroTela =
+			GTK_RADIO_BUTTON(
+					gtk_builder_get_object (GTK_BUILDER(gtkBuilder), "radioCentroTela"));
+	GtkRadioButton *rotacaoCentroFigura =
+			GTK_RADIO_BUTTON(
+					gtk_builder_get_object (GTK_BUILDER(gtkBuilder), "radioCentroFigura"));
+	GtkRadioButton *rotacaoPontoEspecifico =
+			GTK_RADIO_BUTTON(
+					gtk_builder_get_object (GTK_BUILDER(gtkBuilder), "radioPontoEspecifico"));
+
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rotacaoCentroTela))) {
+		return 0;
+	} else if (gtk_toggle_button_get_active(
+			GTK_TOGGLE_BUTTON(rotacaoCentroFigura))) {
+		return 1;
+	} else if (gtk_toggle_button_get_active(
+			GTK_TOGGLE_BUTTON(rotacaoPontoEspecifico))) {
+		return 2;
+	}
+	return -1;
+}
+
+double Tela::getSpinButtonValue(string nome) {
+	GtkSpinButton *spinButton;
+	spinButton = GTK_SPIN_BUTTON(
+			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), nome.c_str()));
+	return gtk_spin_button_get_value(spinButton);
+}
+
+void Tela::rotacionaFigura() {
+	int posFigura = posicaoFigSelecionada();
+
+	if (posFigura > -1) {
+		double angulo = getSpinButtonValue("angulo");
+
+		switch (tipoRotacao()) {
+		case 0:
+			mundo->rotacionaFiguraCentroTela(posFigura, angulo);
+			break;
+		case 1:
+			mundo->rotacionaFiguraProprioCentro(posFigura, angulo);
+			break;
+		case 2:
+			Coordenada coord = Coordenada(getSpinButtonValue("x_rotacao"),
+					getSpinButtonValue("y_rotacao"));
+			mundo->rotacionaFigura(posFigura, coord, angulo);
+			break;
+		}
+		redesenhaTudo();
+	} else {
+		escreveTerminal("Selecione figura!");
+	}
+}
+
+Coordenada Tela::FatorOuDeslocamento() {
+	double x, y;
+	x = getSpinButtonValue("x_desloc");
+	y = getSpinButtonValue("y_desloc");
+	return Coordenada(x, y);
 }
