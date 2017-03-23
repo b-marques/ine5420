@@ -64,6 +64,7 @@ void Figura::escalona(Coordenada escala) {
 		coord = coordenadas.retiraDoInicio();
 		coord = coord * escala;
 		coordenadas.adiciona(coord);
+	}	
 }
 
 Figura::~Figura() {
