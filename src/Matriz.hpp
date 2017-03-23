@@ -20,13 +20,12 @@ public:
 		Coordenada* origem = new Coordenada();
 
 		Coordenada deslocOrigem = eixo - *origem;
-		std::vector<double> matrizFinal;
+		
 		double anguloRad = grau * M_PI / 180.0;
-		matrizFinal.resize(3);
-		matrizFinal[0] = deslocamento.getX()+ escalaX*((coord.getX() - deslocOrigem.getX())*cos(anguloRad)+(coord.getY()-deslocOrigem.getY())*sin(anguloRad)) + deslocOrigem.getX();
-		matrizFinal[1] = deslocamento.getY()+ escalaY*((coord.getY() - deslocOrigem.getY())*cos(anguloRad)-(coord.getX()-deslocOrigem.getX())*sin(anguloRad)) + deslocOrigem.getY();
-		matrizFinal[2] = 1;
-		return Coordenada(matrizFinal[0], matrizFinal[1]);
+		double x = deslocamento.getX()+ escalaX*((coord.getX() - deslocOrigem.getX())*cos(anguloRad)+(coord.getY()-deslocOrigem.getY())*sin(anguloRad)) + deslocOrigem.getX();
+		double y = deslocamento.getY()+ escalaY*((coord.getY() - deslocOrigem.getY())*cos(anguloRad)-(coord.getX()-deslocOrigem.getX())*sin(anguloRad)) + deslocOrigem.getY();
+
+		return Coordenada(x, y);
 	};
 
 };
