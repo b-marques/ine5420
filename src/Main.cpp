@@ -8,6 +8,7 @@
 #include "Mundo.hpp"
 #include "Tela.hpp"
 #include "Reta.hpp"
+#include <math.h>
 using namespace std;
 
 Tela* tela;
@@ -57,6 +58,17 @@ void abrirAdicionaFigura(GtkWidget *button, gpointer user_data){
 	tela->abrirTelaAdicionar();
 }
 
+void escalonar(GtkWidget *button, gpointer user_data){
+	tela->escalonaFigura();
+}
+
+void transladar(GtkWidget *button, gpointer user_data){
+	tela->trasladaFigura();
+}
+
+void rotacionar(GtkWidget *button, gpointer user_data){
+	tela->rotacionaFigura();
+}
 }
 
 int main(int argc, char *argv[]) {
