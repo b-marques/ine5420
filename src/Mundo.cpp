@@ -58,7 +58,7 @@ Coordenada Mundo::getCentroDesenho() {
 }
 
 Coordenada Mundo::getCentroMundo() {
-	return centroDesenho;
+	return centroMundo;
 }
 
 void Mundo::adicionaPonto(string nome, ListaEnc<Coordenada>& coord) {
