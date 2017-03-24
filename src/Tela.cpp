@@ -156,7 +156,6 @@ ListaEnc<Coordenada> Tela::getCoordTemp() {
 void Tela::escreveTerminal(string texto) {
 	GtkTextView *terminal = GTK_TEXT_VIEW(
 			gtk_builder_get_object(gtkBuilder, "terminal"));
-	gtk_text_view_set_monospace(terminal, TRUE);
 
 	texto = texto + "\n";
 	GtkTextBuffer *textoBuf = gtk_text_view_get_buffer(terminal);
