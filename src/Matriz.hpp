@@ -20,7 +20,7 @@ public:
 		Coordenada* origem = new Coordenada();
 
 		Coordenada deslocOrigem = eixo - *origem;
-		
+		// VER "matriz-transformacao.png" para entender
 		double anguloRad = grau * M_PI / 180.0;
 		double x = deslocamento.getX()+ escalaX*((coord.getX() - deslocOrigem.getX())*cos(anguloRad)+(coord.getY()-deslocOrigem.getY())*sin(anguloRad)) + deslocOrigem.getX();
 		double y = deslocamento.getY()+ escalaY*((coord.getY() - deslocOrigem.getY())*cos(anguloRad)-(coord.getX()-deslocOrigem.getX())*sin(anguloRad)) + deslocOrigem.getY();
