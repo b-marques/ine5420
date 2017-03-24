@@ -65,6 +65,10 @@ public:
 	void escalonaFigura();
 	void trasladaFigura();
 	void rotacionaFigura();
+	void transladaFiguraMatriz();
+	void escalonaFiguraMatriz();
+	void rotacionaFiguraMatriz();
+
 };
 
 #endif /* TELA_HPP_ */

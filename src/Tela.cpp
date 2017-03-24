@@ -332,11 +332,79 @@ void Tela::escalonaFigura() {
 	}
 }
 
+
 void Tela::trasladaFigura() {
 	int posFigura = posicaoFigSelecionada();
 	if (posFigura > -1) {
 		Coordenada coord = FatorOuDeslocamento();
 		mundo->transladaFigura(posFigura, coord);
+		redesenhaTudo();
+	} else {
+		escreveTerminal("Selecione figura!");
+	}
+}
+
+void Tela::transladaFiguraMatriz() {
+	int posFigura = posicaoFigSelecionada();
+	Coordenada deslocamento = FatorOuDeslocamento();
+	Figura* f = mundo->getFiguras()->retornaDado(posFigura);
+	Coordenada eixo = f->getCentro();
+
+	if (posFigura > -1) {
+		f->transform(eixo,  0,  1,  1,  deslocamento);
+		redesenhaTudo();
+	} else {
+		escreveTerminal("Selecione figura!");
+	}
+}
+
+void Tela::escalonaFiguraMatriz() {
+	int posFigura = posicaoFigSelecionada();
+	Coordenada escala = FatorOuDeslocamento();
+	Figura* f = mundo->getFiguras()->retornaDado(posFigura);
+	Coordenada eixo = f->getCentro();
+	Coordenada naoDeslocar = Coordenada(0,0);
+
+	if (posFigura > -1) {
+		f->transform(eixo, 0, escala.getX(), escala.getY(), naoDeslocar);
+		redesenhaTudo();
+	} else {
+		escreveTerminal("Selecione figura!");
+	}
+}
+
+void Tela::rotacionaFiguraMatriz() {
+	int posFigura = posicaoFigSelecionada();
+	Figura* figura = mundo->getFiguras()->retornaDado(posFigura);
+	Coordenada naoDeslocar = Coordenada(0,0);
+	double angulo = getSpinButtonValue("angulo");
+	string nome = figura->getNome();
+	Coordenada eixo;	
+	switch (tipoRotacao()) {
+	case 0:
+		// eixo = Coordenada (0,0);
+		eixo = mundo->getCentroMundo();
+		cout << "X = " << eixo.getX() << "Y = " << eixo.getY() << endl;
+		escreveTerminal(
+				nome + " girou " + to_string(angulo)
+						+ " graus em torno do centro do mundo");
+		break;
+	case 1:
+		eixo = figura->getCentro();
+		escreveTerminal(
+				nome + " girou " + to_string(angulo)
+						+ " graus em torno do seu centro");
+		break;
+	case 2:
+		eixo = Coordenada(getSpinButtonValue("x_rotacao"), getSpinButtonValue("y_rotacao"));
+		escreveTerminal(
+				nome + " girou " + to_string(angulo)
+						+ " graus em torno do ponto " + eixo.toString());
+		break;
+	}
+
+	if (posFigura > -1) {
+		figura->transform(eixo, angulo, 1, 1, naoDeslocar);
 		redesenhaTudo();
 	} else {
 		escreveTerminal("Selecione figura!");

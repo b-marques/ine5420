@@ -18,6 +18,7 @@ Mundo::Mundo(double larguraArea, double alturaArea) {
 	zoom = Coordenada(1, 1);
 	centroDesenho = Coordenada(larguraArea / 2, alturaArea / 2);
 	figuras = new ListaEnc<Figura*>();
+	centroMundo = Coordenada(0,0);
 }
 
 void Mundo::desloca(double passo, TipoMovimento sentido) {
@@ -56,6 +57,10 @@ Coordenada Mundo::getCentroDesenho() {
 	return centroDesenho;
 }
 
+Coordenada Mundo::getCentroMundo() {
+	return centroDesenho;
+}
+
 void Mundo::adicionaPonto(string nome, ListaEnc<Coordenada>& coord) {
 	Ponto* p = new Ponto(nome, coord);
 	figuras->adiciona(p);
@@ -86,7 +91,6 @@ void Mundo::menosZoom(double passo) {
 void Mundo::transladaFigura(int posicaoLista, Coordenada desloc) {
 	Figura* f = figuras->retornaDado(posicaoLista);
 	f->translada(desloc);
-
 }
 
 void Mundo::escalonaFigura(int posicaoLista, Coordenada escala) {

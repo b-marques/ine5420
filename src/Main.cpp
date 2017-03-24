@@ -59,15 +59,15 @@ void abrirAdicionaFigura(GtkWidget *button, gpointer user_data){
 }
 
 void escalonar(GtkWidget *button, gpointer user_data){
-	tela->escalonaFigura();
+	tela->escalonaFiguraMatriz();
 }
 
 void transladar(GtkWidget *button, gpointer user_data){
-	tela->trasladaFigura();
+	tela->transladaFiguraMatriz();
 }
 
 void rotacionar(GtkWidget *button, gpointer user_data){
-	tela->rotacionaFigura();
+	tela->rotacionaFiguraMatriz();
 }
 }
 

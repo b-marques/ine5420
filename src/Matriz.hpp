@@ -16,7 +16,7 @@ public:
 
 	};
 
-	static Coordenada matrizTransformacao(Coordenada& coord, Coordenada& eixo, double grau, double escalaX, double escalaY, Coordenada deslocamento){
+	static Coordenada matrizTransformacao(Coordenada coord, Coordenada eixo, double grau, double escalaX, double escalaY, Coordenada deslocamento){
 		Coordenada* origem = new Coordenada();
 
 		Coordenada deslocOrigem = eixo - *origem;

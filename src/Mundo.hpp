@@ -9,10 +9,12 @@
 #define MUNDO_HPP_
 #include "Figura.hpp"
 #include "tipoMoveEnum.hpp"
+#include "Coordenada.hpp"
+
 class Mundo {
 private:
 	ListaEnc<Figura*> *figuras;
-	Coordenada deslocamento, zoom, centroDesenho;
+	Coordenada deslocamento, zoom, centroDesenho, centroMundo;
 	double larguraArea, alturaArea;
 public:
 	Mundo(double larguraArea, double alturaArea);
@@ -21,6 +23,7 @@ public:
 	Coordenada getDeslocamento();
 	Coordenada getZoom();
 	Coordenada getCentroDesenho();
+	Coordenada getCentroMundo();
 	void adicionaPonto(string nome, ListaEnc<Coordenada>& coord);
 	void adicionaReta(string nome, ListaEnc<Coordenada>& coord);
 	void adicionaPoligono(string nome, ListaEnc<Coordenada>& coord);
