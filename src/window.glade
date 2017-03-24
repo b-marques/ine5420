@@ -168,6 +168,7 @@
                     <property name="can_focus">True</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">adjustment1</property>
+                    <property name="digits">2</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -193,6 +194,7 @@
                     <property name="can_focus">True</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">adjustment2</property>
+                    <property name="digits">2</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -286,6 +288,7 @@
                     <property name="can_focus">True</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">adjustment3</property>
+                    <property name="digits">2</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -311,6 +314,7 @@
                     <property name="can_focus">True</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">adjustment4</property>
+                    <property name="digits">2</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -347,6 +351,7 @@
                     <property name="can_focus">True</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">adjustment5</property>
+                    <property name="digits">2</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -372,6 +377,7 @@
                     <property name="can_focus">True</property>
                     <property name="input_purpose">number</property>
                     <property name="adjustment">adjustment6</property>
+                    <property name="digits">2</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -469,6 +475,7 @@
                         <property name="can_focus">True</property>
                         <property name="input_purpose">number</property>
                         <property name="adjustment">adjustment7</property>
+                        <property name="digits">2</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -494,6 +501,7 @@
                         <property name="can_focus">True</property>
                         <property name="input_purpose">number</property>
                         <property name="adjustment">adjustment8</property>
+                        <property name="digits">2</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -869,6 +877,7 @@
                             <property name="can_focus">True</property>
                             <property name="input_purpose">number</property>
                             <property name="adjustment">adjustment9</property>
+                            <property name="digits">2</property>
                             <property name="value">1</property>
                           </object>
                           <packing>
@@ -906,6 +915,7 @@
                             <property name="can_focus">True</property>
                             <property name="input_purpose">number</property>
                             <property name="adjustment">adjustment10</property>
+                            <property name="digits">2</property>
                             <property name="value">1</property>
                           </object>
                           <packing>
@@ -943,6 +953,7 @@
                             <property name="can_focus">True</property>
                             <property name="input_purpose">number</property>
                             <property name="adjustment">adjustment11</property>
+                            <property name="digits">2</property>
                             <property name="value">1</property>
                           </object>
                           <packing>
@@ -1044,6 +1055,7 @@
                             <property name="can_focus">True</property>
                             <property name="input_purpose">number</property>
                             <property name="adjustment">adjustment12</property>
+                            <property name="digits">2</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1131,6 +1143,7 @@
                             <property name="can_focus">True</property>
                             <property name="input_purpose">number</property>
                             <property name="adjustment">adjustment13</property>
+                            <property name="digits">2</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1167,6 +1180,7 @@
                             <property name="can_focus">True</property>
                             <property name="input_purpose">number</property>
                             <property name="adjustment">adjustment14</property>
+                            <property name="digits">2</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
