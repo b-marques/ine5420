@@ -98,13 +98,19 @@ void Mundo::escalonaFigura(int posicaoLista, Coordenada escala) {
 	f->escalona(escala);
 }
 
-void Mundo::rotacionaFiguraCentroTela(int posicaoLista, double anguloGraus) {
-	rotacionaFigura(posicaoLista, centroDesenho, anguloGraus);
+void Mundo::rotacionaFiguraCentroMundo(int posicaoLista, double anguloGraus) {
+	rotacionaFigura(posicaoLista, centroMundo, anguloGraus);
 }
 
 void Mundo::rotacionaFiguraProprioCentro(int posicaoLista, double anguloGraus) {
 	Figura *f = figuras->retornaDado(posicaoLista);
 	f->rotacionaFiguraProprioCentro(anguloGraus);
+}
+
+void Mundo::rotacionaFigura(int posicaoLista, Coordenada centroRotacao,
+		double anguloGraus) {
+	Figura* f = figuras->retornaDado(posicaoLista);
+	f->rotaciona(centroRotacao, anguloGraus);
 }
 
 Mundo::~Mundo() {
@@ -115,8 +121,3 @@ ListaEnc<Figura*>* Mundo::getFiguras() {
 	return figuras;
 }
 
-void Mundo::rotacionaFigura(int posicaoLista, Coordenada centroRotacao,
-		double anguloGraus) {
-	Figura* f = figuras->retornaDado(posicaoLista);
-	f->rotaciona(centroRotacao, anguloGraus);
-}

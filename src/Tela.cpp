@@ -333,7 +333,7 @@ void Tela::escalonaFigura() {
 }
 
 
-void Tela::trasladaFigura() {
+void Tela::transladaFigura() {
 	int posFigura = posicaoFigSelecionada();
 	if (posFigura > -1) {
 		Coordenada coord = FatorOuDeslocamento();
@@ -343,15 +343,14 @@ void Tela::trasladaFigura() {
 		escreveTerminal("Selecione figura!");
 	}
 }
-
+/*
 void Tela::transladaFiguraMatriz() {
 	int posFigura = posicaoFigSelecionada();
 	Coordenada deslocamento = FatorOuDeslocamento();
-	Figura* f = mundo->getFiguras()->retornaDado(posFigura);
-	Coordenada eixo = f->getCentro();
 
 	if (posFigura > -1) {
-		f->transform(eixo,  0,  1,  1,  deslocamento);
+		mundo->transladaFigura(posFigura, deslocamento);
+		//f->transform(eixo,  0,  1,  1,  deslocamento);
 		redesenhaTudo();
 	} else {
 		escreveTerminal("Selecione figura!");
@@ -361,12 +360,9 @@ void Tela::transladaFiguraMatriz() {
 void Tela::escalonaFiguraMatriz() {
 	int posFigura = posicaoFigSelecionada();
 	Coordenada escala = FatorOuDeslocamento();
-	Figura* f = mundo->getFiguras()->retornaDado(posFigura);
-	Coordenada eixo = f->getCentro();
-	Coordenada naoDeslocar = Coordenada(0,0);
 
 	if (posFigura > -1) {
-		f->transform(eixo, 0, escala.getX(), escala.getY(), naoDeslocar);
+		mundo->escalonaFigura(posFigura, escala);
 		redesenhaTudo();
 	} else {
 		escreveTerminal("Selecione figura!");
@@ -384,7 +380,6 @@ void Tela::rotacionaFiguraMatriz() {
 	case 0:
 		// eixo = Coordenada (0,0);
 		eixo = mundo->getCentroMundo();
-		cout << "X = " << eixo.getX() << "Y = " << eixo.getY() << endl;
 		escreveTerminal(
 				nome + " girou " + to_string(angulo)
 						+ " graus em torno do centro do mundo");
@@ -410,11 +405,11 @@ void Tela::rotacionaFiguraMatriz() {
 		escreveTerminal("Selecione figura!");
 	}
 }
-
+*/
 int Tela::tipoRotacao() {
-	GtkRadioButton *rotacaoCentroTela =
+	GtkRadioButton *rotacaoCentroMundo =
 			GTK_RADIO_BUTTON(
-					gtk_builder_get_object (GTK_BUILDER(gtkBuilder), "radioCentroTela"));
+					gtk_builder_get_object (GTK_BUILDER(gtkBuilder), "radioCentroMundo"));
 	GtkRadioButton *rotacaoCentroFigura =
 			GTK_RADIO_BUTTON(
 					gtk_builder_get_object (GTK_BUILDER(gtkBuilder), "radioCentroFigura"));
@@ -422,7 +417,7 @@ int Tela::tipoRotacao() {
 			GTK_RADIO_BUTTON(
 					gtk_builder_get_object (GTK_BUILDER(gtkBuilder), "radioPontoEspecifico"));
 
-	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rotacaoCentroTela))) {
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(rotacaoCentroMundo))) {
 		return 0;
 	} else if (gtk_toggle_button_get_active(
 			GTK_TOGGLE_BUTTON(rotacaoCentroFigura))) {
@@ -449,7 +444,7 @@ void Tela::rotacionaFigura() {
 
 		switch (tipoRotacao()) {
 		case 0:
-			mundo->rotacionaFiguraCentroTela(posFigura, angulo);
+			mundo->rotacionaFiguraCentroMundo(posFigura, angulo);
 			escreveTerminal(
 					nome + " girou " + to_string(angulo)
 							+ " graus em torno do centro da tela");

@@ -16,14 +16,14 @@ public:
 
 	};
 
-	static Coordenada matrizTransformacao(Coordenada coord, Coordenada eixo, double grau, double escalaX, double escalaY, Coordenada deslocamento){
+	static Coordenada matrizTransformacao(Coordenada coord, Coordenada eixo, double grau, Coordenada escala, Coordenada deslocamento){
 		Coordenada* origem = new Coordenada();
 
 		Coordenada deslocOrigem = eixo - *origem;
-		// VER "matriz-transformacao.png" para entender
+		
 		double anguloRad = grau * M_PI / 180.0;
-		double x = deslocamento.getX()+ escalaX*((coord.getX() - deslocOrigem.getX())*cos(anguloRad)+(coord.getY()-deslocOrigem.getY())*sin(anguloRad)) + deslocOrigem.getX();
-		double y = deslocamento.getY()+ escalaY*((coord.getY() - deslocOrigem.getY())*cos(anguloRad)-(coord.getX()-deslocOrigem.getX())*sin(anguloRad)) + deslocOrigem.getY();
+		double x = deslocamento.getX()+ escala.getX()*((coord.getX() - deslocOrigem.getX())*cos(anguloRad)+(coord.getY()-deslocOrigem.getY())*sin(anguloRad)) + deslocOrigem.getX();
+		double y = deslocamento.getY()+ escala.getY()*((coord.getY() - deslocOrigem.getY())*cos(anguloRad)-(coord.getX()-deslocOrigem.getX())*sin(anguloRad)) + deslocOrigem.getY();
 
 		return Coordenada(x, y);
 	};

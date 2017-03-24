@@ -63,7 +63,7 @@ public:
 	void adicionar(GtkWidget *widget);
 	void addCord();
 	void escalonaFigura();
-	void trasladaFigura();
+	void transladaFigura();
 	void rotacionaFigura();
 	void transladaFiguraMatriz();
 	void escalonaFiguraMatriz();

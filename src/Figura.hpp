@@ -19,16 +19,16 @@ protected:
 	ListaEnc<Coordenada> coordenadas;
 	Coordenada centro;
 	string nome;
+	void transform(Coordenada eixo, double grau, Coordenada escalonamento, Coordenada deslocamento);
 public:
 	Figura(string nome, ListaEnc<Coordenada>& coord);
 	ListaEnc<Coordenada>& getCoord();
 	string getNome();
 	void calculaCentro();
-	void escalona(Coordenada escala);
 	void translada(Coordenada desloc);
+	void escalona(Coordenada escala);
 	void rotacionaFiguraProprioCentro(double anguloGraus);
 	void rotaciona(Coordenada centroRotacao, double anguloGraus);
-	void transform(Coordenada eixo, double grau, double escalaX, double escalaY, Coordenada deslocamento);
 	Coordenada getCentro();
 	virtual ~Figura();
 };

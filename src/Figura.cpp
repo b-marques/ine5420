@@ -30,61 +30,27 @@ void Figura::calculaCentro() {
 	this->centro = centroFigura / nCoords;
 }
 
-void Figura::rotacionaFiguraProprioCentro(
-		double anguloGraus) {
-	Coordenada centroFigura = Coordenada(0, 0);
-	int nCoords;
-	for (nCoords = 0; nCoords < coordenadas.tamanho(); nCoords++) {
-		centroFigura = centroFigura + coordenadas.retornaDado(nCoords);
-	}
-	centroFigura = centroFigura / nCoords;
-	rotaciona(centroFigura, anguloGraus);
-	calculaCentro();
-}
-
-void Figura::rotaciona(Coordenada centroRotacao,
-		double anguloGraus) {
-	Coordenada coordRelativa, coord;
-	double anguloRad = anguloGraus / 180 * M_PI;
-	double cosAngulo = cos(anguloRad), senAngulo = sin(anguloRad);
-	for (int i = 0; i < coordenadas.tamanho(); i++) {
-		coord = coordenadas.retiraDoInicio();
-		coordRelativa = coord - centroRotacao;
-		coord = Coordenada(
-				coordRelativa.getX() * cosAngulo
-						- coordRelativa.getY() * senAngulo,
-				coordRelativa.getX() * senAngulo
-						+ coordRelativa.getY() * cosAngulo) + centroRotacao;
-		coordenadas.adiciona(coord);
-	}
-	calculaCentro();
-}
-
 void Figura::translada(Coordenada desloc) {
-	Coordenada coord;
-	for (int i = 0; i < coordenadas.tamanho(); i++) {
-		coord = coordenadas.retiraDoInicio();
-		coord = coord + desloc;
-		coordenadas.adiciona(coord);
-	}
-	calculaCentro();
+	transform(centro, 0, Coordenada(1, 1), desloc);
 }
 
 void Figura::escalona(Coordenada escala) {
-	Coordenada coord;
-	for (int i = 0; i < coordenadas.tamanho(); i++) {
-		coord = coordenadas.retiraDoInicio();
-		coord = coord * escala;
-		coordenadas.adiciona(coord);
-	}
-	calculaCentro();	
+	transform(centro, 0, escala, Coordenada(0, 0));
 }
 
-void Figura::transform(Coordenada eixo, double grau, double escalaX, double escalaY, Coordenada deslocamento){
+void Figura::rotacionaFiguraProprioCentro(double anguloGraus) {
+	rotaciona(centro, anguloGraus);
+}
+
+void Figura::rotaciona(Coordenada centroRotacao, double anguloGraus) {
+		transform(centroRotacao, anguloGraus, Coordenada(1, 1), Coordenada(0, 0));
+}
+
+void Figura::transform(Coordenada eixo, double grau, Coordenada escalonamento, Coordenada deslocamento){
 	Coordenada coord;
 	for (int i = 0; i < coordenadas.tamanho(); i++) {
 		coord = coordenadas.retiraDoInicio();
-		coord = Matriz::matrizTransformacao(coord, eixo, grau, escalaX, escalaY, deslocamento);
+		coord = Matriz::matrizTransformacao(coord, eixo, grau, escalonamento, deslocamento);
 		coordenadas.adiciona(coord);
 	}
 	calculaCentro();
@@ -93,6 +59,7 @@ void Figura::transform(Coordenada eixo, double grau, double escalaX, double esca
 Coordenada Figura::getCentro() {
 	return this->centro;
 }
+
 
 Figura::~Figura() {
 	// TODO Auto-generated destructor stub
