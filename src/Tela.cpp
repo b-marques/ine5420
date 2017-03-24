@@ -343,69 +343,7 @@ void Tela::transladaFigura() {
 		escreveTerminal("Selecione figura!");
 	}
 }
-/*
-void Tela::transladaFiguraMatriz() {
-	int posFigura = posicaoFigSelecionada();
-	Coordenada deslocamento = FatorOuDeslocamento();
 
-	if (posFigura > -1) {
-		mundo->transladaFigura(posFigura, deslocamento);
-		//f->transform(eixo,  0,  1,  1,  deslocamento);
-		redesenhaTudo();
-	} else {
-		escreveTerminal("Selecione figura!");
-	}
-}
-
-void Tela::escalonaFiguraMatriz() {
-	int posFigura = posicaoFigSelecionada();
-	Coordenada escala = FatorOuDeslocamento();
-
-	if (posFigura > -1) {
-		mundo->escalonaFigura(posFigura, escala);
-		redesenhaTudo();
-	} else {
-		escreveTerminal("Selecione figura!");
-	}
-}
-
-void Tela::rotacionaFiguraMatriz() {
-	int posFigura = posicaoFigSelecionada();
-	Figura* figura = mundo->getFiguras()->retornaDado(posFigura);
-	Coordenada naoDeslocar = Coordenada(0,0);
-	double angulo = getSpinButtonValue("angulo");
-	string nome = figura->getNome();
-	Coordenada eixo;	
-	switch (tipoRotacao()) {
-	case 0:
-		// eixo = Coordenada (0,0);
-		eixo = mundo->getCentroMundo();
-		escreveTerminal(
-				nome + " girou " + to_string(angulo)
-						+ " graus em torno do centro do mundo");
-		break;
-	case 1:
-		eixo = figura->getCentro();
-		escreveTerminal(
-				nome + " girou " + to_string(angulo)
-						+ " graus em torno do seu centro");
-		break;
-	case 2:
-		eixo = Coordenada(getSpinButtonValue("x_rotacao"), getSpinButtonValue("y_rotacao"));
-		escreveTerminal(
-				nome + " girou " + to_string(angulo)
-						+ " graus em torno do ponto " + eixo.toString());
-		break;
-	}
-
-	if (posFigura > -1) {
-		figura->transform(eixo, angulo, 1, 1, naoDeslocar);
-		redesenhaTudo();
-	} else {
-		escreveTerminal("Selecione figura!");
-	}
-}
-*/
 int Tela::tipoRotacao() {
 	GtkRadioButton *rotacaoCentroMundo =
 			GTK_RADIO_BUTTON(
