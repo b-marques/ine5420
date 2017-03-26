@@ -586,6 +586,8 @@
     <property name="can_focus">False</property>
     <property name="has_focus">True</property>
     <property name="window_position">center</property>
+    <property name="default_width">800</property>
+    <property name="default_height">600</property>
     <property name="focus_on_map">False</property>
     <property name="deletable">False</property>
     <child>
@@ -775,9 +777,10 @@
                   <object class="GtkScrolledWindow" id="scrolled_window_viewport">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="hscrollbar_policy">external</property>
                     <property name="shadow_type">in</property>
-                    <property name="min_content_width">1000</property>
-                    <property name="min_content_height">550</property>
+                    <property name="min_content_width">400</property>
+                    <property name="min_content_height">350</property>
                     <child>
                       <object class="GtkViewport" id="viewport_drawing_area">
                         <property name="visible">True</property>
@@ -869,6 +872,7 @@
                       <object class="GtkBox" id="box19">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
                         <child>
                           <object class="GtkLabel" id="label10">
                             <property name="visible">True</property>
@@ -907,6 +911,7 @@
                       <object class="GtkBox" id="box20">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
                         <child>
                           <object class="GtkLabel" id="label11">
                             <property name="visible">True</property>
@@ -945,6 +950,7 @@
                       <object class="GtkBox" id="box21">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
                         <child>
                           <object class="GtkLabel" id="label12">
                             <property name="visible">True</property>
@@ -983,6 +989,7 @@
                       <object class="GtkBox" id="box22">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
                         <property name="homogeneous">True</property>
                         <child>
                           <object class="GtkButton" id="botaoEscalo">
@@ -1047,6 +1054,7 @@
                       <object class="GtkBox" id="box26">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
                         <child>
                           <object class="GtkLabel" id="label16">
                             <property name="visible">True</property>
@@ -1135,6 +1143,7 @@
                       <object class="GtkBox" id="box24">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
                         <child>
                           <object class="GtkLabel" id="label13">
                             <property name="visible">True</property>
@@ -1172,6 +1181,7 @@
                       <object class="GtkBox" id="box25">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
                         <child>
                           <object class="GtkLabel" id="label14">
                             <property name="visible">True</property>
