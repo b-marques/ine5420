@@ -60,7 +60,10 @@ public:
 	ListaEnc<Coordenada> getCoordTemp();
 	void abrirTelaAdicionar();
 	virtual ~Tela();
-	void adicionar(GtkWidget *widget);
+	void adicionarPonto();
+	void adicionarReta();
+	void adicionarPoligono();
+
 	void addCord();
 	void escalonaFigura();
 	void transladaFigura();

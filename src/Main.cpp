@@ -50,8 +50,16 @@ void addCord(GtkWidget *button, gpointer user_data) {
 	tela->addCord();
 }
 
-void adicionaFigura(GtkWidget *button, gpointer user_data){
-	tela->adicionar(button);
+void adicionarPonto(GtkWidget *button, gpointer user_data){
+	tela->adicionarPonto();
+}
+
+void adicionarReta(GtkWidget *button, gpointer user_data){
+	tela->adicionarReta();
+}
+
+void adicionarPoligono(GtkWidget *button, gpointer user_data){
+	tela->adicionarPoligono();
 }
 
 void abrirAdicionaFigura(GtkWidget *button, gpointer user_data){

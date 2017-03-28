@@ -31,6 +31,11 @@ Tela::Tela() {
 
 	gtk_widget_show_all(window_widget);
 
+	int new_width, new_height;
+	gtk_window_get_size(GTK_WINDOW(window_widget), &new_width, &new_height);
+	new_width++;
+	new_height++;
+	gtk_window_resize (GTK_WINDOW(window_widget), new_width, new_height);
 }
 
 void Tela::desenhaPonto(ListaEnc<Coordenada>& coordLista) {
@@ -249,40 +254,44 @@ void Tela::abrirTelaAdicionar() {
 	gtk_widget_show(adicionarWindow);
 }
 
-void Tela::adicionar(GtkWidget* button) {
-	const gchar* buttonNameTemp = gtk_button_get_label(GTK_BUTTON(button));
-	std::string buttonName = std::string(buttonNameTemp);
+void Tela::adicionarPonto() {
+
 	string nomeFigura = getNomeFigAdd();
 	ListaEnc<Coordenada> cords;
+	
+	limpaListaCoord();
+	double x = getSpinButtonValue("coord_x_point");
+	double y = getSpinButtonValue("coord_y_point");
+	cords.adiciona(Coordenada(x, y));
+	setCoordTemp(cords);
+	adicionaFigura(nomeFigura, PONTO);
 
-	if (!buttonName.compare("Adicionar Ponto")) {
-		limpaListaCoord();
-		double x = getSpinButtonValue("coord_x_point");
-		double y = getSpinButtonValue("coord_y_point");
-		cords.adiciona(Coordenada(x, y));
-		setCoordTemp(cords);
-		adicionaFigura(nomeFigura, PONTO);
+}
 
-	} else if (!buttonName.compare("Adicionar Reta")) {
-		limpaListaCoord();
-		double x1 = getSpinButtonValue("coord_x_line1");
-		double y1 = getSpinButtonValue("coord_y_line1");
-		double x2 = getSpinButtonValue("coord_x_line2");
-		double y2 = getSpinButtonValue("coord_y_line2");
-		cords.adiciona(Coordenada(x1, y1));
-		cords.adiciona(Coordenada(x2, y2));
-		setCoordTemp(cords);
-		adicionaFigura(nomeFigura, RETA);
+void Tela::adicionarReta() {
+	limpaListaCoord();
+	string nomeFigura = getNomeFigAdd();
+	ListaEnc<Coordenada> cords;
+	double x1 = getSpinButtonValue("coord_x_line1");
+	double y1 = getSpinButtonValue("coord_y_line1");
+	double x2 = getSpinButtonValue("coord_x_line2");
+	double y2 = getSpinButtonValue("coord_y_line2");
+	cords.adiciona(Coordenada(x1, y1));
+	cords.adiciona(Coordenada(x2, y2));
+	setCoordTemp(cords);
+	adicionaFigura(nomeFigura, RETA);
+}
 
-	} else if (!buttonName.compare("Adicionar Poligono")) {
-		if (coordTemp.tamanho() < 3) {
-			escreveTerminal(
-					"Número de pontos insuficientes para criação de polígono!");
-		} else {
-			adicionaFigura(nomeFigura, POLIGONO);
-		}
+void Tela::adicionarPoligono() {
+	string nomeFigura = getNomeFigAdd();
+	if (coordTemp.tamanho() < 3) {
+		escreveTerminal(
+				"Número de pontos insuficientes para criação de polígono!");
+	} else {
+		adicionaFigura(nomeFigura, POLIGONO);
 	}
 }
+
 
 string Tela::getNomeFigAdd() {
 	GtkEntry* caixaTxt = GTK_ENTRY(
