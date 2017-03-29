@@ -428,7 +428,7 @@ void Tela::rotacionaFigura() {
 }
 
 Coordenada Tela::FatorOuDeslocamento() {
-	double x, y, z;
+	double x, y;
 	x = getSpinButtonValue("x_desloc");
 	y = getSpinButtonValue("y_desloc");
 	return Coordenada(x, y);
