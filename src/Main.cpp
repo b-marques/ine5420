@@ -77,6 +77,14 @@ void transladar(GtkWidget *button, gpointer user_data){
 void rotacionar(GtkWidget *button, gpointer user_data){
 	tela->rotacionaFigura();
 }
+
+void abrirArquivoMundo(GtkWidget *button, gpointer user_data){
+	tela->abreMundo();
+}
+
+void salvarArquivoMundo(GtkWidget *button, gpointer user_data){
+	tela->salvaMundo();
+}
 }
 
 int main(int argc, char *argv[]) {

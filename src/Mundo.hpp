@@ -24,6 +24,7 @@ public:
 	Coordenada getZoom();
 	Coordenada getCentroDesenho();
 	Coordenada getCentroMundo();
+	void adicionaFigura(Figura *f);
 	void adicionaPonto(string nome, ListaEnc<Coordenada>& coord);
 	void adicionaReta(string nome, ListaEnc<Coordenada>& coord);
 	void adicionaPoligono(string nome, ListaEnc<Coordenada>& coord);

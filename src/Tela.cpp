@@ -18,7 +18,7 @@ Tela::Tela() {
 	surface = NULL;
 	mundo = new Mundo(gtk_widget_get_allocated_width(GTK_WIDGET(drawArea)),
 			gtk_widget_get_allocated_height(drawArea));
-
+	descritor = new DescritorObj(mundo);
 	adicionarWindow = GTK_WIDGET(
 			gtk_builder_get_object(gtkBuilder, "add_object_window"));
 	g_signal_connect(GTK_WIDGET(adicionarWindow), "delete_event",
@@ -99,12 +99,14 @@ void Tela::limpaDesenho() {
 	cairo_destroy(cr);
 }
 
-double Tela::getPasso() {
-	double passo;
+string Tela::getEntryText(string nomeEntry) {
 	GtkEntry* caixaTxt = GTK_ENTRY(
-			gtk_builder_get_object(gtkBuilder, "entryPasso"));
-	passo = atof(gtk_entry_get_text(caixaTxt));
-	return passo;
+			gtk_builder_get_object(gtkBuilder, nomeEntry.c_str()));
+	return gtk_entry_get_text(caixaTxt);
+}
+
+double Tela::getPasso() {
+	return atof(getEntryText("entryPasso").c_str());
 }
 
 void Tela::moveCima() {
@@ -250,7 +252,6 @@ string Tela::coordenadasTxt(const ListaEnc<Coordenada>& coords) {
 }
 
 void Tela::abrirTelaAdicionar() {
-
 	gtk_widget_show(adicionarWindow);
 }
 
@@ -262,7 +263,8 @@ void Tela::adicionarPonto() {
 	limpaListaCoord();
 	double x = getSpinButtonValue("coord_x_point");
 	double y = getSpinButtonValue("coord_y_point");
-	cords.adiciona(Coordenada(x, y));
+	double z = getSpinButtonValue("coord_z_point");
+	cords.adiciona(Coordenada(x, y, z));
 	setCoordTemp(cords);
 	adicionaFigura(nomeFigura, PONTO);
 
@@ -274,10 +276,12 @@ void Tela::adicionarReta() {
 	ListaEnc<Coordenada> cords;
 	double x1 = getSpinButtonValue("coord_x_line1");
 	double y1 = getSpinButtonValue("coord_y_line1");
+	double z1 = getSpinButtonValue("coord_z_line1");
 	double x2 = getSpinButtonValue("coord_x_line2");
 	double y2 = getSpinButtonValue("coord_y_line2");
-	cords.adiciona(Coordenada(x1, y1));
-	cords.adiciona(Coordenada(x2, y2));
+	double z2 = getSpinButtonValue("coord_z_line2");
+	cords.adiciona(Coordenada(x1, y1, z1));
+	cords.adiciona(Coordenada(x2, y2, z2));
 	setCoordTemp(cords);
 	adicionaFigura(nomeFigura, RETA);
 }
@@ -318,15 +322,22 @@ int Tela::posicaoFigSelecionada() {
 void Tela::addCord() {
 	double x = getSpinButtonValue("coord_x_polig");
 	double y = getSpinButtonValue("coord_y_polig");
-	coordTemp.adiciona(Coordenada(x, y));
+	double z = getSpinButtonValue("coord_z_polig");
+	coordTemp.adiciona(Coordenada(x, y, z));
 }
 
 void Tela::escreveListaObjetos(string nome) {
 	GtkListStore* lista = GTK_LIST_STORE(
-			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "liststore2"));
+			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "listFiguras"));
 	GtkTreeIter iterator;
 	gtk_list_store_append(lista, &iterator);
 	gtk_list_store_set(lista, &iterator, 0, nome.c_str(), -1);
+}
+
+void Tela::limpaListaObjetos() {
+	GtkListStore* lista = GTK_LIST_STORE(
+			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "listFiguras"));
+	gtk_list_store_clear(lista);
 }
 
 void Tela::escalonaFigura() {
@@ -417,8 +428,25 @@ void Tela::rotacionaFigura() {
 }
 
 Coordenada Tela::FatorOuDeslocamento() {
-	double x, y;
+	double x, y, z;
 	x = getSpinButtonValue("x_desloc");
 	y = getSpinButtonValue("y_desloc");
 	return Coordenada(x, y);
+}
+
+void Tela::salvaMundo() {
+	string nomeArq = getEntryText("nomeArq");
+	descritor->salvaMundo(nomeArq);
+}
+
+void Tela::abreMundo() {
+	string nomeFig, nomeArq = getEntryText("nomeArq");
+	descritor->leMundo(nomeArq);
+	limpaListaObjetos();
+	ListaEnc<Figura*>* figuras = mundo->getFiguras();
+	for (int i = 0; i < figuras->tamanho(); i++) {
+		nomeFig = figuras->retornaDado(i)->getNome();
+		escreveListaObjetos(nomeFig);
+	}
+	redesenhaTudo();
 }

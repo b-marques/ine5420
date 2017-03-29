@@ -15,6 +15,7 @@
 #include <math.h>
 #include "Mundo.hpp"
 #include "tipofiguraenum.hpp"
+#include "DescritorObj.hpp"
 
 class Tela {
 private:
@@ -24,6 +25,7 @@ private:
 	ListaEnc<Coordenada> coordTemp;
 	GtkBuilder *gtkBuilder;
 	GtkWidget* adicionarWindow;
+	DescritorObj* descritor;
 
 	void redesenhaTudo();
 	void limpaListaCoord();
@@ -32,6 +34,7 @@ private:
 	void moveDireita();
 	void moveEsquerda();
 	void redesenhaFigura(Figura *f);
+	string getEntryText(string nomeEntry);
 	double getPasso();
 	string getNomeFigAdd();
 	void transViewPort(Coordenada& coord);
@@ -44,6 +47,7 @@ private:
 	Coordenada rotacaoPontoEspecifico();
 	int tipoRotacao();
 	double getSpinButtonValue(string nomeBotao);
+	void limpaListaObjetos();
 public:
 	void escreveTerminal(string texto);
 	Tela();
@@ -63,11 +67,12 @@ public:
 	void adicionarPonto();
 	void adicionarReta();
 	void adicionarPoligono();
-
 	void addCord();
 	void escalonaFigura();
 	void transladaFigura();
 	void rotacionaFigura();
+	void salvaMundo();
+	void abreMundo();
 };
 
 #endif /* TELA_HPP_ */

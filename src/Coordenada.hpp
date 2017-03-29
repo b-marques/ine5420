@@ -12,16 +12,17 @@ using namespace std;
 
 class Coordenada {
 private:
-	double x, y;
+	double x, y, z, w;
 public:
 	Coordenada();
-	explicit Coordenada(double x, double y);
+	Coordenada(double x, double y);
+	Coordenada(double x, double y, double z);
 	double getX() const;
 	double getY() const;
-	//double getZ();
+	double getZ() const;
 	void setX(double x);
 	void setY(double y);
-	//void setZ(double z);
+	void setZ(double z);
 	virtual ~Coordenada();
 	bool xMaiorQue(const Coordenada& c2);
 	bool yMaiorQue(const Coordenada& c2);
