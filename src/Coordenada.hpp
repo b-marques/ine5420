@@ -32,6 +32,7 @@ public:
 	Coordenada operator+(const Coordenada& c2);
 	Coordenada operator-(const Coordenada& c2);
 	Coordenada operator*(const Coordenada& c2);
+	Coordenada operator/(const Coordenada& c2);
 	Coordenada operator/(const double divisor);
 };
 

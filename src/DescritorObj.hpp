@@ -16,7 +16,7 @@ private:
 	Mundo* mundo;
 
 	Coordenada leCoord(string& linha);
-	Figura* leObjeto(ifstream& arquivo);
+	Figura* leObjeto(ifstream& arquivo, string& linhaInicial);
 public:
 	DescritorObj();
 	DescritorObj(Mundo* mundo);

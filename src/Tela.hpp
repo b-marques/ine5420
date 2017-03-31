@@ -44,7 +44,6 @@ private:
 	string coordenadasTxt(const ListaEnc<Coordenada>& coords);
 	Coordenada corrigeCoord(Coordenada coord);
 	Coordenada FatorOuDeslocamento();
-	Coordenada rotacaoPontoEspecifico();
 	int tipoRotacao();
 	double getSpinButtonValue(string nomeBotao);
 	void limpaListaObjetos();
@@ -60,7 +59,7 @@ public:
 	void move(GdkEvent *event);
 	gboolean redraw(GtkWidget *widget, cairo_t *cr);
 	gboolean criaSurface(GtkWidget *widget);
-	void setCoordTemp(ListaEnc<Coordenada>& coordTemp); //TEMPORARIO
+	void setCoordTemp(ListaEnc<Coordenada>& coordTemp);
 	ListaEnc<Coordenada> getCoordTemp();
 	void abrirTelaAdicionar();
 	virtual ~Tela();
@@ -73,6 +72,8 @@ public:
 	void rotacionaFigura();
 	void salvaMundo();
 	void abreMundo();
+	void giraTelaHora();
+	void giraTelaAntiHora();
 };
 
 #endif /* TELA_HPP_ */

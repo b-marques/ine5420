@@ -85,6 +85,14 @@ void abrirArquivoMundo(GtkWidget *button, gpointer user_data){
 void salvarArquivoMundo(GtkWidget *button, gpointer user_data){
 	tela->salvaMundo();
 }
+
+void giraHora(GtkWidget *button, gpointer user_data){
+	tela->giraTelaHora();
+}
+
+void giraAntiHora(GtkWidget *button, gpointer user_data){
+	tela->giraTelaAntiHora();
+}
 }
 
 int main(int argc, char *argv[]) {

@@ -16,33 +16,37 @@ Mundo::Mundo(double larguraArea, double alturaArea) {
 	this->alturaArea = alturaArea;
 	deslocamento = Coordenada(0, 0, 0);
 	zoom = Coordenada(1, 1, 1);
+	zoomAcumulado = Coordenada(1, 1, 1);
 	centroDesenho = Coordenada(larguraArea / 2, alturaArea / 2, 0);
 	figuras = new ListaEnc<Figura*>();
 	centroMundo = Coordenada(0, 0, 0);
+	giroTelaAcumulado = 0;
 }
 
 void Mundo::desloca(double passo, TipoMovimento sentido) {
-	Coordenada deltaDesloc;
+	//Coordenada deltaDesloc;
 	double dx = passo * larguraArea / 100;
 	double dy = passo * alturaArea / 100;
 	switch (sentido) {
 	case CIMA:
-		deltaDesloc = Coordenada(0, -dy);
+		deslocamento = Coordenada(0, -dy);
 		break;
 	case BAIXO:
-		deltaDesloc = Coordenada(0, +dy);
+		deslocamento = Coordenada(0, +dy);
 		break;
 	case DIREITA:
-		deltaDesloc = Coordenada(-dx, 0);
+		deslocamento = Coordenada(-dx, 0);
 		break;
 	case ESQUERDA:
-		deltaDesloc = Coordenada(+dx, 0);
+		deslocamento = Coordenada(+dx, 0);
 		break;
 	default:
 		break;
 	}
-	deslocamento = deslocamento + deltaDesloc;
-	centroDesenho = centroDesenho - deltaDesloc;
+	deslocaFiguras();
+	//deslocamento = deslocamento + deltaDesloc;
+	//centroDesenho = centroDesenho - deltaDesloc;
+	//centroDesenho = centroDesenho - deslocamento;
 }
 
 Coordenada Mundo::getDeslocamento() {
@@ -83,18 +87,22 @@ void Mundo::adicionaPoligono(string nome, ListaEnc<Coordenada>& coord) {
 void Mundo::maisZoom(double passo) {
 	double dx = 1 + (passo / 100);
 	double dy = 1 + (passo / 100);
-	zoom = zoom * Coordenada(dx, dy, 1);
+	zoom.setX(dx);
+	zoom.setY(dy);
+	daZoomFiguras();
 }
 
 void Mundo::menosZoom(double passo) {
 	double dx = 1 + (passo / 100);
 	double dy = 1 + (passo / 100);
-	zoom = zoom * Coordenada(1 / dx, 1 / dy, 1);
+	zoom.setX(1/dx);
+	zoom.setY(1/dy);
+	daZoomFiguras();
 }
 
 void Mundo::transladaFigura(int posicaoLista, Coordenada desloc) {
 	Figura* f = figuras->retornaDado(posicaoLista);
-	f->translada(desloc);
+	f->translada(desloc, zoomAcumulado, giroTelaAcumulado);
 }
 
 void Mundo::escalonaFigura(int posicaoLista, Coordenada escala) {
@@ -108,13 +116,30 @@ void Mundo::rotacionaFiguraCentroMundo(int posicaoLista, double anguloGraus) {
 
 void Mundo::rotacionaFiguraProprioCentro(int posicaoLista, double anguloGraus) {
 	Figura *f = figuras->retornaDado(posicaoLista);
-	f->rotacionaFiguraProprioCentro(anguloGraus);
+	f->rotacionaFiguraProprioCentro(anguloGraus, zoomAcumulado);
 }
 
 void Mundo::rotacionaFigura(int posicaoLista, Coordenada centroRotacao,
 		double anguloGraus) {
 	Figura* f = figuras->retornaDado(posicaoLista);
-	f->rotaciona(centroRotacao, anguloGraus);
+	f->rotaciona(centroRotacao, anguloGraus, zoomAcumulado);
+}
+
+void Mundo::daZoomFiguras() {
+	Figura* f;
+	zoomAcumulado = zoom * zoomAcumulado;
+	for (int i = 0; i < figuras->tamanho(); ++i) {
+		f = figuras->retornaDado(i);
+		f->daZoom(zoom, centroDesenho);
+	}
+}
+
+void Mundo::deslocaFiguras() {
+	Figura* f;
+	for (int i = 0; i < figuras->tamanho(); ++i) {
+		f = figuras->retornaDado(i);
+		f->deslocaNaTela(deslocamento);
+	}
 }
 
 Mundo::~Mundo() {
@@ -123,4 +148,13 @@ Mundo::~Mundo() {
 
 ListaEnc<Figura*>* Mundo::getFiguras() {
 	return figuras;
+}
+
+void Mundo::giraTela(double angulo) {
+	Figura* f;
+	giroTelaAcumulado += angulo;
+	for (int i = 0; i < figuras->tamanho(); ++i) {
+		f = figuras->retornaDado(i);
+		f->rotacionaTela(centroDesenho, angulo);
+	}
 }

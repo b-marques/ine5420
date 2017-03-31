@@ -170,12 +170,12 @@ void Tela::escreveTerminal(string texto) {
 }
 
 Coordenada Tela::corrigeCoord(Coordenada coord) {
-	Coordenada centroDesenho = mundo->getCentroDesenho();
+	/*Coordenada centroDesenho = mundo->getCentroDesenho();
 	Coordenada zoom = mundo->getZoom();
 	Coordenada variacao;
 	variacao = (coord - centroDesenho) * zoom - (coord - centroDesenho);
 	coord = coord + variacao;
-	coord = coord + mundo->getDeslocamento();
+	coord = coord + mundo->getDeslocamento();*/
 	transViewPort(coord);
 	return coord;
 }
@@ -217,7 +217,7 @@ void Tela::redesenhaTudo() {
 
 void Tela::redesenhaFigura(Figura* f) {
 	ListaEnc<Coordenada> coordsFig;
-	coordsFig = f->getCoord();
+	coordsFig = f->getCoordTela();
 	if (coordsFig.tamanho() > 1)
 		desenhaFiguraMultiplasCoordenadas(coordsFig);
 	else
@@ -448,5 +448,17 @@ void Tela::abreMundo() {
 		nomeFig = figuras->retornaDado(i)->getNome();
 		escreveListaObjetos(nomeFig);
 	}
+	redesenhaTudo();
+}
+
+void Tela::giraTelaHora() {
+	double angulo = getSpinButtonValue("angulo");
+	mundo->giraTela(-angulo);
+	redesenhaTudo();
+}
+
+void Tela::giraTelaAntiHora() {
+	double angulo = getSpinButtonValue("angulo");
+	mundo->giraTela(angulo);
 	redesenhaTudo();
 }

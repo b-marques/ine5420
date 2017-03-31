@@ -61,23 +61,25 @@ void DescritorObj::escreveFigura(string& texto, Figura* figura, int& linha) {
 
 void DescritorObj::leMundo(string nomeArquivo) {
 	ifstream arq;
-	string textoArq, aux;
+	string linhaInicial;
 	Figura* f;
 	arq.open(nomeArquivo.c_str());
 	if (arq.is_open()) {
+		getline(arq, linhaInicial);
 		while (!arq.eof()) {
-			f = leObjeto(arq);
+			f = leObjeto(arq, linhaInicial);
 			mundo->adicionaFigura(f);
+			getline(arq, linhaInicial);
 		}
 		arq.close();
 	}
 }
 
-Figura* DescritorObj::leObjeto(ifstream& arquivo) {
+Figura* DescritorObj::leObjeto(ifstream& arquivo, string& linhaInicial) {
 	string linha, nome;
 	ListaEnc<Coordenada> coords;
 	Coordenada coord;
-	getline(arquivo, linha);
+	linha = linhaInicial;
 	linha.erase(0, 2);
 	nome = linha;
 	getline(arquivo, linha);

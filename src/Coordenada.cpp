@@ -106,6 +106,16 @@ string Coordenada::toString() {
 	return "( " + to_string(x) + ", " + to_string(y) + ", " + to_string(z) + ")";
 }
 
+Coordenada Coordenada::operator /(const Coordenada& c2) {
+	Coordenada div;
+	double xs, ys, zs;
+	xs = this->x / c2.x;
+	ys = this->y / c2.y;
+	zs = this->z / c2.z;
+	div = Coordenada(xs, ys, zs);
+	return div;
+}
+
 Coordenada Coordenada::operator /(const double divisor) {
 	return Coordenada(x / divisor, y / divisor, z / divisor);
 }

@@ -14,8 +14,8 @@
 class Mundo {
 private:
 	ListaEnc<Figura*> *figuras;
-	Coordenada deslocamento, zoom, centroDesenho, centroMundo;
-	double larguraArea, alturaArea;
+	Coordenada deslocamento, zoom, centroDesenho, centroMundo, zoomAcumulado;
+	double larguraArea, alturaArea, giroTelaAcumulado;
 public:
 	Mundo(double larguraArea, double alturaArea);
 	void desloca(double passo, TipoMovimento sentido);
@@ -35,6 +35,9 @@ public:
 	void rotacionaFigura(int posicaoLista, Coordenada centroRotacao, double anguloGraus);
 	void maisZoom(double passo);
 	void menosZoom(double passo);
+	void daZoomFiguras();
+	void deslocaFiguras();
+	void giraTela(double angulo);
 	virtual ~Mundo();
 };
 

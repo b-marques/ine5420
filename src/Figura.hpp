@@ -17,18 +17,24 @@ using namespace std;
 class Figura {
 protected:
 	ListaEnc<Coordenada> coordenadas;
-	Coordenada centro;
+	ListaEnc<Coordenada> coordenadasTela;
+	Coordenada centro, centroRelTela;
 	string nome;
 	void transform(Coordenada eixo, double grau, Coordenada escalonamento, Coordenada deslocamento);
+	void transformTela(Coordenada eixo, double grau, Coordenada escalonamento, Coordenada deslocamento);
 public:
 	Figura(string nome, ListaEnc<Coordenada>& coord);
 	ListaEnc<Coordenada>& getCoord();
+	ListaEnc<Coordenada>& getCoordTela();
 	string getNome();
-	void calculaCentro();
-	void translada(Coordenada desloc);
+	Coordenada calculaCentro(ListaEnc<Coordenada>& coords);
+	void translada(Coordenada desloc, Coordenada zoomAcumumlado, double giroTelaAcumulado);
 	void escalona(Coordenada escala);
-	void rotacionaFiguraProprioCentro(double anguloGraus);
-	void rotaciona(Coordenada centroRotacao, double anguloGraus);
+	void rotacionaFiguraProprioCentro(double anguloGraus, Coordenada zoomAcumulado);
+	void rotaciona(Coordenada centroRotacao, double anguloGraus, Coordenada zoomAcumulado);
+	void daZoom(Coordenada zoom, Coordenada centroDesenho);
+	void deslocaNaTela(Coordenada desloc);
+	void rotacionaTela(Coordenada centroDesenho, double angulo);
 	Coordenada getCentro();
 	virtual ~Figura();
 };
