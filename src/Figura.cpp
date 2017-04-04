@@ -58,12 +58,10 @@ void Figura::rotacionaFiguraProprioCentro(double anguloGraus,
 void Figura::rotaciona(Coordenada centroRotacao, double anguloGraus,
 		Coordenada zoomAcumulado, double giroTelaAcumulado,
 		Coordenada centroDesenho) {
-	Coordenada centroRotGirado = Matriz::matrizTransformacao(centroRotacao,
-			centroDesenho, giroTelaAcumulado, zoomAcumulado, Coordenada(0, 0));
 	Coordenada centroFigGirado = Matriz::matrizTransformacao(centro,
 			centroDesenho, giroTelaAcumulado, zoomAcumulado, Coordenada(0, 0));
-	Coordenada centroRotacaoTela = centroRotGirado + centroRelTela
-			- centroFigGirado;
+	Coordenada centroRotacaoTela = Matriz::matrizTransformacao(centroRotacao,
+			centroDesenho, giroTelaAcumulado, zoomAcumulado, centroRelTela - centroFigGirado);
 	transform(centroRotacao, anguloGraus, Coordenada(1, 1), Coordenada(0, 0));
 	transformTela(centroRotacaoTela, anguloGraus, Coordenada(1, 1),
 			Coordenada(0, 0));
