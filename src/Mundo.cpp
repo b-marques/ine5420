@@ -5,11 +5,13 @@
  *      Author: johann
  */
 
-#include "Mundo.hpp"
+#include "../src/Mundo.hpp"
+
 #include <math.h>
-#include "Poligono.hpp"
-#include "Ponto.hpp"
-#include "Reta.hpp"
+
+#include "../src/Poligono.hpp"
+#include "../src/Ponto.hpp"
+#include "../src/Reta.hpp"
 
 Mundo::Mundo(double larguraArea, double alturaArea) {
 	this->larguraArea = larguraArea;
@@ -116,13 +118,13 @@ void Mundo::rotacionaFiguraCentroMundo(int posicaoLista, double anguloGraus) {
 
 void Mundo::rotacionaFiguraProprioCentro(int posicaoLista, double anguloGraus) {
 	Figura *f = figuras->retornaDado(posicaoLista);
-	f->rotacionaFiguraProprioCentro(anguloGraus, zoomAcumulado);
+	f->rotacionaFiguraProprioCentro(anguloGraus, zoomAcumulado, giroTelaAcumulado, centroDesenho);
 }
 
 void Mundo::rotacionaFigura(int posicaoLista, Coordenada centroRotacao,
 		double anguloGraus) {
 	Figura* f = figuras->retornaDado(posicaoLista);
-	f->rotaciona(centroRotacao, anguloGraus, zoomAcumulado);
+	f->rotaciona(centroRotacao, anguloGraus, zoomAcumulado, giroTelaAcumulado, centroDesenho);
 }
 
 void Mundo::daZoomFiguras() {

@@ -13,9 +13,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "Mundo.hpp"
-#include "tipofiguraenum.hpp"
-#include "DescritorObj.hpp"
+
+#include "../src/DescritorObj.hpp"
+#include "../src/Mundo.hpp"
+#include "../src/tipofiguraenum.hpp"
 
 class Tela {
 private:

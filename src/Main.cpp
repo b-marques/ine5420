@@ -5,10 +5,11 @@
 #include <stdio.h>
 #include <string>
 #include <stdlib.h>
-#include "Mundo.hpp"
-#include "Tela.hpp"
-#include "Reta.hpp"
 #include <math.h>
+
+#include "../src/Mundo.hpp"
+#include "../src/Reta.hpp"
+#include "../src/Tela.hpp"
 using namespace std;
 
 Tela* tela;

@@ -5,7 +5,8 @@
  *      Author: johann
  */
 
-#include "Figura.hpp"
+#include "../src/Figura.hpp"
+
 #include <math.h>
 Figura::Figura(string nome, ListaEnc<Coordenada>& coord) {
 	this->nome = nome;
@@ -32,11 +33,14 @@ Coordenada Figura::calculaCentro(ListaEnc<Coordenada>& coords) {
 	return centroFigura / nCoords;
 }
 
-void Figura::translada(Coordenada desloc, Coordenada zoomAcumumlado, double giroTelaAcumulado) {
+void Figura::translada(Coordenada desloc, Coordenada zoomAcumumlado,
+		double giroTelaAcumulado) {
 	transform(centro, 0, Coordenada(1, 1), desloc);
-	Coordenada deslocCorrigido = Matriz::matrizTransformacao(desloc, Coordenada(0, 0), giroTelaAcumulado, Coordenada(1, 1),
+	Coordenada deslocCorrigido = Matriz::matrizTransformacao(desloc,
+			Coordenada(0, 0), giroTelaAcumulado, Coordenada(1, 1),
 			Coordenada(0, 0));
-	transformTela(centroRelTela, 0, Coordenada(1, 1), deslocCorrigido*zoomAcumumlado);
+	transformTela(centroRelTela, 0, Coordenada(1, 1),
+			deslocCorrigido * zoomAcumumlado);
 }
 
 void Figura::escalona(Coordenada escala) {
@@ -44,14 +48,24 @@ void Figura::escalona(Coordenada escala) {
 	transformTela(centroRelTela, 0, escala, Coordenada(0, 0));
 }
 
-void Figura::rotacionaFiguraProprioCentro(double anguloGraus, Coordenada zoomAcumulado) {
-	rotaciona(centro, anguloGraus, zoomAcumulado);
+void Figura::rotacionaFiguraProprioCentro(double anguloGraus,
+		Coordenada zoomAcumulado, double giroTelaAcumulado, Coordenada centroDesenho) {
+	rotaciona(centro, anguloGraus, zoomAcumulado, giroTelaAcumulado, centroDesenho);
 }
 
-void Figura::rotaciona(Coordenada centroRotacao, double anguloGraus, Coordenada zoomAcumulado) {
-	Coordenada centroRotacaoTela = centroRotacao*zoomAcumulado + centroRelTela - centro * zoomAcumulado;
+void Figura::rotaciona(Coordenada centroRotacao, double anguloGraus,
+		Coordenada zoomAcumulado, double giroTelaAcumulado, Coordenada centroDesenho) {
+	Coordenada centroRotGirado =  Matriz::matrizTransformacao(
+			centroRotacao, centroDesenho, giroTelaAcumulado,
+			Coordenada(1, 1), Coordenada(0, 0));
+	Coordenada centroFigGirado = Matriz::matrizTransformacao(
+			centro, centroDesenho, giroTelaAcumulado,
+			Coordenada(1, 1), Coordenada(0, 0));
+	Coordenada centroRotacaoTela = centroRotGirado * zoomAcumulado
+			+ centroRelTela - centroFigGirado * zoomAcumulado;
 	transform(centroRotacao, anguloGraus, Coordenada(1, 1), Coordenada(0, 0));
-	transformTela(centroRotacaoTela, anguloGraus, Coordenada(1, 1), Coordenada(0, 0));
+	transformTela(centroRotacaoTela, anguloGraus, Coordenada(1, 1),
+			Coordenada(0, 0));
 }
 
 void Figura::daZoom(Coordenada zoom, Coordenada centroDesenho) {
@@ -59,12 +73,13 @@ void Figura::daZoom(Coordenada zoom, Coordenada centroDesenho) {
 	transformTela(centroDesenho, 0, zoom, coord);
 }
 
-void Figura::deslocaNaTela(Coordenada desloc){
+void Figura::deslocaNaTela(Coordenada desloc) {
 	transformTela(Coordenada(0, 0), 0, Coordenada(1, 1), desloc);
 }
 
 void Figura::rotacionaTela(Coordenada centroDesenho, double angulo) {
-	transformTela(centroDesenho, angulo, Coordenada(1, 1, 1), Coordenada(0, 0, 0));
+	transformTela(centroDesenho, angulo, Coordenada(1, 1, 1),
+			Coordenada(0, 0, 0));
 }
 
 void Figura::transform(Coordenada eixo, double grau, Coordenada escalonamento,
@@ -79,8 +94,8 @@ void Figura::transform(Coordenada eixo, double grau, Coordenada escalonamento,
 	centro = calculaCentro(coordenadas);
 }
 
-void Figura::transformTela(Coordenada eixo, double grau, Coordenada escalonamento,
-		Coordenada deslocamento) {
+void Figura::transformTela(Coordenada eixo, double grau,
+		Coordenada escalonamento, Coordenada deslocamento) {
 	Coordenada coord;
 	for (int i = 0; i < coordenadasTela.tamanho(); i++) {
 		coord = coordenadasTela.retiraDoInicio();
@@ -98,7 +113,6 @@ Coordenada Figura::getCentro() {
 ListaEnc<Coordenada>& Figura::getCoordTela() {
 	return coordenadasTela;
 }
-
 
 Figura::~Figura() {
 	// TODO Auto-generated destructor stub

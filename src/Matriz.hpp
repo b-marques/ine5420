@@ -1,6 +1,6 @@
-#include "Coordenada.hpp"
 #include <vector>
 #include <math.h>      
+#include "../src/Coordenada.hpp"
 
 class Matriz {
 private: 

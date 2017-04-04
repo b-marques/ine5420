@@ -7,8 +7,9 @@
 
 #ifndef DESCRITOROBJ_HPP_
 #define DESCRITOROBJ_HPP_
-#include "Mundo.hpp"
 #include <string>
+
+#include "../src/Mundo.hpp"
 using namespace std;
 
 class DescritorObj {

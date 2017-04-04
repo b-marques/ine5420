@@ -7,10 +7,11 @@
 
 #ifndef FIGURA_HPP_
 #define FIGURA_HPP_
-#include "ListaEnc.hpp"
 #include <string>
-#include "Coordenada.hpp"
-#include "Matriz.hpp"
+
+#include "../src/Coordenada.hpp"
+#include "../src/ListaEnc.hpp"
+#include "../src/Matriz.hpp"
 
 using namespace std;
 
@@ -20,18 +21,23 @@ protected:
 	ListaEnc<Coordenada> coordenadasTela;
 	Coordenada centro, centroRelTela;
 	string nome;
-	void transform(Coordenada eixo, double grau, Coordenada escalonamento, Coordenada deslocamento);
-	void transformTela(Coordenada eixo, double grau, Coordenada escalonamento, Coordenada deslocamento);
+	void transform(Coordenada eixo, double grau, Coordenada escalonamento,
+			Coordenada deslocamento);
+	void transformTela(Coordenada eixo, double grau, Coordenada escalonamento,
+			Coordenada deslocamento);
 public:
 	Figura(string nome, ListaEnc<Coordenada>& coord);
 	ListaEnc<Coordenada>& getCoord();
 	ListaEnc<Coordenada>& getCoordTela();
 	string getNome();
 	Coordenada calculaCentro(ListaEnc<Coordenada>& coords);
-	void translada(Coordenada desloc, Coordenada zoomAcumumlado, double giroTelaAcumulado);
+	void translada(Coordenada desloc, Coordenada zoomAcumumlado,
+			double giroTelaAcumulado);
 	void escalona(Coordenada escala);
-	void rotacionaFiguraProprioCentro(double anguloGraus, Coordenada zoomAcumulado);
-	void rotaciona(Coordenada centroRotacao, double anguloGraus, Coordenada zoomAcumulado);
+	void rotacionaFiguraProprioCentro(double anguloGraus,
+			Coordenada zoomAcumulado, double giroTelaAcumulado, Coordenada centroDesenho);
+	void rotaciona(Coordenada centroRotacao, double anguloGraus,
+			Coordenada zoomAcumulado, double giroTelaAcumulado, Coordenada centroDesenho);
 	void daZoom(Coordenada zoom, Coordenada centroDesenho);
 	void deslocaNaTela(Coordenada desloc);
 	void rotacionaTela(Coordenada centroDesenho, double angulo);

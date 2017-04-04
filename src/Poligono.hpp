@@ -9,7 +9,7 @@
 #define POLIGONO_HPP_
 #include <vector>
 
-#include "Figura.hpp"
+#include "../src/Figura.hpp"
 class Poligono : public Figura{
 public:
 	Poligono(string nome, ListaEnc<Coordenada>& coord);
