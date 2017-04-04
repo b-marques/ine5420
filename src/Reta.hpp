@@ -7,8 +7,7 @@
 
 #ifndef RETA_HPP_
 #define RETA_HPP_
-#include <list>
-#include "../src/Figura.hpp"
+#include "Figura.hpp"
 
 class Reta: public Figura {
 public:

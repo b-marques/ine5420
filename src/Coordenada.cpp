@@ -5,7 +5,7 @@
  *      Author: johann
  */
 
-#include "../src/Coordenada.hpp"
+#include "Coordenada.hpp"
 
 Coordenada::Coordenada() {
 	x = 0;

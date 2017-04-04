@@ -5,7 +5,7 @@
  *      Author: johann
  */
 
-#include "../src/Ponto.hpp"
+#include "Ponto.hpp"
 
 Ponto::Ponto(string nome, ListaEnc<Coordenada>& coord) :
 		Figura(nome, coord) {

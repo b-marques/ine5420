@@ -5,13 +5,13 @@
  *      Author: johann
  */
 
-#include "../src/DescritorObj.hpp"
+#include "DescritorObj.hpp"
 
 #include <fstream>
 
-#include "../src/Poligono.hpp"
-#include "../src/Ponto.hpp"
-#include "../src/Reta.hpp"
+#include "Poligono.hpp"
+#include "Ponto.hpp"
+#include "Reta.hpp"
 DescritorObj::DescritorObj() {
 	// TODO Auto-generated constructor stub
 

@@ -5,13 +5,13 @@
  *      Author: johann
  */
 
-#include "../src/Mundo.hpp"
+#include "Mundo.hpp"
 
 #include <math.h>
 
-#include "../src/Poligono.hpp"
-#include "../src/Ponto.hpp"
-#include "../src/Reta.hpp"
+#include "Poligono.hpp"
+#include "Ponto.hpp"
+#include "Reta.hpp"
 
 Mundo::Mundo(double larguraArea, double alturaArea) {
 	this->larguraArea = larguraArea;

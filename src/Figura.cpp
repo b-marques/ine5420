@@ -5,7 +5,7 @@
  *      Author: johann
  */
 
-#include "../src/Figura.hpp"
+#include "Figura.hpp"
 
 #include <math.h>
 Figura::Figura(string nome, ListaEnc<Coordenada>& coord) {

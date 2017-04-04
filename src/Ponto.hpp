@@ -7,7 +7,7 @@
 
 #ifndef PONTO_HPP_
 #define PONTO_HPP_
-#include "../src/Figura.hpp"
+#include "Figura.hpp"
 
 class Ponto : public Figura{
 public:

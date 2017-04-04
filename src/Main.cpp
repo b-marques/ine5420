@@ -6,10 +6,7 @@
 #include <string>
 #include <stdlib.h>
 #include <math.h>
-
-#include "../src/Mundo.hpp"
-#include "../src/Reta.hpp"
-#include "../src/Tela.hpp"
+#include "Tela.hpp"
 using namespace std;
 
 Tela* tela;

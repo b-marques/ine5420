@@ -5,7 +5,7 @@
  *      Author: johann
  */
 
-#include "../src/Tela.hpp"
+#include "Tela.hpp"
 Tela::Tela() {
 	GtkWidget *window_widget;
 	gtkBuilder = gtk_builder_new();

@@ -9,9 +9,9 @@
 #define FIGURA_HPP_
 #include <string>
 
-#include "../src/Coordenada.hpp"
-#include "../src/ListaEnc.hpp"
-#include "../src/Matriz.hpp"
+#include "Coordenada.hpp"
+#include "ListaEnc.hpp"
+#include "Matriz.hpp"
 
 using namespace std;
 

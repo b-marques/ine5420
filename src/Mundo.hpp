@@ -7,9 +7,9 @@
 
 #ifndef MUNDO_HPP_
 #define MUNDO_HPP_
-#include "../src/Coordenada.hpp"
-#include "../src/Figura.hpp"
-#include "../src/tipoMoveEnum.hpp"
+#include "Coordenada.hpp"
+#include "Figura.hpp"
+#include "tipoMoveEnum.hpp"
 
 class Mundo {
 private:

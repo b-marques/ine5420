@@ -6,7 +6,7 @@
  *  \since 31/03/15
  *  \version 1.0
  */
-#include "../src/Elemento.hpp"
+#include "Elemento.hpp"
 template<typename T>
 class ListaEnc {
 private:

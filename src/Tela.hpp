@@ -14,9 +14,9 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "../src/DescritorObj.hpp"
-#include "../src/Mundo.hpp"
-#include "../src/tipofiguraenum.hpp"
+#include "DescritorObj.hpp"
+#include "Mundo.hpp"
+#include "tipofiguraenum.hpp"
 
 class Tela {
 private:
