@@ -1,7 +1,6 @@
-#include <list>
+#include <iostream>
 #include <gtk/gtk.h>
 #include <glib.h>
-#include <iostream>
 #include <stdio.h>
 #include <string>
 #include <stdlib.h>
@@ -10,12 +9,6 @@
 using namespace std;
 
 Tela* tela;
-int i = 0;
-/*coisas a fazer:
- NOME OBJETO ADICIONADO NA TREE VIEW
- janela para adicionar figuras
- metodos janela de adicao
- */
 
 extern "C" {
 
@@ -94,8 +87,6 @@ void giraAntiHora(GtkWidget *button, gpointer user_data) {
 void resizeDraw(GtkWidget *widget, GdkRectangle *allocation,
 		gpointer user_data) {
 	tela->tamanhoDrawMudou(allocation);
-//	i++;
-//	cout<<i<<endl;
 }
 }
 
@@ -103,5 +94,4 @@ int main(int argc, char *argv[]) {
 	gtk_init(&argc, &argv);
 	tela = new Tela();
 	gtk_main();
-	return 0;
 }

@@ -9,10 +9,11 @@
 #define PONTO_HPP_
 #include "Figura.hpp"
 
-class Ponto : public Figura{
+class Ponto: public Figura {
 public:
 	Ponto(string nome, ListaEnc<Coordenada>& coord);
-	ListaEnc<Coordenada>& getCoordTelaClip();
+	ListaEnc<ListaEnc<Coordenada>*>* getCoordTelaClip(double xEsq, double xDir,
+			double yCima, double yBaixo, int tipoClip);
 	virtual ~Ponto();
 };
 

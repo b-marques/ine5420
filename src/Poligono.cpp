@@ -16,6 +16,7 @@ Poligono::~Poligono() {
 	// TODO Auto-generated destructor stub
 }
 
-ListaEnc<Coordenada>& Poligono::getCoordTelaClip() {
-	return coordenadasTela;
+ListaEnc<ListaEnc<Coordenada> *>* Poligono::getCoordTelaClip(double xEsq,
+		double xDir, double yCima, double yBaixo, int tipoClip) {
+	return nullptr;
 }

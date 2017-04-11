@@ -15,6 +15,14 @@ Ponto::~Ponto() {
 	// TODO Auto-generated destructor stub
 }
 
-ListaEnc<Coordenada>& Ponto::getCoordTelaClip() {
-	return coordenadasTela;
+ListaEnc<ListaEnc<Coordenada> *>* Ponto::getCoordTelaClip(double xEsq,
+		double xDir, double yCima, double yBaixo, int tipoClip) {
+	ListaEnc<ListaEnc<Coordenada>*>* lista;
+	ListaEnc<Coordenada> *listaCoords;
+	Coordenada p1 = coordenadasTela.retornaDado(0);
+	lista = new ListaEnc<ListaEnc<Coordenada>*>();
+	listaCoords = new ListaEnc<Coordenada>();
+	listaCoords->adiciona(p1);
+	lista->adiciona(listaCoords);
+	return lista;
 }

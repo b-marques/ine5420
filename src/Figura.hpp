@@ -29,16 +29,19 @@ public:
 	Figura(string nome, ListaEnc<Coordenada>& coord);
 	ListaEnc<Coordenada>& getCoord();
 	ListaEnc<Coordenada>& getCoordTela();
-	virtual ListaEnc<Coordenada>& getCoordTelaClip() = 0;
+	virtual ListaEnc<ListaEnc<Coordenada>*>* getCoordTelaClip(double xEsq,
+			double xDir, double yCima, double yBaixo, int tipoClip) = 0;
 	string getNome();
 	Coordenada calculaCentro(ListaEnc<Coordenada>& coords);
 	void translada(Coordenada desloc, Coordenada zoomAcumumlado,
 			double giroTelaAcumulado);
 	void escalona(Coordenada escala);
 	void rotacionaFiguraProprioCentro(double anguloGraus,
-			Coordenada zoomAcumulado, double giroTelaAcumulado, Coordenada centroDesenho);
+			Coordenada zoomAcumulado, double giroTelaAcumulado,
+			Coordenada centroDesenho);
 	void rotaciona(Coordenada centroRotacao, double anguloGraus,
-			Coordenada zoomAcumulado, double giroTelaAcumulado, Coordenada centroDesenho);
+			Coordenada zoomAcumulado, double giroTelaAcumulado,
+			Coordenada centroDesenho);
 	void daZoom(Coordenada zoom, Coordenada centroDesenho);
 	void deslocaNaTela(Coordenada desloc);
 	void rotacionaTela(Coordenada centroDesenho, double angulo);

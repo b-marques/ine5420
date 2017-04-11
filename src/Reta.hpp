@@ -10,10 +10,17 @@
 #include "Figura.hpp"
 
 class Reta: public Figura {
+private:
+	ListaEnc<ListaEnc<Coordenada>*>* clipCs(double xEsq, double xDir,
+			double yCima, double yBaixo);
+	ListaEnc<ListaEnc<Coordenada>*>* clipLb(double xEsq, double xDir,
+			double yCima, double yBaixo);
+	int getCode(Coordenada& coord, double xEsq, double xDir, double yCima,
+			double yBaixo);
 public:
-
 	Reta(string nome, ListaEnc<Coordenada>& coord);
-	ListaEnc<Coordenada>& getCoordTelaClip();
+	ListaEnc<ListaEnc<Coordenada>*>* getCoordTelaClip(double xEsq, double xDir,
+			double yCima, double yBaixo, int tipoClip);
 	virtual ~Reta();
 };
 

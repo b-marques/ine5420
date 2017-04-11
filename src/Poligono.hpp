@@ -10,10 +10,11 @@
 #include <vector>
 
 #include "Figura.hpp"
-class Poligono : public Figura{
+class Poligono: public Figura {
 public:
 	Poligono(string nome, ListaEnc<Coordenada>& coord);
-	ListaEnc<Coordenada>& getCoordTelaClip();
+	ListaEnc<ListaEnc<Coordenada>*>* getCoordTelaClip(double xEsq, double xDir,
+			double yCima, double yBaixo, int tipoClip);
 	virtual ~Poligono();
 };
 

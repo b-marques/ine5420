@@ -17,12 +17,13 @@
 #include "DescritorObj.hpp"
 #include "Mundo.hpp"
 #include "tipofiguraenum.hpp"
+#include "Desenhador.hpp"
 
 class Tela {
 private:
 	Mundo *mundo;
-	cairo_surface_t* surface;
 	GtkWidget *drawArea;
+	Desenhador *desenhador;
 	ListaEnc<Coordenada> coordTemp;
 	GtkBuilder *gtkBuilder;
 	GtkWidget* adicionarWindow;
@@ -38,7 +39,6 @@ private:
 	string getEntryText(string nomeEntry);
 	double getPasso();
 	string getNomeFigAdd();
-	void transViewPort(Coordenada& coord);
 	void escreveListaObjetos(string nome);
 	int posicaoFigSelecionada();
 	string coordenadasTxt(const ListaEnc<Coordenada>& coords);
@@ -47,15 +47,13 @@ private:
 	int tipoRotacao();
 	double getSpinButtonValue(string nomeBotao);
 	void limpaListaObjetos();
-	void limpaDesenho();
-	void desenhaViewPort();
 	int tipoClipping();
+	void redesenhaFiguraClip(Figura* f, int tipoClip, int xDirVP,
+			int yCimaVP);
 public:
 	void escreveTerminal(string texto);
 	Tela();
 	void adicionaFigura(string nome, TipoFigura tipo);
-	void desenhaPonto(ListaEnc<Coordenada>& coord);
-	void desenhaFiguraMultiplasCoordenadas(ListaEnc<Coordenada>& coord);
 	void focaDrawArea();
 	void maisZoom();
 	void menosZoom();

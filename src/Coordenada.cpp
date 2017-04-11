@@ -119,3 +119,7 @@ Coordenada Coordenada::operator /(const Coordenada& c2) {
 Coordenada Coordenada::operator /(const double divisor) {
 	return Coordenada(x / divisor, y / divisor, z / divisor);
 }
+
+bool Coordenada::operator ==(const Coordenada& c2) {
+	return this->x == c2.x && this->y == c2.y && this->z == c2.z;
+}
