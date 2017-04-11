@@ -11,6 +11,10 @@ Reta::Reta(string nomeReta, ListaEnc<Coordenada>& coordReta) :
 		Figura(nomeReta, coordReta) {
 }
 
+ListaEnc<Coordenada>& Reta::getCoordTelaClip() {
+	return coordenadasTela;
+}
+
 Reta::~Reta() {
 	// TODO Auto-generated destructor stub
 }

@@ -39,7 +39,6 @@ private:
 	double getPasso();
 	string getNomeFigAdd();
 	void transViewPort(Coordenada& coord);
-	void limpaDesenho();
 	void escreveListaObjetos(string nome);
 	int posicaoFigSelecionada();
 	string coordenadasTxt(const ListaEnc<Coordenada>& coords);
@@ -48,6 +47,9 @@ private:
 	int tipoRotacao();
 	double getSpinButtonValue(string nomeBotao);
 	void limpaListaObjetos();
+	void limpaDesenho();
+	void desenhaViewPort();
+	int tipoClipping();
 public:
 	void escreveTerminal(string texto);
 	Tela();
@@ -75,6 +77,7 @@ public:
 	void abreMundo();
 	void giraTelaHora();
 	void giraTelaAntiHora();
+	void tamanhoDrawMudou(GdkRectangle *novoTam);
 };
 
 #endif /* TELA_HPP_ */

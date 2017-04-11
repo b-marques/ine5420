@@ -16,3 +16,6 @@ Poligono::~Poligono() {
 	// TODO Auto-generated destructor stub
 }
 
+ListaEnc<Coordenada>& Poligono::getCoordTelaClip() {
+	return coordenadasTela;
+}

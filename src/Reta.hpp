@@ -13,6 +13,7 @@ class Reta: public Figura {
 public:
 
 	Reta(string nome, ListaEnc<Coordenada>& coord);
+	ListaEnc<Coordenada>& getCoordTelaClip();
 	virtual ~Reta();
 };
 

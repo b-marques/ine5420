@@ -10,17 +10,16 @@
 using namespace std;
 
 Tela* tela;
-
+int i = 0;
 /*coisas a fazer:
-NOME OBJETO ADICIONADO NA TREE VIEW
-janela para adicionar figuras
-metodos janela de adicao
-*/
+ NOME OBJETO ADICIONADO NA TREE VIEW
+ janela para adicionar figuras
+ metodos janela de adicao
+ */
 
-extern "C"{
+extern "C" {
 
-gboolean configura(GtkWidget *widget, GdkEventConfigure *event,
-		gpointer data) {
+gboolean configura(GtkWidget *widget, GdkEventConfigure *event, gpointer data) {
 	return tela->criaSurface(widget);
 }
 
@@ -32,15 +31,15 @@ void focaDrawArea(GtkWidget *button, gpointer user_data) {
 	tela->focaDrawArea();
 }
 
-void maisZoom(GtkWidget *button, gpointer user_data){
+void maisZoom(GtkWidget *button, gpointer user_data) {
 	tela->maisZoom();
 }
 
-void menosZoom(GtkWidget *button, gpointer user_data){
+void menosZoom(GtkWidget *button, gpointer user_data) {
 	tela->menosZoom();
 }
 
-void move(GtkWidget *widget, GdkEvent *event, gpointer user_data){
+void move(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
 	tela->move(event);
 }
 
@@ -48,48 +47,55 @@ void addCord(GtkWidget *button, gpointer user_data) {
 	tela->addCord();
 }
 
-void adicionarPonto(GtkWidget *button, gpointer user_data){
+void adicionarPonto(GtkWidget *button, gpointer user_data) {
 	tela->adicionarPonto();
 }
 
-void adicionarReta(GtkWidget *button, gpointer user_data){
+void adicionarReta(GtkWidget *button, gpointer user_data) {
 	tela->adicionarReta();
 }
 
-void adicionarPoligono(GtkWidget *button, gpointer user_data){
+void adicionarPoligono(GtkWidget *button, gpointer user_data) {
 	tela->adicionarPoligono();
 }
 
-void abrirAdicionaFigura(GtkWidget *button, gpointer user_data){
+void abrirAdicionaFigura(GtkWidget *button, gpointer user_data) {
 	tela->abrirTelaAdicionar();
 }
 
-void escalonar(GtkWidget *button, gpointer user_data){
+void escalonar(GtkWidget *button, gpointer user_data) {
 	tela->escalonaFigura();
 }
 
-void transladar(GtkWidget *button, gpointer user_data){
+void transladar(GtkWidget *button, gpointer user_data) {
 	tela->transladaFigura();
 }
 
-void rotacionar(GtkWidget *button, gpointer user_data){
+void rotacionar(GtkWidget *button, gpointer user_data) {
 	tela->rotacionaFigura();
 }
 
-void abrirArquivoMundo(GtkWidget *button, gpointer user_data){
+void abrirArquivoMundo(GtkWidget *button, gpointer user_data) {
 	tela->abreMundo();
 }
 
-void salvarArquivoMundo(GtkWidget *button, gpointer user_data){
+void salvarArquivoMundo(GtkWidget *button, gpointer user_data) {
 	tela->salvaMundo();
 }
 
-void giraHora(GtkWidget *button, gpointer user_data){
+void giraHora(GtkWidget *button, gpointer user_data) {
 	tela->giraTelaHora();
 }
 
-void giraAntiHora(GtkWidget *button, gpointer user_data){
+void giraAntiHora(GtkWidget *button, gpointer user_data) {
 	tela->giraTelaAntiHora();
+}
+
+void resizeDraw(GtkWidget *widget, GdkRectangle *allocation,
+		gpointer user_data) {
+	tela->tamanhoDrawMudou(allocation);
+//	i++;
+//	cout<<i<<endl;
 }
 }
 

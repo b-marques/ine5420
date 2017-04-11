@@ -160,3 +160,9 @@ void Mundo::giraTela(double angulo) {
 		f->rotacionaTela(centroDesenho, angulo);
 	}
 }
+
+void Mundo::mudaTamanhoDesenho(int largura, int altura) {
+	this->larguraArea = largura;
+	this->alturaArea = altura;
+	centroDesenho = Coordenada (larguraArea/2, alturaArea/2, 0);
+}

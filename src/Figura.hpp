@@ -29,6 +29,7 @@ public:
 	Figura(string nome, ListaEnc<Coordenada>& coord);
 	ListaEnc<Coordenada>& getCoord();
 	ListaEnc<Coordenada>& getCoordTela();
+	virtual ListaEnc<Coordenada>& getCoordTelaClip() = 0;
 	string getNome();
 	Coordenada calculaCentro(ListaEnc<Coordenada>& coords);
 	void translada(Coordenada desloc, Coordenada zoomAcumumlado,

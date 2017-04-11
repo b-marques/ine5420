@@ -26,16 +26,9 @@ Tela::Tela() {
 
 	g_signal_connect_swapped(G_OBJECT(window_widget), "destroy",
 			G_CALLBACK(gtk_main_quit), NULL);
-
 	gtk_builder_connect_signals(gtkBuilder, NULL);
 
 	gtk_widget_show_all(window_widget);
-
-	int new_width, new_height;
-	gtk_window_get_size(GTK_WINDOW(window_widget), &new_width, &new_height);
-	new_width++;
-	new_height++;
-	gtk_window_resize (GTK_WINDOW(window_widget), new_width, new_height);
 }
 
 void Tela::desenhaPonto(ListaEnc<Coordenada>& coordLista) {
@@ -171,11 +164,11 @@ void Tela::escreveTerminal(string texto) {
 
 Coordenada Tela::corrigeCoord(Coordenada coord) {
 	/*Coordenada centroDesenho = mundo->getCentroDesenho();
-	Coordenada zoom = mundo->getZoom();
-	Coordenada variacao;
-	variacao = (coord - centroDesenho) * zoom - (coord - centroDesenho);
-	coord = coord + variacao;
-	coord = coord + mundo->getDeslocamento();*/
+	 Coordenada zoom = mundo->getZoom();
+	 Coordenada variacao;
+	 variacao = (coord - centroDesenho) * zoom - (coord - centroDesenho);
+	 coord = coord + variacao;
+	 coord = coord + mundo->getDeslocamento();*/
 	transViewPort(coord);
 	return coord;
 }
@@ -210,6 +203,8 @@ void Tela::move(GdkEvent* event) {
 void Tela::redesenhaTudo() {
 	ListaEnc<Figura*>* figLista = mundo->getFiguras();
 	limpaDesenho();
+	if (tipoClipping() != 0)
+		desenhaViewPort();
 	for (int i = 0; i < figLista->tamanho(); i++) {
 		redesenhaFigura(figLista->retornaDado(i));
 	}
@@ -259,7 +254,7 @@ void Tela::adicionarPonto() {
 
 	string nomeFigura = getNomeFigAdd();
 	ListaEnc<Coordenada> cords;
-	
+
 	limpaListaCoord();
 	double x = getSpinButtonValue("coord_x_point");
 	double y = getSpinButtonValue("coord_y_point");
@@ -295,7 +290,6 @@ void Tela::adicionarPoligono() {
 		adicionaFigura(nomeFigura, POLIGONO);
 	}
 }
-
 
 string Tela::getNomeFigAdd() {
 	GtkEntry* caixaTxt = GTK_ENTRY(
@@ -351,7 +345,6 @@ void Tela::escalonaFigura() {
 	}
 }
 
-
 void Tela::transladaFigura() {
 	int posFigura = posicaoFigSelecionada();
 	if (posFigura > -1) {
@@ -381,6 +374,27 @@ int Tela::tipoRotacao() {
 		return 1;
 	} else if (gtk_toggle_button_get_active(
 			GTK_TOGGLE_BUTTON(rotacaoPontoEspecifico))) {
+		return 2;
+	}
+	return -1;
+}
+
+int Tela::tipoClipping() {
+	GtkRadioButton *clipOff =
+			GTK_RADIO_BUTTON(
+					gtk_builder_get_object (GTK_BUILDER(gtkBuilder), "clipOff"));
+	GtkRadioButton *clipSh =
+			GTK_RADIO_BUTTON(
+					gtk_builder_get_object (GTK_BUILDER(gtkBuilder), "clipSh"));
+	GtkRadioButton *clipWa =
+			GTK_RADIO_BUTTON(
+					gtk_builder_get_object (GTK_BUILDER(gtkBuilder), "clipWa"));
+
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(clipOff))) {
+		return 0;
+	} else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(clipSh))) {
+		return 1;
+	} else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(clipWa))) {
 		return 2;
 	}
 	return -1;
@@ -457,8 +471,24 @@ void Tela::giraTelaHora() {
 	redesenhaTudo();
 }
 
+void Tela::desenhaViewPort() {
+	ListaEnc<Coordenada> coordsView;
+	double height = gtk_widget_get_allocated_height(GTK_WIDGET(drawArea));
+	double width = gtk_widget_get_allocated_width(GTK_WIDGET(drawArea));
+	coordsView.adiciona(Coordenada(10, 10));
+	coordsView.adiciona(Coordenada(width - 10, 10));
+	coordsView.adiciona(Coordenada(width - 10, height - 10));
+	coordsView.adiciona(Coordenada(10, height - 10));
+	desenhaFiguraMultiplasCoordenadas(coordsView);
+}
+
 void Tela::giraTelaAntiHora() {
 	double angulo = getSpinButtonValue("angulo");
 	mundo->giraTela(angulo);
+	redesenhaTudo();
+}
+
+void Tela::tamanhoDrawMudou(GdkRectangle* novoTam) {
+	mundo->mudaTamanhoDesenho(novoTam->width, novoTam->height);
 	redesenhaTudo();
 }

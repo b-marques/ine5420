@@ -13,6 +13,7 @@
 class Poligono : public Figura{
 public:
 	Poligono(string nome, ListaEnc<Coordenada>& coord);
+	ListaEnc<Coordenada>& getCoordTelaClip();
 	virtual ~Poligono();
 };
 

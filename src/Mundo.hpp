@@ -38,6 +38,7 @@ public:
 	void daZoomFiguras();
 	void deslocaFiguras();
 	void giraTela(double angulo);
+	void mudaTamanhoDesenho(int largura, int altura);
 	virtual ~Mundo();
 };
 

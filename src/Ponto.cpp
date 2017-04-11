@@ -15,3 +15,6 @@ Ponto::~Ponto() {
 	// TODO Auto-generated destructor stub
 }
 
+ListaEnc<Coordenada>& Ponto::getCoordTelaClip() {
+	return coordenadasTela;
+}
