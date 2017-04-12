@@ -64,11 +64,13 @@ ListaEnc<ListaEnc<Coordenada>*>* Reta::clipCs(double xEsq, double xDir,
 
 ListaEnc<ListaEnc<Coordenada> *>* Reta::getCoordTelaClip(double xEsq,
 		double xDir, double yCima, double yBaixo, int tipoClip) {
-	if(tipoClip == 1)
+	if (tipoClip == 1)
 		return clipCs(xEsq, xDir, yCima, yBaixo);
-	else
+	else if (tipoClip == 2) {
+		return clipLb(xEsq, xDir, yCima, yBaixo);
+	} else {
 		return nullptr;
-
+	}
 }
 
 int Reta::getCode(Coordenada& coord, double xEsq, double xDir, double yCima,
@@ -79,7 +81,7 @@ int Reta::getCode(Coordenada& coord, double xEsq, double xDir, double yCima,
 
 ListaEnc<ListaEnc<Coordenada> *>* Reta::clipLb(double xEsq, double xDir,
 		double yCima, double yBaixo) {
-	
+
 	ListaEnc<Coordenada>* coordenadasClipadas = new ListaEnc<Coordenada>();
 	ListaEnc<ListaEnc<Coordenada>*>* lista = new ListaEnc<ListaEnc<Coordenada>*>();
 
