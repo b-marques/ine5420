@@ -79,7 +79,49 @@ int Reta::getCode(Coordenada& coord, double xEsq, double xDir, double yCima,
 
 ListaEnc<ListaEnc<Coordenada> *>* Reta::clipLb(double xEsq, double xDir,
 		double yCima, double yBaixo) {
-	return nullptr;
+	
+	ListaEnc<Coordenada>* coordenadasClipadas = new ListaEnc<Coordenada>();
+	ListaEnc<ListaEnc<Coordenada>*>* lista = new ListaEnc<ListaEnc<Coordenada>*>();
+
+	Coordenada ponto1 = coordenadasTela.retornaDado(0);
+	Coordenada ponto2 = coordenadasTela.retornaDado(1);
+	
+	double t0 = 0.0;    double t1 = 1.0;
+    double xdelta = ponto1.getX() - ponto2.getX();
+    double ydelta = ponto1.getY() - ponto2.getY();
+
+    double p[4],q[4],r[4];
+
+	p[0] = -xdelta;    q[0] = -(xEsq-ponto1.getX());
+    p[1] = xdelta;     q[1] =  (xDir-ponto1.getX());
+    p[2] = -ydelta;    q[2] = -(yBaixo-ponto1.getY());
+    p[3] = ydelta;     q[3] =  (yCima-ponto1.getY());
+
+
+    for(int i=0; i<4; i++) {
+        
+        if(p[i]==0 && q<0) return nullptr;   // Paralela a window pelo lado de fora
+
+        if(p[i]<0) {
+        	r[i] = q[i]/p[i];
+            if(r[i]>t1) return nullptr;
+            else if(r[i]>t0) t0=r[i];
+        } else if(p[i]>0) {
+        	r[i] = q[i]/p[i];
+            if(r[i]<t0) return nullptr;
+            else if(r[i]<t1) t1=r[i];
+        }
+    }
+
+    double newx1 = ponto1.getX() + t0*xdelta;
+    double newy1 = ponto1.getY() + t0*ydelta;
+    double newx2 = ponto1.getX() + t1*xdelta;
+    double newy2 = ponto1.getY() + t1*ydelta;
+
+    coordenadasClipadas->adiciona(Coordenada(newx1,newy1));
+    coordenadasClipadas->adiciona(Coordenada(newx2, newy2));
+    lista->adiciona(coordenadasClipadas);
+  	return lista;
 }
 
 Reta::~Reta() {
