@@ -17,6 +17,7 @@ Reta::Reta(string nomeReta, ListaEnc<Coordenada>& coordReta) :
 ListaEnc<ListaEnc<Coordenada>*>* Reta::clipCs(double xEsq, double xDir,
 		double yCima, double yBaixo) {
 	int RC1, RC2;
+	double m, x, y, deltaX;
 	ListaEnc<ListaEnc<Coordenada>*>* lista;
 	ListaEnc<Coordenada> *listaCoords;
 	Coordenada p1 = coordenadasTela.retornaDado(0);
@@ -29,14 +30,14 @@ ListaEnc<ListaEnc<Coordenada>*>* Reta::clipCs(double xEsq, double xDir,
 		} else if (RC1 & RC2) {
 			return nullptr;
 		} else if (RC1 != RC2){
-			double m, x, y;
 			int fora = RC1 ? RC1 : RC2;
-			m = (p1.getY() - p2.getY()) / (p1.getY() - p2.getY());
+			deltaX = (p1.getX() - p2.getX());
+			m = (p1.getY() - p2.getY()) / deltaX;
 			if (fora & TOPO) {
-				x = p1.getX() + (yCima - p1.getY()) / m;
+				x = deltaX ? p1.getX() + (yCima - p1.getY())/m : p1.getX();
 				y = yCima;
 			} else if (fora & FUNDO) {
-				x = p1.getX() + (yBaixo - p1.getY()) / m;
+				x = deltaX ? p1.getX() + (yBaixo - p1.getY())/m : p1.getX();
 				y = yBaixo;
 			} else if (fora & ESQ) {
 				x = xEsq;
