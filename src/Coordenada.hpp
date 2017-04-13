@@ -14,6 +14,7 @@ class Coordenada {
 private:
 	double x, y, z, w;
 public:
+	bool artificial;
 	Coordenada();
 	Coordenada(double x, double y);
 	Coordenada(double x, double y, double z);
@@ -28,13 +29,15 @@ public:
 	bool yMaiorQue(const Coordenada& c2);
 	bool xMenorQue(const Coordenada& c2);
 	bool yMenorQue(const Coordenada& c2);
+	bool xIguais(const Coordenada& c2);
+	bool yIguais(const Coordenada& c2);
 	string toString();
 	Coordenada operator+(const Coordenada& c2);
 	Coordenada operator-(const Coordenada& c2);
 	Coordenada operator*(const Coordenada& c2);
 	Coordenada operator/(const Coordenada& c2);
 	Coordenada operator/(const double divisor);
-	bool operator==(const Coordenada& c2);
+	bool operator==(const Coordenada& c2) const;
 };
 
 #endif /* COORDENADA_HPP_ */

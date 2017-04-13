@@ -12,6 +12,7 @@ Coordenada::Coordenada() {
 	y = 0;
 	z = 0;
 	w = 0;
+	artificial = false;
 }
 
 Coordenada::Coordenada(double x, double y) {
@@ -19,6 +20,7 @@ Coordenada::Coordenada(double x, double y) {
 	this->y = y;
 	this->z = 0;
 	this->w = 0;
+	artificial = false;
 }
 
 Coordenada::Coordenada(double x, double y, double z) {
@@ -26,6 +28,7 @@ Coordenada::Coordenada(double x, double y, double z) {
 	this->y = y;
 	this->z = z;
 	this->w = 0;
+	artificial = false;
 }
 
 double Coordenada::getX() const {
@@ -120,6 +123,14 @@ Coordenada Coordenada::operator /(const double divisor) {
 	return Coordenada(x / divisor, y / divisor, z / divisor);
 }
 
-bool Coordenada::operator ==(const Coordenada& c2) {
-	return this->x == c2.x && this->y == c2.y && this->z == c2.z;
+bool Coordenada::xIguais(const Coordenada& c2) {
+	return x == c2.getX();
+}
+
+bool Coordenada::yIguais(const Coordenada& c2) {
+	return y == c2.getY();
+}
+
+bool Coordenada::operator ==(const Coordenada& c2) const{
+	return this->x == c2.getX() && this->y == c2.getY() && this->z == c2.getZ();
 }

@@ -6,10 +6,12 @@
  *  \since 31/03/15
  *  \version 1.0
  */
+#ifndef LISTAENC_HPP_
+#define LISTAENC_HPP_
 #include "Elemento.hpp"
 template<typename T>
 class ListaEnc {
-private:
+protected:
 	Elemento<T>* head; /*!< Ponteiro para primeiro elemento da lista.*/
 	int size; /*!< Inteiro para definir quantos elmentos estao na lista.*/
 
@@ -411,3 +413,4 @@ template<typename T> void ListaEnc<T>::operator =(ListaEnc<T>& l2) {
 		}
 	}
 }
+#endif /* LISTAENC_HPP_ */
