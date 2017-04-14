@@ -34,22 +34,28 @@ Tela::Tela() {
 }
 
 void Tela::adicionaFigura(string nome, TipoFigura tipo) {
+	Figura* f;
+	int tipoClip;
+	int xDirVP = gtk_widget_get_allocated_width(drawArea) - VPOffset;
+	int yCimaVP = gtk_widget_get_allocated_height(drawArea) - VPOffset;
 	switch (tipo) {
 	case PONTO:
-		mundo->adicionaPonto(nome, coordTemp);
-		desenhador->desenhaPonto(coordTemp);
+		f = mundo->adicionaPonto(nome, coordTemp);
 		break;
 	case RETA:
-		mundo->adicionaReta(nome, coordTemp);
-		desenhador->desenhaPoligonoReta(coordTemp);
+		f = mundo->adicionaReta(nome, coordTemp);
 		break;
 	case POLIGONO:
-		mundo->adicionaPoligono(nome, coordTemp);
-		desenhador->desenhaPoligonoReta(coordTemp);
+		f = mundo->adicionaPoligono(nome, coordTemp);
 		break;
 	default:
 		break;
 	}
+	tipoClip = tipoClipping();
+	if(!tipoClip)
+		redesenhaFigura(f);
+	else
+		redesenhaFiguraClip(f, tipoClip, xDirVP, yCimaVP);
 	escreveTerminal("Figura adicionada: " + nome + coordenadasTxt(coordTemp));
 	escreveListaObjetos(nome);
 	limpaListaCoord();

@@ -25,9 +25,9 @@ public:
 	Coordenada getCentroDesenho();
 	Coordenada getCentroMundo();
 	void adicionaFigura(Figura *f);
-	void adicionaPonto(string nome, ListaEnc<Coordenada>& coord);
-	void adicionaReta(string nome, ListaEnc<Coordenada>& coord);
-	void adicionaPoligono(string nome, ListaEnc<Coordenada>& coord);
+	Figura* adicionaPonto(string nome, ListaEnc<Coordenada>& coord);
+	Figura* adicionaReta(string nome, ListaEnc<Coordenada>& coord);
+	Figura* adicionaPoligono(string nome, ListaEnc<Coordenada>& coord);
 	void transladaFigura(int posicaoLista, Coordenada desloc);
 	void escalonaFigura(int posicaoLista, Coordenada escala);
 	void rotacionaFiguraCentroMundo(int posicaoLista, double anguloGraus);

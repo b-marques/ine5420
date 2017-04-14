@@ -71,19 +71,22 @@ void Mundo::adicionaFigura(Figura* f) {
 	figuras->adiciona(f);
 }
 
-void Mundo::adicionaPonto(string nome, ListaEnc<Coordenada>& coord) {
+Figura* Mundo::adicionaPonto(string nome, ListaEnc<Coordenada>& coord) {
 	Ponto* p = new Ponto(nome, coord);
 	figuras->adiciona(p);
+	return p;
 }
 
-void Mundo::adicionaReta(string nome, ListaEnc<Coordenada>& coord) {
+Figura* Mundo::adicionaReta(string nome, ListaEnc<Coordenada>& coord) {
 	Reta* r = new Reta(nome, coord);
 	figuras->adiciona(r);
+	return r;
 }
 
-void Mundo::adicionaPoligono(string nome, ListaEnc<Coordenada>& coord) {
+Figura* Mundo::adicionaPoligono(string nome, ListaEnc<Coordenada>& coord) {
 	Poligono* p = new Poligono(nome, coord);
 	figuras->adiciona(p);
+	return p;
 }
 
 void Mundo::maisZoom(double passo) {
