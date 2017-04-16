@@ -21,8 +21,7 @@ public:
 	gboolean redraw(cairo_t* cr);
 	void desenhaPonto(ListaEnc<Coordenada>& coordLista);
 	void desenhaViewPort();
-	void desenhaPoligonoReta(ListaEnc<Coordenada>& coordLista);
-	void desenhaCurva(ListaEnc<Coordenada>& coordLista);
+	void desenhaPoligonoRetaCurva(ListaEnc<Coordenada>& coordLista, bool poligono);
 	void limpaDesenho();
 	Coordenada transViewPort(Coordenada coord);
 	virtual ~Desenhador();

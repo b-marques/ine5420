@@ -16,7 +16,6 @@
 
 #include "DescritorObj.hpp"
 #include "Mundo.hpp"
-#include "tipofiguraenum.hpp"
 #include "Desenhador.hpp"
 
 class Tela {

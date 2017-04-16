@@ -124,5 +124,5 @@ Figura::~Figura() {
 }
 
 TipoFigura Figura::getTipo() {
-	return this->getTipo();
+	return this->tipo;
 }

@@ -21,7 +21,7 @@ void Bezier::geraCurva(ListaEnc<Coordenada>& controle) {
 		p2 = controle.retornaDado(c + 1);
 		p3 = controle.retornaDado(c + 2);
 		p4 = controle.retornaDado(c + 3);
-		for (double i = 0; i < nPassos; i++) {
+		for (double i = 0; i < nPassos + 1; i++) {
 			t = i / nPassos;
 			t2 = pow(t, 2);
 			t3 = pow(t, 3);
@@ -46,21 +46,30 @@ void Bezier::geraCurva(ListaEnc<Coordenada>& controle) {
 ListaEnc<ListaEnc<Coordenada> *>* Bezier::getCoordTelaClip(double xEsq,
 		double xDir, double yCima, double yBaixo, int tipoClip) {
 	int RC1, RC2;
+	bool p2mudou;
 	double m, x, y, deltaX;
+	Coordenada p1, p2;
 	ListaEnc<ListaEnc<Coordenada>*>* lista;
 	ListaEnc<Coordenada> *listaCoords;
 	listaCoords = new ListaEnc<Coordenada>();
-	for (int i = 0; i < coordenadasTela.tamanho() - 1; ++i) {
-		Coordenada p1 = coordenadasTela.retornaDado(i);
-		Coordenada p2 = coordenadasTela.retornaDado(i + 1);
+	lista = new ListaEnc<ListaEnc<Coordenada>*>();
+	for (int i = 0; i < coordenadasTela.tamanho() - 1; i++) {
+		p1 = coordenadasTela.retornaDado(i);
+		p2 = coordenadasTela.retornaDado(i + 1);
+		p2mudou = false;
 		while (1) {
 			RC1 = getCode(p1, xEsq, xDir, yCima, yBaixo);
 			RC2 = getCode(p2, xEsq, xDir, yCima, yBaixo);
 			if (!(RC1 | RC2)) {
 				listaCoords->adiciona(p1);
-				listaCoords->adiciona(p2);
+				if(p2mudou)
+					listaCoords->adiciona(p2);
 				break;
 			} else if (RC1 & RC2) {
+				if(listaCoords->tamanho()>0){
+					lista->adiciona(listaCoords);
+					listaCoords = new ListaEnc<Coordenada>();
+				}
 				break;
 			} else if (RC1 != RC2) {
 				int fora = RC1 ? RC1 : RC2;
@@ -83,18 +92,23 @@ ListaEnc<ListaEnc<Coordenada> *>* Bezier::getCoordTelaClip(double xEsq,
 				}
 				if (fora == RC1)
 					p1 = Coordenada(x, y, 0);
-				else
+				else{
 					p2 = Coordenada(x, y, 0);
+					p2mudou = true;
+				}
 			}
 		}
-
 	}
+	if(!RC2 && !p2mudou)
+		listaCoords->adiciona(p2);
 	if(listaCoords->tamanho() > 0){
-		lista = new ListaEnc<ListaEnc<Coordenada>*>();
 		lista->adiciona(listaCoords);
 	} else {
 		delete listaCoords;
-		lista = nullptr;
+		if(lista->tamanho() == 0){
+			delete lista;
+			lista = nullptr;
+		}
 	}
 	return lista;
 }

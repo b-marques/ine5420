@@ -106,7 +106,7 @@ Figura* DescritorObj::leObjeto(ifstream& arquivo, string& linhaInicial,
 		} else if (!linha.compare(0, 1, "p")) {
 			listaCoords = listaCoordsFigura(linha, coords);
 			f = new Ponto(nome, *listaCoords);
-		} else if (!linha.compare(0, 1, "curv")) {
+		} else if (!linha.compare(0, 4, "curv")) {
 			listaCoords = listaCoordsFigura(linha, coords);
 			f = new Bezier(nome, *listaCoords);
 		}
@@ -143,7 +143,7 @@ ListaEnc<Coordenada>* DescritorObj::listaCoordsFigura(string linha,
 	int posEspaco;
 	string nLinha;
 	ListaEnc<Coordenada> *listaCoord = new ListaEnc<Coordenada>();
-	linha.erase(0, 1);
+	linha.erase(0, linha.find(" "));
 	linha.insert(linha.size(), " ");
 	while (linha.size() > 1) {
 		posEspaco = linha.find(" ");

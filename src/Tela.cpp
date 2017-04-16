@@ -196,8 +196,10 @@ void Tela::redesenhaFiguraClip(Figura* f, int tipoClip, int xDirVP,
 	if (coords != nullptr) {
 		for (int i = 0; i < coords->tamanho(); i++) {
 			coordsFig = coords->retornaDado(i);
-			if (coordsFig->tamanho() > 1)
-				desenhador->desenhaPoligonoReta(*coordsFig);
+			if (f->getTipo() == BEZIER || f->getTipo() == RETA)
+				desenhador->desenhaPoligonoRetaCurva(*coordsFig, false);
+			else if(f->getTipo() == POLIGONO)
+				desenhador->desenhaPoligonoRetaCurva(*coordsFig, true);
 			else
 				desenhador->desenhaPonto(*coordsFig);
 		}
@@ -208,8 +210,10 @@ void Tela::redesenhaFiguraClip(Figura* f, int tipoClip, int xDirVP,
 void Tela::redesenhaFigura(Figura* f) {
 	ListaEnc<Coordenada> coordsFig;
 	coordsFig = f->getCoordTela();
-	if (coordsFig.tamanho() > 1)
-		desenhador->desenhaPoligonoReta(coordsFig);
+	if (f->getTipo() == BEZIER || f->getTipo() == RETA)
+		desenhador->desenhaPoligonoRetaCurva(coordsFig, false);
+	else if(f->getTipo() == POLIGONO)
+		desenhador->desenhaPoligonoRetaCurva(coordsFig, true);
 	else
 		desenhador->desenhaPonto(coordsFig);
 }

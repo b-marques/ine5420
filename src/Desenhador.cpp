@@ -48,10 +48,10 @@ void Desenhador::desenhaViewPort() {
 	coordsView.adiciona(Coordenada(width - VPOffset, VPOffset));
 	coordsView.adiciona(Coordenada(width - VPOffset, height - VPOffset));
 	coordsView.adiciona(Coordenada(VPOffset, height - VPOffset));
-	desenhaPoligonoReta(coordsView);
+	desenhaPoligonoRetaCurva(coordsView, true);
 }
 
-void Desenhador::desenhaPoligonoReta(ListaEnc<Coordenada>& coordLista) {
+void Desenhador::desenhaPoligonoRetaCurva(ListaEnc<Coordenada>& coordLista, bool poligono) {
 	cairo_t* cr = cairo_create(surface);
 	Coordenada coord1, coord2;
 	coord1 = transViewPort(coordLista.retornaDado(0));
@@ -63,7 +63,7 @@ void Desenhador::desenhaPoligonoReta(ListaEnc<Coordenada>& coordLista) {
 		cairo_line_to(cr, coord2.getX(), coord2.getY());
 		cairo_move_to(cr, coord2.getX(), coord2.getY());
 	}
-	if (coordLista.tamanho() > 2)
+	if (poligono)
 		cairo_line_to(cr, coord1.getX(), coord1.getY());
 	cairo_stroke(cr);
 	gtk_widget_queue_draw(drawArea);
