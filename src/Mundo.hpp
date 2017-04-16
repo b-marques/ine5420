@@ -28,6 +28,7 @@ public:
 	Figura* adicionaPonto(string nome, ListaEnc<Coordenada>& coord);
 	Figura* adicionaReta(string nome, ListaEnc<Coordenada>& coord);
 	Figura* adicionaPoligono(string nome, ListaEnc<Coordenada>& coord);
+	Figura* adicionaBezier(string nome, ListaEnc<Coordenada>& controle);
 	void transladaFigura(int posicaoLista, Coordenada desloc);
 	void escalonaFigura(int posicaoLista, Coordenada escala);
 	void rotacionaFiguraCentroMundo(int posicaoLista, double anguloGraus);

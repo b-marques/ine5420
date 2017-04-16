@@ -22,6 +22,7 @@ public:
 	void desenhaPonto(ListaEnc<Coordenada>& coordLista);
 	void desenhaViewPort();
 	void desenhaPoligonoReta(ListaEnc<Coordenada>& coordLista);
+	void desenhaCurva(ListaEnc<Coordenada>& coordLista);
 	void limpaDesenho();
 	Coordenada transViewPort(Coordenada coord);
 	virtual ~Desenhador();

@@ -6,12 +6,9 @@
  */
 
 #include "Reta.hpp"
-#define TOPO 8
-#define FUNDO 4
-#define DIR 2
-#define ESQ 1
+#include "defineCohenSutherland.hpp"
 Reta::Reta(string nomeReta, ListaEnc<Coordenada>& coordReta) :
-		Figura(nomeReta, coordReta) {
+		Figura(nomeReta, coordReta, RETA) {
 }
 
 ListaEnc<ListaEnc<Coordenada>*>* Reta::clipCs(double xEsq, double xDir,

@@ -8,10 +8,16 @@
 #include "Figura.hpp"
 
 #include <math.h>
-Figura::Figura(string nome, ListaEnc<Coordenada>& coord) {
+Figura::Figura(string nome, TipoFigura tipo) {
+	this->nome = nome;
+	this->tipo = tipo;
+}
+
+Figura::Figura(string nome, ListaEnc<Coordenada>& coord, TipoFigura tipo) {
 	this->nome = nome;
 	this->coordenadas = coord;
 	this->coordenadasTela = coord;
+	this->tipo = tipo;
 	centro = calculaCentro(coordenadas);
 	centroRelTela = centro;
 }
@@ -117,3 +123,6 @@ Figura::~Figura() {
 	// TODO Auto-generated destructor stub
 }
 
+TipoFigura Figura::getTipo() {
+	return this->getTipo();
+}

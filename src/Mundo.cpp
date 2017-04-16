@@ -12,7 +12,7 @@
 #include "Poligono.hpp"
 #include "Ponto.hpp"
 #include "Reta.hpp"
-
+#include "Bezier.hpp"
 Mundo::Mundo(double larguraArea, double alturaArea) {
 	this->larguraArea = larguraArea;
 	this->alturaArea = alturaArea;
@@ -87,6 +87,11 @@ Figura* Mundo::adicionaPoligono(string nome, ListaEnc<Coordenada>& coord) {
 	Poligono* p = new Poligono(nome, coord);
 	figuras->adiciona(p);
 	return p;
+}
+Figura* Mundo::adicionaBezier(string nome, ListaEnc<Coordenada>& controle) {
+	Bezier* b = new Bezier(nome, controle);
+	figuras->adiciona(b);
+	return b;
 }
 
 void Mundo::maisZoom(double passo) {

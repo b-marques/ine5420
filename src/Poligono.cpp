@@ -6,14 +6,9 @@
  */
 
 #include "Poligono.hpp"
-
-#define TOPO 8
-#define FUNDO 4
-#define DIR 2
-#define ESQ 1
-
+#include "defineCohenSutherland.hpp"
 Poligono::Poligono(string nome, ListaEnc<Coordenada>& coord) :
-		Figura(nome, coord) {
+		Figura(nome, coord, POLIGONO) {
 }
 
 Poligono::~Poligono() {

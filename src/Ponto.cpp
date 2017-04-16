@@ -8,7 +8,7 @@
 #include "Ponto.hpp"
 
 Ponto::Ponto(string nome, ListaEnc<Coordenada>& coord) :
-		Figura(nome, coord) {
+		Figura(nome, coord, PONTO) {
 }
 
 Ponto::~Ponto() {

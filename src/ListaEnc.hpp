@@ -182,6 +182,7 @@ public:
 	int tamanho() const;
 	T retornaDado(int pos) const;
 	void operator=(ListaEnc<T>& l2);
+	T operator[](const int& pos);
 };
 
 template<typename T> ListaEnc<T>::ListaEnc() {
@@ -413,4 +414,9 @@ template<typename T> void ListaEnc<T>::operator =(ListaEnc<T>& l2) {
 		}
 	}
 }
+
+template<typename T>T ListaEnc<T>::operator [](const int& pos) {
+	return retornaDado(pos);
+}
+
 #endif /* LISTAENC_HPP_ */

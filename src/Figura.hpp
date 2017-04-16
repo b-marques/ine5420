@@ -12,8 +12,10 @@
 #include "Coordenada.hpp"
 #include "ListaEnc.hpp"
 #include "Matriz.hpp"
-
 using namespace std;
+
+
+enum TipoFigura {PONTO, RETA, POLIGONO, BEZIER};
 
 class Figura {
 protected:
@@ -21,12 +23,14 @@ protected:
 	ListaEnc<Coordenada> coordenadasTela;
 	Coordenada centro, centroRelTela;
 	string nome;
+	TipoFigura tipo;
 	void transform(Coordenada eixo, double grau, Coordenada escalonamento,
 			Coordenada deslocamento);
 	void transformTela(Coordenada eixo, double grau, Coordenada escalonamento,
 			Coordenada deslocamento);
 public:
-	Figura(string nome, ListaEnc<Coordenada>& coord);
+	Figura(string nome, TipoFigura tipo);
+	Figura(string nome, ListaEnc<Coordenada>& coord, TipoFigura tipo);
 	ListaEnc<Coordenada>& getCoord();
 	ListaEnc<Coordenada>& getCoordTela();
 	virtual ListaEnc<ListaEnc<Coordenada>*>* getCoordTelaClip(double xEsq,
@@ -45,6 +49,7 @@ public:
 	void daZoom(Coordenada zoom, Coordenada centroDesenho);
 	void deslocaNaTela(Coordenada desloc);
 	void rotacionaTela(Coordenada centroDesenho, double angulo);
+	TipoFigura getTipo();
 	Coordenada getCentro();
 	virtual ~Figura();
 };

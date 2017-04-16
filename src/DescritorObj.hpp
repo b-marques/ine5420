@@ -10,6 +10,7 @@
 #include <string>
 
 #include "Mundo.hpp"
+#include <map>
 using namespace std;
 
 class DescritorObj {
@@ -17,7 +18,9 @@ private:
 	Mundo* mundo;
 
 	Coordenada leCoord(string& linha);
-	Figura* leObjeto(ifstream& arquivo, string& linhaInicial);
+	Figura* leObjeto(ifstream& arquivo, string& linhaInicial, map<int, Coordenada> *coords);
+	map<int, Coordenada>* leTodasCoords(ifstream& arquivo);
+	ListaEnc<Coordenada>* listaCoordsFigura(string linha, map<int, Coordenada> *coords);
 public:
 	DescritorObj();
 	DescritorObj(Mundo* mundo);
