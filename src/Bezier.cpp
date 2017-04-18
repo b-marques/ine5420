@@ -10,6 +10,7 @@
 #define nPassos 800
 Bezier::Bezier(string nome, ListaEnc<Coordenada>& controle) :
 		Figura(nome, BEZIER) {
+	this->controle = controle;
 	geraCurva(controle);
 }
 
@@ -21,7 +22,7 @@ void Bezier::geraCurva(ListaEnc<Coordenada>& controle) {
 		p2 = controle.retornaDado(c + 1);
 		p3 = controle.retornaDado(c + 2);
 		p4 = controle.retornaDado(c + 3);
-		for (double i = 0; i < nPassos + 1; i++) {
+		for (double i = 0; i <= nPassos; i++) {
 			t = i / nPassos;
 			t2 = pow(t, 2);
 			t3 = pow(t, 3);
@@ -45,7 +46,7 @@ void Bezier::geraCurva(ListaEnc<Coordenada>& controle) {
 
 ListaEnc<ListaEnc<Coordenada> *>* Bezier::getCoordTelaClip(double xEsq,
 		double xDir, double yCima, double yBaixo, int tipoClip) {
-	int RC1, RC2;
+	int RC1, RC2, nVezes;
 	bool p2mudou;
 	double m, x, y, deltaX;
 	Coordenada p1, p2;
@@ -53,7 +54,8 @@ ListaEnc<ListaEnc<Coordenada> *>* Bezier::getCoordTelaClip(double xEsq,
 	ListaEnc<Coordenada> *listaCoords;
 	listaCoords = new ListaEnc<Coordenada>();
 	lista = new ListaEnc<ListaEnc<Coordenada>*>();
-	for (int i = 0; i < coordenadasTela.tamanho() - 1; i++) {
+	nVezes = coordenadasTela.tamanho() - 1;
+	for (int i = 0; i < nVezes; i++) {
 		p1 = coordenadasTela.retornaDado(i);
 		p2 = coordenadasTela.retornaDado(i + 1);
 		p2mudou = false;
@@ -117,6 +119,10 @@ int Bezier::getCode(Coordenada& coord, double xEsq, double xDir, double yCima,
 		double yBaixo) {
 	return (coord.getX() < xEsq) | (coord.getX() > xDir) << 1
 			| (coord.getY() < yBaixo) << 2 | (coord.getY() > yCima) << 3;
+}
+
+ListaEnc<Coordenada>& Bezier::getControle() {
+	return controle;
 }
 
 Bezier::~Bezier() {

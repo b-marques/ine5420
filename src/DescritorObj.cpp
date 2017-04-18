@@ -48,16 +48,19 @@ void DescritorObj::escreveFigura(string& texto, Figura* figura, int& linha) {
 	Coordenada coord;
 
 	if (figura->getTipo() == RETA || figura->getTipo() == POLIGONO)
-		linhasVert = "l ";
+		linhasVert = "l";
 	else if (figura->getTipo() == PONTO)
-		linhasVert = "p ";
-	else
+		linhasVert = "p";
+	else if(figura->getTipo() == BEZIER){
 		linhasVert = "curv";
+		Bezier *b = (Bezier*) figura;
+		coords = &b->getControle();
+	}
 	for (int i = 0; i < coords->tamanho(); ++i) {
 		coord = coords->retornaDado(i);
 		texto += "v " + to_string(coord.getX()) + " " + to_string(coord.getY())
 				+ " " + to_string(coord.getZ()) + "\n";
-		linhasVert += to_string(linha);
+		linhasVert += " " + to_string(linha);
 		linha++;
 	}
 	texto += linhasVert + "\n";
