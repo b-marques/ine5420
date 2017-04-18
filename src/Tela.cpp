@@ -48,6 +48,9 @@ void Tela::adicionaFigura(string nome, TipoFigura tipo) {
 	case POLIGONO:
 		f = mundo->adicionaPoligono(nome, coordTemp);
 		break;
+	case BEZIER:
+		f = mundo->adicionaBezier(nome, coordTemp);
+		break;
 	default:
 		break;
 	}
@@ -129,17 +132,6 @@ void Tela::escreveTerminal(string texto) {
 	texto = texto + "\n";
 	GtkTextBuffer *textoBuf = gtk_text_view_get_buffer(terminal);
 	gtk_text_buffer_insert_at_cursor(textoBuf, texto.c_str(), texto.length());
-}
-
-Coordenada Tela::corrigeCoord(Coordenada coord) {
-	/*Coordenada centroDesenho = mundo->getCentroDesenho();
-	 Coordenada zoom = mundo->getZoom();
-	 Coordenada variacao;
-	 variacao = (coord - centroDesenho) * zoom - (coord - centroDesenho);
-	 coord = coord + variacao;
-	 coord = coord + mundo->getDeslocamento();*/
-	//transViewPort(coord);
-	return coord;
 }
 
 Tela::~Tela() {

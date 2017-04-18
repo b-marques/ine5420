@@ -41,7 +41,6 @@ private:
 	void escreveListaObjetos(string nome);
 	int posicaoFigSelecionada();
 	string coordenadasTxt(const ListaEnc<Coordenada>& coords);
-	Coordenada corrigeCoord(Coordenada coord);
 	Coordenada FatorOuDeslocamento();
 	int tipoRotacao();
 	double getSpinButtonValue(string nomeBotao);
