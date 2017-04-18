@@ -30,7 +30,6 @@ private:
 	DescritorObj* descritor;
 
 	void redesenhaTudo();
-	void limpaListaCoord();
 	void moveCima();
 	void moveBaixo();
 	void moveDireita();
@@ -57,6 +56,7 @@ public:
 	void maisZoom();
 	void menosZoom();
 	void move(GdkEvent *event);
+	void limpaListaCoord();
 	gboolean redraw(GtkWidget *widget, cairo_t *cr);
 	gboolean criaSurface(GtkWidget *widget);
 	void setCoordTemp(ListaEnc<Coordenada>& coordTemp);

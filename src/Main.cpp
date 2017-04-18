@@ -41,7 +41,7 @@ void addCord(GtkWidget *button, gpointer user_data) {
 }
 
 void clearCord(GtkWidget *button, gpointer user_data) {
-	tela->clearCord();
+	tela->limpaListaCoord();
 }
 
 

@@ -67,6 +67,9 @@ void Tela::adicionaFigura(string nome, TipoFigura tipo) {
 void Tela::limpaListaCoord() {
 	ListaEnc<Coordenada> novaLista;
 	coordTemp = novaLista;
+	GtkLabel* label_coord = GTK_LABEL(
+			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_number"));
+	gtk_label_set_text(GTK_LABEL(label_coord), std::to_string(coordTemp.tamanho()).c_str());
 }
 
 string Tela::getEntryText(string nomeEntry) {
@@ -306,16 +309,8 @@ void Tela::addCord() {
 	coordTemp.adiciona(Coordenada(x, y, z));
 	GtkLabel* label_coord = GTK_LABEL(
 			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_number"));
-	;
 	gtk_label_set_text(label_coord, std::to_string(coordTemp.tamanho()).c_str());
 }	
-
-void Tela::clearCord() {
-	limpaListaCoord();
-	GtkLabel* label_coord = GTK_LABEL(
-			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_number"));
-	gtk_label_set_text(GTK_LABEL(label_coord), std::to_string(coordTemp.tamanho()).c_str());
-}
 
 void Tela::escreveListaObjetos(string nome) {
 	GtkListStore* lista = GTK_LIST_STORE(
