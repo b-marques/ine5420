@@ -235,32 +235,24 @@ void Tela::abrirTelaAdicionar() {
 void Tela::adicionarPonto() {
 
 	string nomeFigura = getNomeFigAdd();
-	ListaEnc<Coordenada> cords;
-
-	limpaListaCoord();
-	double x = getSpinButtonValue("coord_x_point");
-	double y = getSpinButtonValue("coord_y_point");
-	double z = getSpinButtonValue("coord_z_point");
-	cords.adiciona(Coordenada(x, y, z));
-	setCoordTemp(cords);
-	adicionaFigura(nomeFigura, PONTO);
-
+	if (coordTemp.tamanho() != 1) {
+		escreveTerminal(
+				"Número de pontos inválido para criação de ponto!");
+	} else {
+		adicionaFigura(nomeFigura, PONTO);
+		limpaListaCoord();
+	}
 }
 
 void Tela::adicionarReta() {
-	limpaListaCoord();
 	string nomeFigura = getNomeFigAdd();
-	ListaEnc<Coordenada> cords;
-	double x1 = getSpinButtonValue("coord_x_line1");
-	double y1 = getSpinButtonValue("coord_y_line1");
-	double z1 = getSpinButtonValue("coord_z_line1");
-	double x2 = getSpinButtonValue("coord_x_line2");
-	double y2 = getSpinButtonValue("coord_y_line2");
-	double z2 = getSpinButtonValue("coord_z_line2");
-	cords.adiciona(Coordenada(x1, y1, z1));
-	cords.adiciona(Coordenada(x2, y2, z2));
-	setCoordTemp(cords);
-	adicionaFigura(nomeFigura, RETA);
+	if (coordTemp.tamanho() != 2) {
+		escreveTerminal(
+				"Número de pontos inválido para criação de reta!");
+	} else {
+		adicionaFigura(nomeFigura, RETA);
+		limpaListaCoord();
+	}
 }
 
 void Tela::adicionarPoligono() {
@@ -270,6 +262,18 @@ void Tela::adicionarPoligono() {
 				"Número de pontos insuficientes para criação de polígono!");
 	} else {
 		adicionaFigura(nomeFigura, POLIGONO);
+		limpaListaCoord();
+	}
+}
+
+void Tela::adicionarBezier() {
+	string nomeFigura = getNomeFigAdd();
+	if (coordTemp.tamanho() % 3 != 1) {
+		escreveTerminal(
+				"Número de pontos não obedecem regra para criação da curva de Bezier");
+	} else {
+		adicionaFigura(nomeFigura, BEZIER);
+		limpaListaCoord();
 	}
 }
 
@@ -296,10 +300,21 @@ int Tela::posicaoFigSelecionada() {
 }
 
 void Tela::addCord() {
-	double x = getSpinButtonValue("coord_x_polig");
-	double y = getSpinButtonValue("coord_y_polig");
-	double z = getSpinButtonValue("coord_z_polig");
+	double x = getSpinButtonValue("coord_x");
+	double y = getSpinButtonValue("coord_y");
+	double z = getSpinButtonValue("coord_z");
 	coordTemp.adiciona(Coordenada(x, y, z));
+	GtkLabel* label_coord = GTK_LABEL(
+			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_number"));
+	;
+	gtk_label_set_text(label_coord, std::to_string(coordTemp.tamanho()).c_str());
+}	
+
+void Tela::clearCord() {
+	limpaListaCoord();
+	GtkLabel* label_coord = GTK_LABEL(
+			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_number"));
+	gtk_label_set_text(GTK_LABEL(label_coord), std::to_string(coordTemp.tamanho()).c_str());
 }
 
 void Tela::escreveListaObjetos(string nome) {

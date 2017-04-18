@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string>
 
 #include "DescritorObj.hpp"
 #include "Mundo.hpp"
@@ -65,7 +66,9 @@ public:
 	void adicionarPonto();
 	void adicionarReta();
 	void adicionarPoligono();
+	void adicionarBezier();
 	void addCord();
+	void clearCord();
 	void escalonaFigura();
 	void transladaFigura();
 	void rotacionaFigura();
