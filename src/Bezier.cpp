@@ -7,7 +7,7 @@
 
 #include "Bezier.hpp"
 #include "defineCohenSutherland.hpp"
-#define nPassos 800
+#define nPassos 100
 Bezier::Bezier(string nome, ListaEnc<Coordenada>& controle) :
 		Figura(nome, BEZIER) {
 	this->controle = controle;
@@ -15,15 +15,15 @@ Bezier::Bezier(string nome, ListaEnc<Coordenada>& controle) :
 }
 
 void Bezier::geraCurva(ListaEnc<Coordenada>& controle) {
-	double t, x, y, t2, t3, m1, m2, m3, m4;
+	double i, x, y, t2, t3, m1, m2, m3, m4;
 	Coordenada p1, p2, p3, p4, coordCurva;
+	i = (double) 1 / nPassos;
 	for (int c = 0; c < controle.tamanho() - 1; c += 3) {
 		p1 = controle.retornaDado(c);
 		p2 = controle.retornaDado(c + 1);
 		p3 = controle.retornaDado(c + 2);
 		p4 = controle.retornaDado(c + 3);
-		for (double i = 0; i <= nPassos; i++) {
-			t = i / nPassos;
+		for (double t = 0; t <= 1; t += i) {
 			t2 = pow(t, 2);
 			t3 = pow(t, 3);
 			m1 = -t3 + 3 * t2 - 3 * t + 1;
