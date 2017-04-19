@@ -15,7 +15,7 @@
 using namespace std;
 
 
-enum TipoFigura {PONTO, RETA, POLIGONO, BEZIER};
+enum TipoFigura {PONTO, RETA, POLIGONO, BEZIER, BSPLINE};
 
 class Figura {
 protected:
@@ -24,10 +24,10 @@ protected:
 	Coordenada centro, centroRelTela;
 	string nome;
 	TipoFigura tipo;
-	void transform(Coordenada eixo, double grau, Coordenada escalonamento,
-			Coordenada deslocamento);
-	void transformTela(Coordenada eixo, double grau, Coordenada escalonamento,
-			Coordenada deslocamento);
+	void transform(const Coordenada& eixo, double grau, const Coordenada& escalonamento,
+			const Coordenada& deslocamento);
+	void transformTela(const Coordenada& eixo, double grau, const Coordenada& escalonamento,
+			const Coordenada& deslocamento);
 public:
 	Figura(string nome, TipoFigura tipo);
 	Figura(string nome, ListaEnc<Coordenada>& coord, TipoFigura tipo);
@@ -37,21 +37,21 @@ public:
 			double xDir, double yCima, double yBaixo, int tipoClip) = 0;
 	string getNome();
 	Coordenada calculaCentro(ListaEnc<Coordenada>& coords);
-	void translada(Coordenada desloc, Coordenada zoomAcumumlado,
+	void translada(Coordenada& desloc, Coordenada& zoomAcumumlado,
 			double giroTelaAcumulado);
-	void escalona(Coordenada escala);
+	void escalona(Coordenada& escala);
 	void rotacionaFiguraProprioCentro(double anguloGraus,
-			Coordenada zoomAcumulado, double giroTelaAcumulado,
-			Coordenada centroDesenho);
-	void rotaciona(Coordenada centroRotacao, double anguloGraus,
-			Coordenada zoomAcumulado, double giroTelaAcumulado,
-			Coordenada centroDesenho);
-	void daZoom(Coordenada zoom, Coordenada centroDesenho);
-	void deslocaNaTela(Coordenada desloc);
-	void rotacionaTela(Coordenada centroDesenho, double angulo);
+			Coordenada& zoomAcumulado, double giroTelaAcumulado,
+			Coordenada& centroDesenho);
+	void rotaciona(Coordenada& centroRotacao, double anguloGraus,
+			Coordenada& zoomAcumulado, double giroTelaAcumulado,
+			Coordenada& centroDesenho);
+	void daZoom(Coordenada& zoom, Coordenada& centroDesenho);
+	void deslocaNaTela(Coordenada& desloc);
+	void rotacionaTela(Coordenada& centroDesenho, double angulo);
 	TipoFigura getTipo();
 	Coordenada getCentro();
-	void recemAdicionada(Coordenada origemMundoTela, Coordenada zoom, Coordenada centroDesenho, int giroTela);
+	void recemAdicionada(Coordenada origemMundoTela, Coordenada& zoom, Coordenada& centroDesenho, double giroTela);
 	virtual ~Figura();
 };
 

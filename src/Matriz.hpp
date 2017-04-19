@@ -16,7 +16,7 @@ public:
 
 	};
 
-	static Coordenada matrizTransformacao(Coordenada coord, Coordenada eixo, double grau, Coordenada escala, Coordenada deslocamento){
+	static Coordenada matrizTransformacao(const Coordenada& coord,const Coordenada& eixo, double grau, const Coordenada& escala, const Coordenada& deslocamento){
 		// {{x,y,1}}.{{1,0,0},{0,1,0},{-d,-f,1}}. {{cos o, -sin o, 0}, {sin o, cos o, 0},{0,0,1}} . {{u,0,0},{0,w,0},{0,0,1}}. {{1,0,0},{0,1,0},{d,f,1}} . {{1,0,0},{0,1,0},{c,b,1}}
 		// VER "matriz-transformacao.png" para entender
 		double anguloRad = grau * M_PI / 180.0;
