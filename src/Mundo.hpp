@@ -14,8 +14,9 @@
 class Mundo {
 private:
 	ListaEnc<Figura*> *figuras;
-	Coordenada deslocamento, zoom, centroDesenho, centroMundo, zoomAcumulado;
+	Coordenada deslocamento, zoom, centroDesenho, centroMundo, zoomAcumulado, origemMundoTela;
 	double larguraArea, alturaArea, giroTelaAcumulado;
+	void inicializaFigura(Figura *f);
 public:
 	Mundo(double larguraArea, double alturaArea);
 	void desloca(double passo, TipoMovimento sentido);

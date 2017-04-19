@@ -19,6 +19,7 @@ Mundo::Mundo(double larguraArea, double alturaArea) {
 	deslocamento = Coordenada(0, 0, 0);
 	zoom = Coordenada(1, 1, 1);
 	zoomAcumulado = Coordenada(1, 1, 1);
+	origemMundoTela = Coordenada(0, 0, 0);
 	centroDesenho = Coordenada(larguraArea / 2, alturaArea / 2, 0);
 	figuras = new ListaEnc<Figura*>();
 	centroMundo = Coordenada(0, 0, 0);
@@ -26,9 +27,8 @@ Mundo::Mundo(double larguraArea, double alturaArea) {
 }
 
 void Mundo::desloca(double passo, TipoMovimento sentido) {
-	//Coordenada deltaDesloc;
-	double dx = passo * larguraArea / 100;
-	double dy = passo * alturaArea / 100;
+	double dx = passo * 300 / 100;
+	double dy = passo * 300 / 100;
 	switch (sentido) {
 	case CIMA:
 		deslocamento = Coordenada(0, -dy);
@@ -46,9 +46,6 @@ void Mundo::desloca(double passo, TipoMovimento sentido) {
 		break;
 	}
 	deslocaFiguras();
-	//deslocamento = deslocamento + deltaDesloc;
-	//centroDesenho = centroDesenho - deltaDesloc;
-	//centroDesenho = centroDesenho - deslocamento;
 }
 
 Coordenada Mundo::getDeslocamento() {
@@ -69,28 +66,33 @@ Coordenada Mundo::getCentroMundo() {
 
 void Mundo::adicionaFigura(Figura* f) {
 	figuras->adiciona(f);
+	inicializaFigura(f);
 }
 
 Figura* Mundo::adicionaPonto(string nome, ListaEnc<Coordenada>& coord) {
 	Ponto* p = new Ponto(nome, coord);
 	figuras->adiciona(p);
+	inicializaFigura(p);
 	return p;
 }
 
 Figura* Mundo::adicionaReta(string nome, ListaEnc<Coordenada>& coord) {
 	Reta* r = new Reta(nome, coord);
 	figuras->adiciona(r);
+	inicializaFigura(r);
 	return r;
 }
 
 Figura* Mundo::adicionaPoligono(string nome, ListaEnc<Coordenada>& coord) {
 	Poligono* p = new Poligono(nome, coord);
 	figuras->adiciona(p);
+	inicializaFigura(p);
 	return p;
 }
 Figura* Mundo::adicionaBezier(string nome, ListaEnc<Coordenada>& controle) {
 	Bezier* b = new Bezier(nome, controle);
 	figuras->adiciona(b);
+	inicializaFigura(b);
 	return b;
 }
 
@@ -138,6 +140,7 @@ void Mundo::rotacionaFigura(int posicaoLista, Coordenada centroRotacao,
 void Mundo::daZoomFiguras() {
 	Figura* f;
 	zoomAcumulado = zoom * zoomAcumulado;
+	origemMundoTela = (origemMundoTela - centroDesenho)*zoom + centroDesenho;
 	for (int i = 0; i < figuras->tamanho(); ++i) {
 		f = figuras->retornaDado(i);
 		f->daZoom(zoom, centroDesenho);
@@ -146,9 +149,16 @@ void Mundo::daZoomFiguras() {
 
 void Mundo::deslocaFiguras() {
 	Figura* f;
+	origemMundoTela += deslocamento;
 	for (int i = 0; i < figuras->tamanho(); ++i) {
 		f = figuras->retornaDado(i);
 		f->deslocaNaTela(deslocamento);
+	}
+}
+
+void Mundo::inicializaFigura(Figura* f) {
+	if(giroTelaAcumulado != 0 || !(centroMundo == origemMundoTela) || !(zoomAcumulado == Coordenada(1, 1, 1))){
+		f->recemAdicionada(origemMundoTela, zoom, centroDesenho, giroTelaAcumulado);
 	}
 }
 
@@ -163,6 +173,7 @@ ListaEnc<Figura*>* Mundo::getFiguras() {
 void Mundo::giraTela(double angulo) {
 	Figura* f;
 	giroTelaAcumulado += angulo;
+	origemMundoTela = Matriz::giraCoord(origemMundoTela, centroDesenho, angulo);
 	for (int i = 0; i < figuras->tamanho(); ++i) {
 		f = figuras->retornaDado(i);
 		f->rotacionaTela(centroDesenho, angulo);

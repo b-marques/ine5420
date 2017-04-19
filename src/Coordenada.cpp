@@ -134,3 +134,17 @@ bool Coordenada::yIguais(const Coordenada& c2) {
 bool Coordenada::operator ==(const Coordenada& c2) const{
 	return this->x == c2.getX() && this->y == c2.getY() && this->z == c2.getZ();
 }
+
+void Coordenada::operator +=(const Coordenada& c2) {
+	this->x += c2.x;
+	this->y += c2.y;
+	this->z += c2.z;
+}
+
+Coordenada Coordenada::operator *(const double mult) {
+	double x, y, z;
+	x = this->x*mult;
+	y = this->y*mult;
+	z = this->z*mult;
+	return Coordenada(x, y, z);
+}

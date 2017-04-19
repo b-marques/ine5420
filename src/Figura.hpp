@@ -51,6 +51,7 @@ public:
 	void rotacionaTela(Coordenada centroDesenho, double angulo);
 	TipoFigura getTipo();
 	Coordenada getCentro();
+	void recemAdicionada(Coordenada origemMundoTela, Coordenada zoom, Coordenada centroDesenho, int giroTela);
 	virtual ~Figura();
 };
 

@@ -17,9 +17,6 @@ public:
 	};
 
 	static Coordenada matrizTransformacao(Coordenada coord, Coordenada eixo, double grau, Coordenada escala, Coordenada deslocamento){
-		//Coordenada* origem = new Coordenada();
-
-		//Coordenada deslocOrigem = eixo - *origem;
 		// {{x,y,1}}.{{1,0,0},{0,1,0},{-d,-f,1}}. {{cos o, -sin o, 0}, {sin o, cos o, 0},{0,0,1}} . {{u,0,0},{0,w,0},{0,0,1}}. {{1,0,0},{0,1,0},{d,f,1}} . {{1,0,0},{0,1,0},{c,b,1}}
 		// VER "matriz-transformacao.png" para entender
 		double anguloRad = grau * M_PI / 180.0;
@@ -28,6 +25,17 @@ public:
 
 		return Coordenada(x, y);
 	};
+
+	static Coordenada giraCoord(Coordenada& coord, Coordenada eixo, double grau){
+		double anguloRad = -grau * M_PI / 180.0;
+		double cosAngulo = cos(anguloRad), senAngulo = sin(anguloRad);
+		Coordenada coordRel = coord - eixo;
+		double x = coordRel.getX() * cosAngulo
+				- coordRel.getY() * senAngulo;
+		double y = coordRel.getX() * senAngulo
+				+ coordRel.getY() * cosAngulo;
+		return Coordenada(x, y) + eixo;
+	}
 
 };
 

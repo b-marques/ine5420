@@ -35,8 +35,10 @@ public:
 	Coordenada operator+(const Coordenada& c2);
 	Coordenada operator-(const Coordenada& c2);
 	Coordenada operator*(const Coordenada& c2);
+	Coordenada operator*(const double mult);
 	Coordenada operator/(const Coordenada& c2);
 	Coordenada operator/(const double divisor);
+	void operator+=(const Coordenada& c2);
 	bool operator==(const Coordenada& c2) const;
 };
 

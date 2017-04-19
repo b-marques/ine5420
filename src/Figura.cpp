@@ -67,7 +67,8 @@ void Figura::rotaciona(Coordenada centroRotacao, double anguloGraus,
 	Coordenada centroFigGirado = Matriz::matrizTransformacao(centro,
 			centroDesenho, giroTelaAcumulado, zoomAcumulado, Coordenada(0, 0));
 	Coordenada centroRotacaoTela = Matriz::matrizTransformacao(centroRotacao,
-			centroDesenho, giroTelaAcumulado, zoomAcumulado, centroRelTela - centroFigGirado);
+			centroDesenho, giroTelaAcumulado, zoomAcumulado,
+			centroRelTela - centroFigGirado);
 	transform(centroRotacao, anguloGraus, Coordenada(1, 1), Coordenada(0, 0));
 	transformTela(centroRotacaoTela, anguloGraus, Coordenada(1, 1),
 			Coordenada(0, 0));
@@ -125,4 +126,14 @@ Figura::~Figura() {
 
 TipoFigura Figura::getTipo() {
 	return this->tipo;
+}
+
+void Figura::recemAdicionada(Coordenada origemMundoTela, Coordenada zoom,
+		Coordenada centroDesenho, int giroTela) {
+	origemMundoTela = Matriz::matrizTransformacao(origemMundoTela,
+			centroDesenho, -giroTela, Coordenada(1, 1) / zoom,
+			Coordenada(0, 0));
+	deslocaNaTela (origemMundoTela);
+	daZoom(zoom, centroDesenho);
+	rotacionaTela(centroDesenho, giroTela);
 }
