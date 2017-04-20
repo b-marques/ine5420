@@ -410,7 +410,7 @@
                 <property name="receives_default">False</property>
                 <property name="opacity">0.98039215686274506</property>
                 <property name="margin_left">100</property>
-                <property name="margin_right">101</property>
+                <property name="margin_right">100</property>
                 <property name="resize_mode">immediate</property>
                 <property name="xalign">0.49999997019767761</property>
                 <signal name="clicked" handler="adicionarPoligono" swapped="no"/>
@@ -452,6 +452,8 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="opacity">0.98039215686274506</property>
+                <property name="margin_left">100</property>
+                <property name="margin_right">100</property>
                 <property name="resize_mode">immediate</property>
                 <property name="xalign">0.49999997019767761</property>
                 <signal name="clicked" handler="adicionarBezier" swapped="no"/>
@@ -493,6 +495,8 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="opacity">0.99999999977648257</property>
+                <property name="margin_left">100</property>
+                <property name="margin_right">100</property>
                 <property name="resize_mode">immediate</property>
                 <property name="xalign">0.49999997019767761</property>
                 <signal name="clicked" handler="adicionarBspline" swapped="no"/>
