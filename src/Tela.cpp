@@ -51,6 +51,9 @@ void Tela::adicionaFigura(string nome, TipoFigura tipo) {
 	case BEZIER:
 		f = mundo->adicionaBezier(nome, coordTemp);
 		break;
+	case BSPLINE:
+		f = mundo->adicionaBspline(nome, coordTemp);
+		break;	
 	default:
 		break;
 	}
@@ -191,12 +194,16 @@ void Tela::redesenhaFiguraClip(Figura* f, int tipoClip, int xDirVP,
 	if (coords != nullptr) {
 		for (int i = 0; i < coords->tamanho(); i++) {
 			coordsFig = coords->retornaDado(i);
-			if (f->getTipo() == BEZIER || f->getTipo() == RETA || f->getTipo() == BSPLINE)
-				desenhador->desenhaPoligonoRetaCurva(*coordsFig, false);
-			else if(f->getTipo() == POLIGONO)
-				desenhador->desenhaPoligonoRetaCurva(*coordsFig, true);
-			else
-				desenhador->desenhaPonto(*coordsFig);
+			switch(f->getTipo()){
+				case RETA || BEZIER || BSPLINE:
+					desenhador->desenhaPoligonoRetaCurva(*coordsFig, false);
+					break;	
+				case POLIGONO:
+					desenhador->desenhaPoligonoRetaCurva(*coordsFig, true);
+					break;
+				default:
+					cout << "Erro switch redesenhaFiguraClip" << endl;
+			}
 		}
 		delete coordsFig;
 	}
@@ -205,12 +212,16 @@ void Tela::redesenhaFiguraClip(Figura* f, int tipoClip, int xDirVP,
 void Tela::redesenhaFigura(Figura* f) {
 	ListaEnc<Coordenada> coordsFig;
 	coordsFig = f->getCoordTela();
-	if (f->getTipo() == BEZIER || f->getTipo() == RETA || f->getTipo() == BSPLINE)
+	switch(f->getTipo()){
+	case RETA || BEZIER || BSPLINE:
 		desenhador->desenhaPoligonoRetaCurva(coordsFig, false);
-	else if(f->getTipo() == POLIGONO)
+		break;	
+	case POLIGONO:
 		desenhador->desenhaPoligonoRetaCurva(coordsFig, true);
-	else
-		desenhador->desenhaPonto(coordsFig);
+		break;
+	default:
+		cout << "Erro switch redesenhaFiguraClip" << endl;
+	}
 }
 
 gboolean Tela::redraw(GtkWidget* widget, cairo_t* cr) {
@@ -276,6 +287,17 @@ void Tela::adicionarBezier() {
 				"Número de pontos não obedecem regra para criação da curva de Bezier");
 	} else {
 		adicionaFigura(nomeFigura, BEZIER);
+		limpaListaCoord();
+	}
+}
+
+void Tela::adicionarBspline(){
+	string nomeFigura = getNomeFigAdd();
+	if (coordTemp.tamanho() < 4) {
+		escreveTerminal(
+				"Número de pontos não obedecem regra para criação da curva Bspline");
+	} else {
+		adicionaFigura(nomeFigura, BSPLINE);
 		limpaListaCoord();
 	}
 }

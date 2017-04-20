@@ -13,6 +13,8 @@
 #include "Ponto.hpp"
 #include "Reta.hpp"
 #include "Bezier.hpp"
+#include "BSpline.hpp"
+
 Mundo::Mundo(double larguraArea, double alturaArea) {
 	this->larguraArea = larguraArea;
 	this->alturaArea = alturaArea;
@@ -91,6 +93,13 @@ Figura* Mundo::adicionaPoligono(string nome, ListaEnc<Coordenada>& coord) {
 }
 Figura* Mundo::adicionaBezier(string nome, ListaEnc<Coordenada>& controle) {
 	Bezier* b = new Bezier(nome, controle);
+	figuras->adiciona(b);
+	inicializaFigura(b);
+	return b;
+}
+
+Figura* Mundo::adicionaBspline(string nome, ListaEnc<Coordenada>& controle) {
+	BSpline* b = new BSpline(nome, controle);
 	figuras->adiciona(b);
 	inicializaFigura(b);
 	return b;
