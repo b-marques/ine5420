@@ -45,6 +45,8 @@ void BSpline::geraCurva(ListaEnc<Coordenada>& controle) {
 		dy[3] = 6*k3*cy[0];
 		fwdDif(nPassos, dx, dy);
 	}
+	centro = calculaCentro(coordenadas);
+	centroRelTela = centro;
 	delete dx;
 	delete dy;
 }

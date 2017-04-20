@@ -39,8 +39,8 @@ void Bezier::geraCurva(ListaEnc<Coordenada>& controle) {
 
 		}
 	}
-	calculaCentro(coordenadas);
-	calculaCentro(coordenadasTela);
+	centro = calculaCentro(coordenadas);
+	centroRelTela = centro;
 }
 
 Bezier::~Bezier() {
