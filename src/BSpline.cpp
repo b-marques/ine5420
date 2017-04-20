@@ -8,7 +8,7 @@
 #include "BSpline.hpp"
 #include "defineCohenSutherland.hpp"
 #include <math.h>
-#define k 0.2
+#define k 0.01
 BSpline::BSpline(string nome, ListaEnc<Coordenada>& controle) : Figura(nome, BSPLINE) {
 	this->controle = controle;
 	geraCurva(controle);
