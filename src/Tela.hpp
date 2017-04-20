@@ -67,6 +67,7 @@ public:
 	void adicionarReta();
 	void adicionarPoligono();
 	void adicionarBezier();
+	void adicionarBspline();
 	void addCord();
 	void clearCord();
 	void escalonaFigura();

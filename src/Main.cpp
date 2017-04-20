@@ -61,6 +61,10 @@ void adicionarBezier(GtkWidget *button, gpointer user_data) {
 	tela->adicionarBezier();
 }
 
+void adicionarBspline(GtkWidget *button, gpointer user_data) {
+	tela->adicionarBspline();
+}
+
 void abrirAdicionaFigura(GtkWidget *button, gpointer user_data) {
 	tela->abrirTelaAdicionar();
 }

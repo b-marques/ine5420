@@ -280,6 +280,17 @@ void Tela::adicionarBezier() {
 	}
 }
 
+void Tela::adicionarBspline(){
+	string nomeFigura = getNomeFigAdd();
+	if (coordTemp.tamanho() < 4) {
+		escreveTerminal(
+				"Número de pontos não obedecem regra para criação da curva Bspline");
+	} else {
+		adicionaFigura(nomeFigura, BSPLINE);
+		limpaListaCoord();
+	}
+}
+
 string Tela::getNomeFigAdd() {
 	GtkEntry* caixaTxt = GTK_ENTRY(
 			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "entryNome"));
