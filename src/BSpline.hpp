@@ -17,6 +17,11 @@ private:
 	void fwdDif(double n, double *dx, double *dy);
 public:
 	BSpline(string nome, ListaEnc<Coordenada>& controle);
+	ListaEnc<ListaEnc<Coordenada>*>* getCoordTelaClip(double xEsq,
+				double xDir, double yCima, double yBaixo, int tipoClip);
+	int getCode(Coordenada& coord, double xEsq, double xDir, double yCima,
+			double yBaixo);
+	ListaEnc<Coordenada>& getControle();
 	virtual ~BSpline();
 };
 

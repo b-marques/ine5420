@@ -12,7 +12,8 @@
 #include "Ponto.hpp"
 #include "Reta.hpp"
 #include "Bezier.hpp"
-#include <algorithm>
+#include "BSpline.hpp"
+
 DescritorObj::DescritorObj() {
 	// TODO Auto-generated constructor stub
 
@@ -51,9 +52,13 @@ void DescritorObj::escreveFigura(string& texto, Figura* figura, int& linha) {
 		linhasVert = "l";
 	else if (figura->getTipo() == PONTO)
 		linhasVert = "p";
-	else if(figura->getTipo() == BEZIER){
-		linhasVert = "curv";
+	else if (figura->getTipo() == BEZIER) {
+		linhasVert = "cstype bezier\ncurv";
 		Bezier *b = (Bezier*) figura;
+		coords = &b->getControle();
+	} else if (figura->getTipo() == BSPLINE) {
+		linhasVert = "cstype bspline\ncurv";
+		BSpline *b = (BSpline*) figura;
 		coords = &b->getControle();
 	}
 	for (int i = 0; i < coords->tamanho(); ++i) {
@@ -91,6 +96,7 @@ void DescritorObj::leMundo(string nomeArquivo) {
 Figura* DescritorObj::leObjeto(ifstream& arquivo, string& linhaInicial,
 		map<int, Coordenada> *coords) {
 	string linha, nome;
+	bool bezier = true;
 	Figura *f = nullptr;
 	ListaEnc<Coordenada> *listaCoords;
 	Coordenada coord;
@@ -111,7 +117,15 @@ Figura* DescritorObj::leObjeto(ifstream& arquivo, string& linhaInicial,
 			f = new Ponto(nome, *listaCoords);
 		} else if (!linha.compare(0, 4, "curv")) {
 			listaCoords = listaCoordsFigura(linha, coords);
-			f = new Bezier(nome, *listaCoords);
+			if(bezier)
+				f = new Bezier(nome, *listaCoords);
+			else
+				f = new BSpline(nome, *listaCoords);
+		} else if(!linha.compare(0, 6, "cstype")){
+			if(linha.find("bezier") < linha.size())
+				bezier = true;
+			else if(linha.find("bspline") < linha.size())
+				bezier = false;
 		}
 	}
 	delete listaCoords;
@@ -159,6 +173,6 @@ ListaEnc<Coordenada>* DescritorObj::listaCoordsFigura(string linha,
 }
 
 DescritorObj::~DescritorObj() {
-	// TODO Auto-generated destructor stub
+// TODO Auto-generated destructor stub
 }
 
