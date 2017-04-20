@@ -167,7 +167,7 @@ void Mundo::deslocaFiguras() {
 
 void Mundo::inicializaFigura(Figura* f) {
 	if(giroTelaAcumulado != 0 || !(centroMundo == origemMundoTela) || !(zoomAcumulado == Coordenada(1, 1, 1))){
-		f->recemAdicionada(origemMundoTela, zoom, centroDesenho, giroTelaAcumulado);
+		f->recemAdicionada(origemMundoTela, zoomAcumulado, centroDesenho, giroTelaAcumulado);
 	}
 }
 
