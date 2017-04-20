@@ -7,18 +7,15 @@
 
 #ifndef BEZIER_HPP_
 #define BEZIER_HPP_
-#include "Figura.hpp"
-class Bezier : public Figura{
+#include "Curva.hpp"
+class Bezier : public Curva {
 private:
 	int getCode(Coordenada& coord, double xEsq, double xDir, double yCima,
 			double yBaixo);
 	ListaEnc<Coordenada> controle;
+	void geraCurva(ListaEnc<Coordenada>& controle);
 public:
 	Bezier(string nome, ListaEnc<Coordenada>& controle);
-	void geraCurva(ListaEnc<Coordenada>& controle);
-	ListaEnc<ListaEnc<Coordenada>*>* getCoordTelaClip(double xEsq, double xDir,
-			double yCima, double yBaixo, int tipoClip);
-	ListaEnc<Coordenada>& getControle();
 	virtual ~Bezier();
 };
 

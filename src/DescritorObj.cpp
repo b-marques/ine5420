@@ -54,11 +54,11 @@ void DescritorObj::escreveFigura(string& texto, Figura* figura, int& linha) {
 		linhasVert = "p";
 	else if (figura->getTipo() == BEZIER) {
 		linhasVert = "cstype bezier\ncurv";
-		Bezier *b = (Bezier*) figura;
+		Curva *b = (Curva*) figura;
 		coords = &b->getControle();
 	} else if (figura->getTipo() == BSPLINE) {
 		linhasVert = "cstype bspline\ncurv";
-		BSpline *b = (BSpline*) figura;
+		Curva *b = (Curva*) figura;
 		coords = &b->getControle();
 	}
 	for (int i = 0; i < coords->tamanho(); ++i) {

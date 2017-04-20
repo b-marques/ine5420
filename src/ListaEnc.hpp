@@ -185,16 +185,16 @@ public:
 	T operator[](const int& pos);
 };
 
-template<typename T> ListaEnc<T>::ListaEnc() {
+template<typename T> inline ListaEnc<T>::ListaEnc() {
 	size = 0;
 	head = nullptr;
 }
 
-template<typename T> ListaEnc<T>::~ListaEnc() {
+template<typename T> inline ListaEnc<T>::~ListaEnc() {
 	destroiLista();
 }
 
-template<typename T> void ListaEnc<T>::adicionaNoInicio(const T& dado) {
+template<typename T> inline void ListaEnc<T>::adicionaNoInicio(const T& dado) {
 	Elemento<T> *novoElemento = new Elemento<T>(dado, nullptr);
 	Elemento<T> *headAux;
 	if (novoElemento != nullptr) {
@@ -207,7 +207,7 @@ template<typename T> void ListaEnc<T>::adicionaNoInicio(const T& dado) {
 	}
 }
 
-template<typename T> T ListaEnc<T>::retiraDoInicio() {
+template<typename T> inline T ListaEnc<T>::retiraDoInicio() {
 	Elemento<T> *headAux;
 	T retorno;
 	if (listaVazia()) {
@@ -222,7 +222,7 @@ template<typename T> T ListaEnc<T>::retiraDoInicio() {
 	}
 }
 
-template<typename T> void ListaEnc<T>::eliminaDoInicio() {
+template<typename T> inline void ListaEnc<T>::eliminaDoInicio() {
 	Elemento<T> *headAux;
 	T retorno;
 	if (listaVazia()) {
@@ -235,7 +235,7 @@ template<typename T> void ListaEnc<T>::eliminaDoInicio() {
 	}
 }
 
-template<typename T> void ListaEnc<T>::adicionaNaPosicao(const T& dado,
+template<typename T> inline void ListaEnc<T>::adicionaNaPosicao(const T& dado,
 		int pos) {
 	Elemento<T> *novoElemento = new Elemento<T>(dado, nullptr);
 	Elemento<T> *percorredorDeElementos = head;
@@ -257,7 +257,7 @@ template<typename T> void ListaEnc<T>::adicionaNaPosicao(const T& dado,
 	}
 }
 
-template<typename T> int ListaEnc<T>::posicao(const T& dado) const {
+template<typename T> inline int ListaEnc<T>::posicao(const T& dado) const {
 	Elemento<T> *auxPointer = head;
 
 	for (int var = 0; var < size; var++) {
@@ -271,7 +271,7 @@ template<typename T> int ListaEnc<T>::posicao(const T& dado) const {
 	throw "elemento nao esta na lista";
 }
 
-template<typename T> T* ListaEnc<T>::posicaoMem(const T& dado) const {
+template<typename T> inline T* ListaEnc<T>::posicaoMem(const T& dado) const {
 	Elemento<T> *auxPointer = head;
 
 	for (int var = 0; var < size; var++) {
@@ -284,7 +284,7 @@ template<typename T> T* ListaEnc<T>::posicaoMem(const T& dado) const {
 	throw "Elemento nao presente";
 }
 
-template<typename T> bool ListaEnc<T>::contem(const T& dado) {
+template<typename T> inline bool ListaEnc<T>::contem(const T& dado) {
 	Elemento<T> *auxPointer = head;
 
 	for (int var = 0; var < size; var++) {
@@ -297,7 +297,7 @@ template<typename T> bool ListaEnc<T>::contem(const T& dado) {
 	return false;
 }
 
-template<typename T> T ListaEnc<T>::retiraDaPosicao(int pos) {
+template<typename T> inline T ListaEnc<T>::retiraDaPosicao(int pos) {
 	T retorno;
 	Elemento<T> *percorredorDeElementos = head, *elementoRetirado;
 
@@ -320,15 +320,15 @@ template<typename T> T ListaEnc<T>::retiraDaPosicao(int pos) {
 	}
 }
 
-template<typename T> void ListaEnc<T>::adiciona(const T& dado) {
+template<typename T> inline void ListaEnc<T>::adiciona(const T& dado) {
 	adicionaNaPosicao(dado, size);
 }
 
-template<typename T> T ListaEnc<T>::retira() {
+template<typename T> inline T ListaEnc<T>::retira() {
 	return retiraDaPosicao(size - 1);
 }
 
-template<typename T> T ListaEnc<T>::retiraEspecifico(const T& dado) {
+template<typename T> inline T ListaEnc<T>::retiraEspecifico(const T& dado) {
 	try {
 		int pos = posicao(dado);
 		return retiraDaPosicao(pos);
@@ -337,7 +337,7 @@ template<typename T> T ListaEnc<T>::retiraEspecifico(const T& dado) {
 	}
 }
 
-template<typename T> void ListaEnc<T>::adicionaEmOrdem(const T& data) {
+template<typename T> inline void ListaEnc<T>::adicionaEmOrdem(const T& data) {
 	Elemento<T> *headAux = head;
 	int pos;
 	if (listaVazia()) {
@@ -356,23 +356,23 @@ template<typename T> void ListaEnc<T>::adicionaEmOrdem(const T& data) {
 	}
 }
 
-template<typename T> bool ListaEnc<T>::listaVazia() const {
+template<typename T> inline bool ListaEnc<T>::listaVazia() const {
 	return (size == 0);
 }
 
-template<typename T> bool ListaEnc<T>::igual(T dado1, T dado2) {
+template<typename T> inline bool ListaEnc<T>::igual(T dado1, T dado2) {
 	return (dado1 == dado2);
 }
 
-template<typename T> bool ListaEnc<T>::maior(T dado1, T dado2) {
+template<typename T> inline bool ListaEnc<T>::maior(T dado1, T dado2) {
 	return (dado1 > dado2);
 }
 
-template<typename T> bool ListaEnc<T>::menor(T dado1, T dado2) {
+template<typename T> inline bool ListaEnc<T>::menor(T dado1, T dado2) {
 	return (dado1 < dado2);
 }
 
-template<typename T> void ListaEnc<T>::destroiLista() {
+template<typename T> inline void ListaEnc<T>::destroiLista() {
 	Elemento<T> *headAux = head, *headAux2 = head;
 	for (int pos = 0; pos < size; pos++) {
 		headAux2 = headAux->getProximo();
@@ -384,11 +384,11 @@ template<typename T> void ListaEnc<T>::destroiLista() {
 	head = nullptr;
 }
 
-template<typename T> int ListaEnc<T>::tamanho() const{
+template<typename T> inline int ListaEnc<T>::tamanho() const{
 	return size;
 }
 
-template<typename T> T ListaEnc<T>::retornaDado(int pos) const{
+template<typename T> inline T ListaEnc<T>::retornaDado(int pos) const{
 	Elemento<T> *percorredorDeElementos = head;
 
 	if ((pos < size) && (pos >= 0) && !(listaVazia())) {
@@ -405,7 +405,7 @@ template<typename T> T ListaEnc<T>::retornaDado(int pos) const{
 	}
 }
 
-template<typename T> void ListaEnc<T>::operator =(ListaEnc<T>& l2) {
+template<typename T> inline void ListaEnc<T>::operator =(ListaEnc<T>& l2) {
 	destroiLista();
 	ListaEnc<T>();
 	if (l2.tamanho() > 0) {
@@ -415,7 +415,7 @@ template<typename T> void ListaEnc<T>::operator =(ListaEnc<T>& l2) {
 	}
 }
 
-template<typename T>T ListaEnc<T>::operator [](const int& pos) {
+template<typename T> inline T ListaEnc<T>::operator [](const int& pos) {
 	return retornaDado(pos);
 }
 

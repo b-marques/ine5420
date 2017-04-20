@@ -29,8 +29,8 @@ Mundo::Mundo(double larguraArea, double alturaArea) {
 }
 
 void Mundo::desloca(double passo, TipoMovimento sentido) {
-	double dx = passo * 300 / 100;
-	double dy = passo * 300 / 100;
+	double dx = passo * larguraArea / 100;
+	double dy = passo * alturaArea / 100;
 	switch (sentido) {
 	case CIMA:
 		deslocamento = Coordenada(0, -dy);

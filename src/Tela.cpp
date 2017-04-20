@@ -191,19 +191,16 @@ void Tela::redesenhaFiguraClip(Figura* f, int tipoClip, int xDirVP,
 	ListaEnc<Coordenada> *coordsFig;
 	ListaEnc<ListaEnc<Coordenada>*> *coords;
 	coords = f->getCoordTelaClip(VPOffset, xDirVP, yCimaVP, VPOffset, tipoClip);
+	TipoFigura tipo = f->getTipo();
 	if (coords != nullptr) {
 		for (int i = 0; i < coords->tamanho(); i++) {
 			coordsFig = coords->retornaDado(i);
-			switch(f->getTipo()){
-				case RETA || BEZIER || BSPLINE:
-					desenhador->desenhaPoligonoRetaCurva(*coordsFig, false);
-					break;	
-				case POLIGONO:
-					desenhador->desenhaPoligonoRetaCurva(*coordsFig, true);
-					break;
-				default:
-					cout << "Erro switch redesenhaFiguraClip" << endl;
-			}
+			if(tipo == RETA || tipo == BEZIER || tipo == BSPLINE)
+				desenhador->desenhaPoligonoRetaCurva(*coordsFig, false);
+			else if(tipo == POLIGONO)
+				desenhador->desenhaPoligonoRetaCurva(*coordsFig, true);
+			else
+				desenhador->desenhaPonto(*coordsFig);
 		}
 		delete coordsFig;
 	}
@@ -212,16 +209,13 @@ void Tela::redesenhaFiguraClip(Figura* f, int tipoClip, int xDirVP,
 void Tela::redesenhaFigura(Figura* f) {
 	ListaEnc<Coordenada> coordsFig;
 	coordsFig = f->getCoordTela();
-	switch(f->getTipo()){
-	case RETA || BEZIER || BSPLINE:
+	TipoFigura tipo = f->getTipo();
+	if(tipo == RETA || tipo == BEZIER || tipo == BSPLINE)
 		desenhador->desenhaPoligonoRetaCurva(coordsFig, false);
-		break;	
-	case POLIGONO:
+	else if(tipo == POLIGONO)
 		desenhador->desenhaPoligonoRetaCurva(coordsFig, true);
-		break;
-	default:
-		cout << "Erro switch redesenhaFiguraClip" << endl;
-	}
+	else
+		desenhador->desenhaPonto(coordsFig);
 }
 
 gboolean Tela::redraw(GtkWidget* widget, cairo_t* cr) {
