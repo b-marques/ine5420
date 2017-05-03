@@ -38,15 +38,33 @@ public:
 	}
 
 	static Coordenada rotaciona3d(const Coordenada& coord,const Coordenada& eixo, double grau, const Coordenada& escala, const Coordenada& deslocamento){
-	
-	double anguloRad = grau * M_PI / 180.0;
-	double x = deslocamento.getX()+ escala.getX()*((coord.getX() - eixo.getX())*cos(anguloRad)+(coord.getY()-eixo.getY())*sin(anguloRad)) + eixo.getX();
-	double y = deslocamento.getY()+ escala.getY()*((coord.getY() - eixo.getY())*cos(anguloRad)-(coord.getX()-eixo.getX())*sin(anguloRad)) + eixo.getY();
+	double x, y, z, anguloRad, cosA, cosB, sinA, sinB, sinSig, cosSig, d, xFinal, yFinal, zFinal;
+	anguloRad = grau * M_PI / 180.0;
+	d = sqrt(pow(eixo.getY(), 2) + pow(eixo.getZ(), 2));
+	sinA = eixo.getY() / d;
+	cosA = eixo.getZ() / d;
+	sinB = eixo.getX();
+	cosB = d;
+	sinSig = sin(anguloRad);
+	cosSig = cos(anguloRad);
+	xFinal = x + ((k - x)*sinB + ((l - y)*sinA + (m - z)*cosA)*cosB)*sinB + (((k
+	    - x)*cosB - ((l - y)*sinA + (m - z)*cosA)*sinB)*cosSig - ((l - y)*cosA
+	    - (m - z)*sinA)*sinSig)*cosB;
+
+	yFinal = y + (((k - x)*sinB + ((l - y)*sinA + (m - z)*cosA)*cosB)*cosB - (((k
+	    - x)*cosB - ((l - y)*sinA + (m - z)*cosA)*sinB)*cosSig - ((l - y)*cosA
+	    - (m - z)*sinA)*sinSig)*sinB)*sinA + (((k - x)*cosB - ((l - y)*sinA
+		+ (m - z)*cosA)*sinB)*sinSig + ((l - y)*cosA - (m - z)*sinA)*cosSig)*cosA;
+
+	zFinal = z + (((k - x)*sinB + ((l - y)*sinA + (m - z)*cosA)*cosB)*cosB - (((k
+			 - x)*cosB - ((l - y)*sinA + (m - z)*cosA)*sinB)*cosSig - ((l - y)*cosA
+			 - (m - z)*sinA)*sinSig)*sinB)*cosA - (((k - x)*cosB - ((l - y)*sinA
+			 + (m - z)*cosA)*sinB)*sinSig + ((l - y)*cosA - (m - z)*sinA)*cosSig)*sinA;
 
 	return Coordenada(x, y);
 	};
 
-
+/*
 	  x + ((k - x)*sin(b) + ((l - y)*sin(a) + (m - z)*cos(a))*cos(b))*sin(b) + (((k
 	  - x)*cos(b) - ((l - y)*sin(a) + (m - z)*cos(a))*sin(b))*cos(d) - ((l - y)*cos(
 	  a) - (m - z)*sin(a))*sin(d))*cos(b)
@@ -63,6 +81,6 @@ public:
 	  (a) - (m - z)*sin(a))*sin(d))*sin(b))*cos(a) - (((k - x)*cos(b) - ((l - y)*sin
 	  (a) + (m - z)*cos(a))*sin(b))*sin(d) + ((l - y)*cos(a) - (m - z)*sin(a))*cos(d
 	  ))*sin(a)
-
+*/
 };
 
