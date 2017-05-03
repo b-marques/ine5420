@@ -37,5 +37,32 @@ public:
 		return Coordenada(x, y) + eixo;
 	}
 
+	static Coordenada rotaciona3d(const Coordenada& coord,const Coordenada& eixo, double grau, const Coordenada& escala, const Coordenada& deslocamento){
+	
+	double anguloRad = grau * M_PI / 180.0;
+	double x = deslocamento.getX()+ escala.getX()*((coord.getX() - eixo.getX())*cos(anguloRad)+(coord.getY()-eixo.getY())*sin(anguloRad)) + eixo.getX();
+	double y = deslocamento.getY()+ escala.getY()*((coord.getY() - eixo.getY())*cos(anguloRad)-(coord.getX()-eixo.getX())*sin(anguloRad)) + eixo.getY();
+
+	return Coordenada(x, y);
+	};
+
+
+	  x + ((k - x)*sin(b) + ((l - y)*sin(a) + (m - z)*cos(a))*cos(b))*sin(b) + (((k
+	  - x)*cos(b) - ((l - y)*sin(a) + (m - z)*cos(a))*sin(b))*cos(d) - ((l - y)*cos(
+	  a) - (m - z)*sin(a))*sin(d))*cos(b)
+
+	  y + (((k - x)*sin(b) + ((l - y)*sin(a) + (m - z)*cos(a))*cos(b))*cos(b) - (((k
+	   - x)*cos(b) - ((l - y)*sin(a) + (m - z)*cos(a))*sin(b))*cos(d) - ((l - y)*cos
+	  (a) - (m - z)*sin(a))*sin(d))*sin(b))*sin(a) + (((k - x)*cos(b) - ((l - y)*sin
+	  (a) + (m - z)*cos(a))*sin(b))*sin(d) + ((l - y)*cos(a) - (m - z)*sin(a))*cos(d
+	  ))*cos(a)
+
+
+	  z + (((k - x)*sin(b) + ((l - y)*sin(a) + (m - z)*cos(a))*cos(b))*cos(b) - (((k
+	   - x)*cos(b) - ((l - y)*sin(a) + (m - z)*cos(a))*sin(b))*cos(d) - ((l - y)*cos
+	  (a) - (m - z)*sin(a))*sin(d))*sin(b))*cos(a) - (((k - x)*cos(b) - ((l - y)*sin
+	  (a) + (m - z)*cos(a))*sin(b))*sin(d) + ((l - y)*cos(a) - (m - z)*sin(a))*cos(d
+	  ))*sin(a)
+
 };
 
