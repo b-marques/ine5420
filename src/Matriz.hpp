@@ -37,16 +37,14 @@ public:
 		return Coordenada(x, y) + eixo;
 	}
 
-	static Coordenada rotaciona3d(const Coordenada& coord,const Coordenada& eixo, double grau, const Coordenada& escala, const Coordenada& deslocamento){
-	double x, y, z, anguloRad, cosA, cosB, sinA, sinB, sinSig, cosSig, d, xFinal, yFinal, zFinal;
-	anguloRad = grau * M_PI / 180.0;
-	d = sqrt(pow(eixo.getY(), 2) + pow(eixo.getZ(), 2));
-	sinA = eixo.getY() / d;
-	cosA = eixo.getZ() / d;
-	sinB = eixo.getX();
-	cosB = d;
-	sinSig = sin(anguloRad);
-	cosSig = cos(anguloRad);
+	static Coordenada rotaciona3d(Coordenada coord, Coordenada& eixo0, double& sinA, double& cosA, double& sinB, double& cosB, double& sinSig, double& cosSig){
+	double x, y, z, k, l, m, xFinal, yFinal, zFinal;
+	k = coord.getX();
+	l = coord.getY();
+	m = coord.getZ();
+	x = eixo0.getX();
+	y = eixo0.getY();
+	z = eixo0.getZ();
 	xFinal = x + ((k - x)*sinB + ((l - y)*sinA + (m - z)*cosA)*cosB)*sinB + (((k
 	    - x)*cosB - ((l - y)*sinA + (m - z)*cosA)*sinB)*cosSig - ((l - y)*cosA
 	    - (m - z)*sinA)*sinSig)*cosB;
@@ -61,7 +59,7 @@ public:
 			 - (m - z)*sinA)*sinSig)*sinB)*cosA - (((k - x)*cosB - ((l - y)*sinA
 			 + (m - z)*cosA)*sinB)*sinSig + ((l - y)*cosA - (m - z)*sinA)*cosSig)*sinA;
 
-	return Coordenada(x, y);
+	return Coordenada(xFinal, yFinal, zFinal);
 	};
 
 /*
