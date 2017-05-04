@@ -37,10 +37,6 @@ public:
 		return Coordenada(x, y) + eixo;
 	}
 
-	static void translada3d(Coordenada& coord, Coordenada& desloc){
-		coord = coord + desloc;
-	}
-
 	static void rotaciona3d(Coordenada& coord, Coordenada& eixo0, double& sinA, double& cosA, double& sinB, double& cosB, double& sinSig, double& cosSig){
 		double x, y, z, k, l, m, xFinal, yFinal, zFinal;
 		k = coord.getX();
