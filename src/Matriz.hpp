@@ -66,7 +66,30 @@ public:
 		coord.setX(xFinal);
 		coord.setY(yFinal);
 		coord.setZ(zFinal);
-	};
+	}
+
+	static void escalona3d(Coordenada& coord, Coordenada& escala, Coordenada& centro) {
+		double k,l,m,t,u,v,x,y,z,xFinal, yFinal, zFinal;
+		k = coord.getX();
+		l = coord.getY();
+		m = coord.getZ();
+
+		t = centro.getX();
+		u = centro.getY();
+		v = centro.getZ();
+
+		x = escala.getX();
+		y = escala.getY();
+		z = escala.getZ();
+
+		xFinal = x * (k + t) - t;
+		yFinal = y * (l + u) - u;
+		zFinal = z * (m + v) - v;
+
+		coord.setX(xFinal);
+		coord.setY(yFinal);
+		coord.setZ(zFinal);
+	}
 
 /*
 	  x + ((k - x)*sin(b) + ((l - y)*sin(a) + (m - z)*cos(a))*cos(b))*sin(b) + (((k
