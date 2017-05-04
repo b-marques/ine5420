@@ -37,29 +37,35 @@ public:
 		return Coordenada(x, y) + eixo;
 	}
 
-	static Coordenada rotaciona3d(Coordenada coord, Coordenada& eixo0, double& sinA, double& cosA, double& sinB, double& cosB, double& sinSig, double& cosSig){
-	double x, y, z, k, l, m, xFinal, yFinal, zFinal;
-	k = coord.getX();
-	l = coord.getY();
-	m = coord.getZ();
-	x = eixo0.getX();
-	y = eixo0.getY();
-	z = eixo0.getZ();
-	xFinal = x + ((k - x)*sinB + ((l - y)*sinA + (m - z)*cosA)*cosB)*sinB + (((k
-	    - x)*cosB - ((l - y)*sinA + (m - z)*cosA)*sinB)*cosSig - ((l - y)*cosA
-	    - (m - z)*sinA)*sinSig)*cosB;
+	static void translada3d(Coordenada& coord, Coordenada& desloc){
+		coord = coord + desloc;
+	}
 
-	yFinal = y + (((k - x)*sinB + ((l - y)*sinA + (m - z)*cosA)*cosB)*cosB - (((k
-	    - x)*cosB - ((l - y)*sinA + (m - z)*cosA)*sinB)*cosSig - ((l - y)*cosA
-	    - (m - z)*sinA)*sinSig)*sinB)*sinA + (((k - x)*cosB - ((l - y)*sinA
-		+ (m - z)*cosA)*sinB)*sinSig + ((l - y)*cosA - (m - z)*sinA)*cosSig)*cosA;
+	static void rotaciona3d(Coordenada& coord, Coordenada& eixo0, double& sinA, double& cosA, double& sinB, double& cosB, double& sinSig, double& cosSig){
+		double x, y, z, k, l, m, xFinal, yFinal, zFinal;
+		k = coord.getX();
+		l = coord.getY();
+		m = coord.getZ();
+		x = eixo0.getX();
+		y = eixo0.getY();
+		z = eixo0.getZ();
+		xFinal = x + ((k - x)*sinB + ((l - y)*sinA + (m - z)*cosA)*cosB)*sinB + (((k
+			- x)*cosB - ((l - y)*sinA + (m - z)*cosA)*sinB)*cosSig - ((l - y)*cosA
+			- (m - z)*sinA)*sinSig)*cosB;
 
-	zFinal = z + (((k - x)*sinB + ((l - y)*sinA + (m - z)*cosA)*cosB)*cosB - (((k
-			 - x)*cosB - ((l - y)*sinA + (m - z)*cosA)*sinB)*cosSig - ((l - y)*cosA
-			 - (m - z)*sinA)*sinSig)*sinB)*cosA - (((k - x)*cosB - ((l - y)*sinA
-			 + (m - z)*cosA)*sinB)*sinSig + ((l - y)*cosA - (m - z)*sinA)*cosSig)*sinA;
+		yFinal = y + (((k - x)*sinB + ((l - y)*sinA + (m - z)*cosA)*cosB)*cosB - (((k
+			- x)*cosB - ((l - y)*sinA + (m - z)*cosA)*sinB)*cosSig - ((l - y)*cosA
+			- (m - z)*sinA)*sinSig)*sinB)*sinA + (((k - x)*cosB - ((l - y)*sinA
+			+ (m - z)*cosA)*sinB)*sinSig + ((l - y)*cosA - (m - z)*sinA)*cosSig)*cosA;
 
-	return Coordenada(xFinal, yFinal, zFinal);
+		zFinal = z + (((k - x)*sinB + ((l - y)*sinA + (m - z)*cosA)*cosB)*cosB - (((k
+				 - x)*cosB - ((l - y)*sinA + (m - z)*cosA)*sinB)*cosSig - ((l - y)*cosA
+				 - (m - z)*sinA)*sinSig)*sinB)*cosA - (((k - x)*cosB - ((l - y)*sinA
+				 + (m - z)*cosA)*sinB)*sinSig + ((l - y)*cosA - (m - z)*sinA)*cosSig)*sinA;
+
+		coord.setX(xFinal);
+		coord.setY(yFinal);
+		coord.setZ(zFinal);
 	};
 
 /*
