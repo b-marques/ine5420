@@ -41,7 +41,13 @@ Coordenada Figura::calculaCentro(ListaEnc<Coordenada>& coords) {
 
 void Figura::translada(Coordenada& desloc, Coordenada& zoomAcumumlado,
 		double giroTelaAcumulado) {
-	transform(centro, 0, Coordenada(1, 1), desloc);
+	Coordenada aux;
+	for (int i = 0; i < coordenadas.tamanho(); i++) {
+		aux = coordenadas.retiraDoInicio();
+		aux += desloc;
+		coordenadas.adiciona(aux);
+	}
+	centro = calculaCentro(coordenadas);
 	Coordenada deslocCorrigido = Matriz::matrizTransformacao(desloc,
 			Coordenada(0, 0), giroTelaAcumulado, Coordenada(1, 1),
 			Coordenada(0, 0));
@@ -50,28 +56,50 @@ void Figura::translada(Coordenada& desloc, Coordenada& zoomAcumumlado,
 }
 
 void Figura::escalona(Coordenada& escala) {
-	transform(centro, 0, escala, Coordenada(0, 0));
+	Coordenada aux;
+	for (int i = 0; i < coordenadas.tamanho(); i++){
+		aux = coordenadas.retiraDoInicio();
+		Matriz::escalona3d(aux, escala, centro);
+		coordenadas.adiciona(aux);
+	}
 	transformTela(centroRelTela, 0, escala, Coordenada(0, 0));
 }
 
-void Figura::rotacionaFiguraProprioCentro(double anguloGraus,
+void Figura::rotacionaFiguraProprioCentro(Coordenada& origemMundoTela, Coordenada& eixo1, double anguloGraus,
 		Coordenada& zoomAcumulado, double giroTelaAcumulado,
 		Coordenada& centroDesenho) {
-	rotaciona(centro, anguloGraus, zoomAcumulado, giroTelaAcumulado,
+	rotaciona(origemMundoTela, centro, eixo1, anguloGraus, zoomAcumulado, giroTelaAcumulado,
 			centroDesenho);
 }
 
-void Figura::rotaciona(Coordenada& centroRotacao, double anguloGraus,
+void Figura::rotaciona(Coordenada& origemMundoTela, Coordenada& eixo0, Coordenada& eixo1, double anguloGraus,
 		Coordenada& zoomAcumulado, double giroTelaAcumulado,
 		Coordenada& centroDesenho) {
-	Coordenada centroFigGirado = Matriz::matrizTransformacao(centro,
+	Coordenada aux;
+	double anguloRad, d, sinA, cosA, sinB, cosB, sinSig, cosSig;
+	anguloRad = anguloGraus * M_PI / 180.0;
+	d = sqrt(pow(eixo1.getY() - eixo0.getY(), 2) + pow(eixo1.getZ() - eixo0.getZ(), 2));
+	sinA = (eixo1.getY() - eixo0.getY()) / d;
+	cosA = (eixo1.getZ() - eixo0.getZ()) / d;
+	sinB = eixo1.getX() - eixo0.getX();
+	cosB = d;
+	sinSig = sin(anguloRad);
+	cosSig = cos(anguloRad);
+
+	for (int i = 0; i < coordenadas.tamanho(); i++) {
+		aux = coordenadas.retiraDoInicio();
+		Matriz::rotaciona3d(aux, eixo0, sinA, cosA, sinB, cosB, sinSig, cosSig);
+		coordenadas.adiciona(aux);
+	}
+	centro = calculaCentro(coordenadas);
+	/*Coordenada centroFigGirado = Matriz::matrizTransformacao(centro,
 			centroDesenho, giroTelaAcumulado, zoomAcumulado, Coordenada(0, 0));
 	Coordenada centroRotacaoTela = Matriz::matrizTransformacao(centroRotacao,
 			centroDesenho, giroTelaAcumulado, zoomAcumulado,
-			centroRelTela - centroFigGirado);
-	transform(centroRotacao, anguloGraus, Coordenada(1, 1), Coordenada(0, 0));
-	transformTela(centroRotacaoTela, anguloGraus, Coordenada(1, 1),
-			Coordenada(0, 0));
+			centroRelTela - centroFigGirado);*/
+
+	//transform(centroRotacao, anguloGraus, Coordenada(1, 1), Coordenada(0, 0));
+	recemAdicionada(origemMundoTela, zoomAcumulado, centroDesenho, giroTelaAcumulado);
 }
 
 void Figura::daZoom(Coordenada& zoom, Coordenada& centroDesenho) {

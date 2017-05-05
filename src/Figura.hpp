@@ -15,7 +15,7 @@
 using namespace std;
 
 
-enum TipoFigura {PONTO, RETA, POLIGONO, BEZIER, BSPLINE};
+enum TipoFigura {PONTO, RETA, POLIGONO, BEZIER, BSPLINE, FIGURA3D};
 
 class Figura {
 protected:
@@ -40,10 +40,10 @@ public:
 	void translada(Coordenada& desloc, Coordenada& zoomAcumumlado,
 			double giroTelaAcumulado);
 	void escalona(Coordenada& escala);
-	void rotacionaFiguraProprioCentro(double anguloGraus,
+	void rotacionaFiguraProprioCentro(Coordenada& origemMundoTela, Coordenada& eixo1, double anguloGraus,
 			Coordenada& zoomAcumulado, double giroTelaAcumulado,
 			Coordenada& centroDesenho);
-	void rotaciona(Coordenada& centroRotacao, double anguloGraus,
+	void rotaciona(Coordenada& origemMundoTela, Coordenada& eixo0, Coordenada& eixo1, double anguloGraus,
 			Coordenada& zoomAcumulado, double giroTelaAcumulado,
 			Coordenada& centroDesenho);
 	void daZoom(Coordenada& zoom, Coordenada& centroDesenho);

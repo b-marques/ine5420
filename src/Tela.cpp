@@ -7,6 +7,7 @@
 
 #include "Tela.hpp"
 #include "ViewPortOffset.hpp"
+#include "Figura3D.hpp"
 
 Tela::Tela() {
 	GtkWidget *window_widget;
@@ -197,12 +198,13 @@ void Tela::redesenhaFiguraClip(Figura* f, int tipoClip, int xDirVP,
 			coordsFig = coords->retornaDado(i);
 			if(tipo == RETA || tipo == BEZIER || tipo == BSPLINE)
 				desenhador->desenhaPoligonoRetaCurva(*coordsFig, false);
-			else if(tipo == POLIGONO)
+			else if(tipo == POLIGONO || tipo == FIGURA3D)
 				desenhador->desenhaPoligonoRetaCurva(*coordsFig, true);
 			else
 				desenhador->desenhaPonto(*coordsFig);
+			delete coordsFig;
 		}
-		delete coordsFig;
+		delete coords;
 	}
 }
 
@@ -214,8 +216,14 @@ void Tela::redesenhaFigura(Figura* f) {
 		desenhador->desenhaPoligonoRetaCurva(coordsFig, false);
 	else if(tipo == POLIGONO)
 		desenhador->desenhaPoligonoRetaCurva(coordsFig, true);
-	else
+	else if(tipo == PONTO)
 		desenhador->desenhaPonto(coordsFig);
+	else {
+		Figura3D *fig = (Figura3D*) f;
+		for (int i = 0; i < fig->numSuperficies(); i++) {
+			desenhador->desenhaPoligonoRetaCurva(fig->getSuperficie(i), true);
+		}
+	}
 }
 
 gboolean Tela::redraw(GtkWidget* widget, cairo_t* cr) {
@@ -415,18 +423,19 @@ double Tela::getSpinButtonValue(string nome) {
 void Tela::rotacionaFigura() {
 	int posFigura = posicaoFigSelecionada();
 	if (posFigura > -1) {
+		//mexer
 		double angulo = getSpinButtonValue("angulo");
 		string nome = mundo->getFiguras()->retornaDado(posFigura)->getNome();
 
 		switch (tipoRotacao()) {
 		case 0:
-			mundo->rotacionaFiguraCentroMundo(posFigura, angulo);
+			//mundo->rotacionaFiguraCentroMundo(posFigura, angulo);
 			escreveTerminal(
 					nome + " girou " + to_string(angulo)
 							+ " graus em torno do centro da tela");
 			break;
 		case 1:
-			mundo->rotacionaFiguraProprioCentro(posFigura, angulo);
+			//mundo->rotacionaFiguraProprioCentro(posFigura, angulo);
 			escreveTerminal(
 					nome + " girou " + to_string(angulo)
 							+ " graus em torno do seu centro");
@@ -434,7 +443,7 @@ void Tela::rotacionaFigura() {
 		case 2:
 			Coordenada coord = Coordenada(getSpinButtonValue("x_rotacao"),
 					getSpinButtonValue("y_rotacao"));
-			mundo->rotacionaFigura(posFigura, coord, angulo);
+			//mundo->rotacionaFigura(posFigura, coord, angulo);
 			escreveTerminal(
 					nome + " girou " + to_string(angulo)
 							+ " graus em torno do ponto " + coord.toString());
@@ -447,10 +456,11 @@ void Tela::rotacionaFigura() {
 }
 
 Coordenada Tela::FatorOuDeslocamento() {
-	double x, y;
+	double x, y, z;
 	x = getSpinButtonValue("x_desloc");
 	y = getSpinButtonValue("y_desloc");
-	return Coordenada(x, y);
+	z = getSpinButtonValue("z_desloc");
+	return Coordenada(x, y, z);
 }
 
 void Tela::salvaMundo() {

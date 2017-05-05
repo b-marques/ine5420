@@ -78,9 +78,9 @@ public:
 		y = escala.getY();
 		z = escala.getZ();
 
-		xFinal = x * (k + t) - t;
-		yFinal = y * (l + u) - u;
-		zFinal = z * (m + v) - v;
+		xFinal = x * (k - t) + t;
+		yFinal = y * (l - u) + u;
+		zFinal = z * (m - v) + v;
 
 		coord.setX(xFinal);
 		coord.setY(yFinal);
