@@ -410,7 +410,7 @@
                 <property name="receives_default">False</property>
                 <property name="opacity">0.98039215686274506</property>
                 <property name="margin_left">100</property>
-                <property name="margin_right">101</property>
+                <property name="margin_right">100</property>
                 <property name="resize_mode">immediate</property>
                 <property name="xalign">0.49999997019767761</property>
                 <signal name="clicked" handler="adicionarPoligono" swapped="no"/>
@@ -452,6 +452,8 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="opacity">0.98039215686274506</property>
+                <property name="margin_left">100</property>
+                <property name="margin_right">100</property>
                 <property name="resize_mode">immediate</property>
                 <property name="xalign">0.49999997019767761</property>
                 <signal name="clicked" handler="adicionarBezier" swapped="no"/>
@@ -493,6 +495,8 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="opacity">0.99999999977648257</property>
+                <property name="margin_left">100</property>
+                <property name="margin_right">100</property>
                 <property name="resize_mode">immediate</property>
                 <property name="xalign">0.49999997019767761</property>
                 <signal name="clicked" handler="adicionarBspline" swapped="no"/>
@@ -509,6 +513,88 @@
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">6</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="box15">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkSeparator" id="separator6">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="box33">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkButton" id="button_add_surface">
+                    <property name="label" translatable="yes">Adicionar superficie</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="resize_mode">immediate</property>
+                    <property name="xalign">0.49999997019767761</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="padding">3</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_remove_surfaces">
+                    <property name="label" translatable="yes">Remover superficies</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="resize_mode">immediate</property>
+                    <property name="xalign">0.49999997019767761</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="padding">3</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_add_3d_object">
+                    <property name="label" translatable="yes">Adicionar Objeto3D</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="resize_mode">immediate</property>
+                    <property name="xalign">0.49999997019767761</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="padding">3</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">7</property>
           </packing>
         </child>
       </object>

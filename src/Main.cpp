@@ -65,6 +65,10 @@ void adicionarBspline(GtkWidget *button, gpointer user_data) {
 	tela->adicionarBspline();
 }
 
+void adicionarSuperficie(GtkWidget *button, gpointer user_data) {
+	tela->addSuperficie();
+}
+
 void abrirAdicionaFigura(GtkWidget *button, gpointer user_data) {
 	tela->abrirTelaAdicionar();
 }

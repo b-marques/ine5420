@@ -54,7 +54,10 @@ void Tela::adicionaFigura(string nome, TipoFigura tipo) {
 		break;
 	case BSPLINE:
 		f = mundo->adicionaBspline(nome, coordTemp);
-		break;	
+		break;
+	case FIGURA3D:
+		//f = mundo->adicionaFigura3d(nome, superficieTemp);
+		break;
 	default:
 		break;
 	}
@@ -74,6 +77,9 @@ void Tela::limpaListaCoord() {
 	GtkLabel* label_coord = GTK_LABEL(
 			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_number"));
 	gtk_label_set_text(GTK_LABEL(label_coord), std::to_string(coordTemp.tamanho()).c_str());
+
+	ListaEnc<Poligono> novaSuperficie;
+	superficieTemp = novaSuperficie;
 }
 
 string Tela::getEntryText(string nomeEntry) {
@@ -495,4 +501,26 @@ void Tela::giraTelaAntiHora() {
 void Tela::tamanhoDrawMudou(GdkRectangle* novoTam) {
 	mundo->mudaTamanhoDesenho(novoTam->width, novoTam->height);
 	redesenhaTudo();
+}
+
+void Tela::adicionarObjeto3d(){
+	string nomeFigura = getNomeFigAdd();
+	if (superficieTemp.tamanho() < 1) {
+		escreveTerminal(
+				"Número de superficies não obedece regra para criação de Objeto3D");
+	} else {
+		adicionaFigura(nomeFigura, FIGURA3D);
+		limpaListaCoord();
+	}
+}
+
+void Tela::addSuperficie(){
+	if (coordTemp.tamanho() < 3) {
+		escreveTerminal(
+				"Número de pontos insuficientes para criação de superficie!");
+	} else {
+		superficieTemp.adiciona(Poligono("superficie"+std::to_string(superficieTemp.tamanho()), coordTemp));
+		ListaEnc<Coordenada> novaLista;
+		coordTemp = novaLista;
+	}	
 }

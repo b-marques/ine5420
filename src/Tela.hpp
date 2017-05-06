@@ -18,6 +18,7 @@
 #include "DescritorObj.hpp"
 #include "Mundo.hpp"
 #include "Desenhador.hpp"
+#include "Poligono.hpp"
 
 class Tela {
 private:
@@ -25,6 +26,7 @@ private:
 	GtkWidget *drawArea;
 	Desenhador *desenhador;
 	ListaEnc<Coordenada> coordTemp;
+	ListaEnc<Poligono> superficieTemp;
 	GtkBuilder *gtkBuilder;
 	GtkWidget* adicionarWindow;
 	DescritorObj* descritor;
@@ -68,6 +70,8 @@ public:
 	void adicionarPoligono();
 	void adicionarBezier();
 	void adicionarBspline();
+	void adicionarObjeto3d();
+	void addSuperficie();
 	void addCord();
 	void clearCord();
 	void escalonaFigura();
