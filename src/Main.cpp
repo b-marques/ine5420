@@ -44,7 +44,9 @@ void clearCord(GtkWidget *button, gpointer user_data) {
 	tela->limpaListaCoord();
 }
 
-
+void limparListaSuperficie(GtkWidget *button, gpointer user_data) {
+	tela->limpaListaCoord();
+}
 void adicionarPonto(GtkWidget *button, gpointer user_data) {
 	tela->adicionarPonto();
 }
@@ -63,6 +65,10 @@ void adicionarBezier(GtkWidget *button, gpointer user_data) {
 
 void adicionarBspline(GtkWidget *button, gpointer user_data) {
 	tela->adicionarBspline();
+}
+
+void adicionarObjeto3d(GtkWidget *button, gpointer user_data) {
+	tela->adicionarObjeto3d();
 }
 
 void adicionarSuperficie(GtkWidget *button, gpointer user_data) {
