@@ -33,9 +33,10 @@ public:
 	Figura* adicionaBspline(string nome, ListaEnc<Coordenada>& controle);
 	void transladaFigura(int posicaoLista, Coordenada desloc);
 	void escalonaFigura(int posicaoLista, Coordenada escala);
-	void rotacionaFiguraCentroMundo(int posicaoLista, double anguloGraus);
-	void rotacionaFiguraProprioCentro(int posicaoLista, double anguloGraus);
-	void rotacionaFigura(int posicaoLista, Coordenada centroRotacao, double anguloGraus);
+	void rotacionaFiguraCentroMundo(Coordenada eixo1, int posicaoLista, double anguloGraus);
+	void rotacionaFiguraProprioCentro(Coordenada eixo1, int posicaoLista, double anguloGraus);
+	void rotacionaFigura(Coordenada eixo0, Coordenada eixo1, int posicaoLista,
+			double anguloGraus);
 	void maisZoom(double passo);
 	void menosZoom(double passo);
 	void daZoomFiguras();
