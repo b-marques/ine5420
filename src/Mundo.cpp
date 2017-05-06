@@ -131,19 +131,19 @@ void Mundo::escalonaFigura(int posicaoLista, Coordenada escala) {
 	f->escalona(escala);
 }
 
-void Mundo::rotacionaFiguraCentroMundo(int posicaoLista, double anguloGraus) {
-	rotacionaFigura(posicaoLista, centroMundo, anguloGraus);
+void Mundo::rotacionaFiguraCentroMundo(Coordenada eixo1, int posicaoLista, double anguloGraus) {
+	rotacionaFigura(centroMundo, eixo1, posicaoLista, anguloGraus);
 }
 
-void Mundo::rotacionaFiguraProprioCentro(int posicaoLista, double anguloGraus) {
+void Mundo::rotacionaFiguraProprioCentro(Coordenada eixo1, int posicaoLista, double anguloGraus) {
 	Figura *f = figuras->retornaDado(posicaoLista);
-	f->rotacionaFiguraProprioCentro(anguloGraus, zoomAcumulado, giroTelaAcumulado, centroDesenho);
+	f->rotacionaFiguraProprioCentro(origemMundoTela, eixo1, anguloGraus, zoomAcumulado, giroTelaAcumulado, centroDesenho);
 }
 
-void Mundo::rotacionaFigura(int posicaoLista, Coordenada centroRotacao,
+void Mundo::rotacionaFigura(Coordenada eixo0, Coordenada eixo1, int posicaoLista,
 		double anguloGraus) {
 	Figura* f = figuras->retornaDado(posicaoLista);
-	f->rotaciona(centroRotacao, anguloGraus, zoomAcumulado, giroTelaAcumulado, centroDesenho);
+	f->rotaciona(origemMundoTela, eixo0, eixo1, anguloGraus, zoomAcumulado, giroTelaAcumulado, centroDesenho);
 }
 
 void Mundo::daZoomFiguras() {
