@@ -56,7 +56,7 @@ void Tela::adicionaFigura(string nome, TipoFigura tipo) {
 		f = mundo->adicionaBspline(nome, coordTemp);
 		break;
 	case FIGURA3D:
-		//f = mundo->adicionaFigura3d(nome, superficieTemp);
+		f = mundo->adicionaFigura3D(nome, superficieTemp);
 		break;
 	default:
 		break;
@@ -78,7 +78,7 @@ void Tela::limpaListaCoord() {
 			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_number"));
 	gtk_label_set_text(GTK_LABEL(label_coord), std::to_string(coordTemp.tamanho()).c_str());
 
-	ListaEnc<Poligono> novaSuperficie;
+	ListaEnc<Poligono*> novaSuperficie;
 	superficieTemp = novaSuperficie;
 }
 
@@ -428,31 +428,30 @@ double Tela::getSpinButtonValue(string nome) {
 
 void Tela::rotacionaFigura() {
 	int posFigura = posicaoFigSelecionada();
+	Coordenada eixo0, eixo1;
 	if (posFigura > -1) {
-		//mexer
 		double angulo = getSpinButtonValue("angulo");
 		string nome = mundo->getFiguras()->retornaDado(posFigura)->getNome();
-
+		eixo0 = Coordenada(getSpinButtonValue("x_eixo0"), getSpinButtonValue("y_eixo0"), getSpinButtonValue("z_eixo0"));
+		eixo1 = Coordenada(getSpinButtonValue("x_eixo1"), getSpinButtonValue("y_eixo1"), getSpinButtonValue("z_eixo1"));
 		switch (tipoRotacao()) {
 		case 0:
-			//mundo->rotacionaFiguraCentroMundo(posFigura, angulo);
+			mundo->rotacionaFiguraCentroMundo(eixo1, posFigura, angulo);
 			escreveTerminal(
 					nome + " girou " + to_string(angulo)
-							+ " graus em torno do centro da tela");
+							+ " graus em torno do centro do mundo");
 			break;
 		case 1:
-			//mundo->rotacionaFiguraProprioCentro(posFigura, angulo);
+			mundo->rotacionaFiguraProprioCentro(eixo1, posFigura, angulo);
 			escreveTerminal(
 					nome + " girou " + to_string(angulo)
 							+ " graus em torno do seu centro");
 			break;
 		case 2:
-			Coordenada coord = Coordenada(getSpinButtonValue("x_rotacao"),
-					getSpinButtonValue("y_rotacao"));
-			//mundo->rotacionaFigura(posFigura, coord, angulo);
+			mundo->rotacionaFigura(eixo0, eixo1, posFigura, angulo);
 			escreveTerminal(
 					nome + " girou " + to_string(angulo)
-							+ " graus em torno do ponto " + coord.toString());
+							+ " graus em torno eixo " + eixo0.toString()+ " "+ eixo1.toString());
 			break;
 		}
 		redesenhaTudo();
@@ -519,7 +518,7 @@ void Tela::addSuperficie(){
 		escreveTerminal(
 				"Número de pontos insuficientes para criação de superficie!");
 	} else {
-		superficieTemp.adiciona(Poligono("superficie"+std::to_string(superficieTemp.tamanho()), coordTemp));
+		superficieTemp.adiciona(new Poligono("superficie"+std::to_string(superficieTemp.tamanho()), coordTemp));
 		ListaEnc<Coordenada> novaLista;
 		coordTemp = novaLista;
 	}	

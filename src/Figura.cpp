@@ -92,13 +92,7 @@ void Figura::rotaciona(Coordenada& origemMundoTela, Coordenada& eixo0, Coordenad
 		coordenadas.adiciona(aux);
 	}
 	centro = calculaCentro(coordenadas);
-	/*Coordenada centroFigGirado = Matriz::matrizTransformacao(centro,
-			centroDesenho, giroTelaAcumulado, zoomAcumulado, Coordenada(0, 0));
-	Coordenada centroRotacaoTela = Matriz::matrizTransformacao(centroRotacao,
-			centroDesenho, giroTelaAcumulado, zoomAcumulado,
-			centroRelTela - centroFigGirado);*/
-
-	//transform(centroRotacao, anguloGraus, Coordenada(1, 1), Coordenada(0, 0));
+	coordenadasTela = coordenadas;
 	recemAdicionada(origemMundoTela, zoomAcumulado, centroDesenho, giroTelaAcumulado);
 }
 

@@ -14,6 +14,7 @@
 #include "Reta.hpp"
 #include "Bezier.hpp"
 #include "BSpline.hpp"
+#include "Figura3D.hpp"
 
 Mundo::Mundo(double larguraArea, double alturaArea) {
 	this->larguraArea = larguraArea;
@@ -103,6 +104,13 @@ Figura* Mundo::adicionaBspline(string nome, ListaEnc<Coordenada>& controle) {
 	figuras->adiciona(b);
 	inicializaFigura(b);
 	return b;
+}
+
+Figura* Mundo::adicionaFigura3D(string nome, ListaEnc<Poligono*>& superficies) {
+	Figura3D *f = new Figura3D(nome, superficies);
+	figuras->adiciona(f);
+	inicializaFigura(f);
+	return f;
 }
 
 void Mundo::maisZoom(double passo) {

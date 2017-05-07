@@ -26,7 +26,7 @@ private:
 	GtkWidget *drawArea;
 	Desenhador *desenhador;
 	ListaEnc<Coordenada> coordTemp;
-	ListaEnc<Poligono> superficieTemp;
+	ListaEnc<Poligono*> superficieTemp;
 	GtkBuilder *gtkBuilder;
 	GtkWidget* adicionarWindow;
 	DescritorObj* descritor;

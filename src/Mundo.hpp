@@ -10,6 +10,7 @@
 #include "Coordenada.hpp"
 #include "Figura.hpp"
 #include "tipoMoveEnum.hpp"
+#include "Poligono.hpp"
 
 class Mundo {
 private:
@@ -31,6 +32,7 @@ public:
 	Figura* adicionaPoligono(string nome, ListaEnc<Coordenada>& coord);
 	Figura* adicionaBezier(string nome, ListaEnc<Coordenada>& controle);
 	Figura* adicionaBspline(string nome, ListaEnc<Coordenada>& controle);
+	Figura* adicionaFigura3D(string nome, ListaEnc<Poligono*>& superficies);
 	void transladaFigura(int posicaoLista, Coordenada desloc);
 	void escalonaFigura(int posicaoLista, Coordenada escala);
 	void rotacionaFiguraCentroMundo(Coordenada eixo1, int posicaoLista, double anguloGraus);
