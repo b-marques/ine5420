@@ -37,18 +37,18 @@ public:
 			double xDir, double yCima, double yBaixo, int tipoClip) = 0;
 	string getNome();
 	Coordenada calculaCentro(ListaEnc<Coordenada>& coords);
-	void translada(Coordenada& desloc, Coordenada& zoomAcumumlado,
+	virtual void translada(Coordenada& desloc, Coordenada& zoomAcumumlado,
 			double giroTelaAcumulado);
-	void escalona(Coordenada& escala);
-	void rotacionaFiguraProprioCentro(Coordenada& origemMundoTela, Coordenada& eixo1, double anguloGraus,
+	virtual void escalona(Coordenada& escala);
+	virtual void rotacionaFiguraProprioCentro(Coordenada& origemMundoTela, Coordenada& eixo1, double anguloGraus,
 			Coordenada& zoomAcumulado, double giroTelaAcumulado,
 			Coordenada& centroDesenho);
-	void rotaciona(Coordenada& origemMundoTela, Coordenada& eixo0, Coordenada& eixo1, double anguloGraus,
+	virtual void rotaciona(Coordenada& origemMundoTela, Coordenada& eixo0, Coordenada& eixo1, double anguloGraus,
 			Coordenada& zoomAcumulado, double giroTelaAcumulado,
 			Coordenada& centroDesenho);
-	void daZoom(Coordenada& zoom, Coordenada& centroDesenho);
-	void deslocaNaTela(Coordenada& desloc);
-	void rotacionaTela(Coordenada& centroDesenho, double angulo);
+	virtual void daZoom(Coordenada& zoom, Coordenada& centroDesenho);
+	virtual void deslocaNaTela(Coordenada& desloc);
+	virtual void rotacionaTela(Coordenada& centroDesenho, double angulo);
 	TipoFigura getTipo();
 	Coordenada getCentro();
 	void recemAdicionada(Coordenada origemMundoTela, Coordenada& zoom, Coordenada& centroDesenho, double giroTela);
