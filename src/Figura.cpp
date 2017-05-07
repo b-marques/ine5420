@@ -76,13 +76,24 @@ void Figura::rotaciona(Coordenada& origemMundoTela, Coordenada& eixo0, Coordenad
 		Coordenada& zoomAcumulado, double giroTelaAcumulado,
 		Coordenada& centroDesenho) {
 	Coordenada aux;
-	double anguloRad, d, sinA, cosA, sinB, cosB, sinSig, cosSig;
+	double anguloRad, dZY, dZX, sinA, cosA, sinB, cosB, sinSig, cosSig;
 	anguloRad = anguloGraus * M_PI / 180.0;
-	d = sqrt(pow(eixo1.getY() - eixo0.getY(), 2) + pow(eixo1.getZ() - eixo0.getZ(), 2));
-	sinA = (eixo1.getY() - eixo0.getY()) / d;
-	cosA = (eixo1.getZ() - eixo0.getZ()) / d;
-	sinB = eixo1.getX() - eixo0.getX();
-	cosB = d;
+	dZY = sqrt(pow(eixo1.getY() - eixo0.getY(), 2) + pow(eixo1.getZ() - eixo0.getZ(), 2));
+	dZX = sqrt(pow(eixo1.getX() - eixo0.getX(), 2) + pow(eixo1.getZ() - eixo0.getZ(), 2));
+	if(dZY>0){
+		sinA = (eixo1.getY() - eixo0.getY()) / dZY;
+		cosA = (eixo1.getZ() - eixo0.getZ()) / dZY;
+	} else {
+		sinA = 0;
+		cosA = 1;
+	}
+	if(dZX>0){
+		sinB = (eixo1.getX() - eixo0.getX()) / dZX;
+		cosB = (eixo1.getZ() - eixo0.getZ()) / dZX;
+	} else {
+		sinB = 0;
+		cosB = 1;
+	}
 	sinSig = sin(anguloRad);
 	cosSig = cos(anguloRad);
 
