@@ -21,6 +21,7 @@ private:
 	Figura* leObjeto(ifstream& arquivo, string& linhaInicial, map<int, Coordenada> *coords);
 	map<int, Coordenada>* leTodasCoords(ifstream& arquivo);
 	ListaEnc<Coordenada>* listaCoordsFigura(string linha, map<int, Coordenada> *coords);
+	void escreveCoords(ListaEnc<Coordenada>* coords, string& texto, string linhasVert,int& linha);
 public:
 	DescritorObj();
 	DescritorObj(Mundo* mundo);

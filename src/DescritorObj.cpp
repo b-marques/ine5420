@@ -13,7 +13,7 @@
 #include "Reta.hpp"
 #include "Bezier.hpp"
 #include "BSpline.hpp"
-
+#include "Figura3D.hpp"
 DescritorObj::DescritorObj() {
 	// TODO Auto-generated constructor stub
 
@@ -46,21 +46,36 @@ void DescritorObj::escreveFigura(string& texto, Figura* figura, int& linha) {
 	linha++;
 	string linhasVert;
 	ListaEnc<Coordenada>* coords = &figura->getCoord();
-	Coordenada coord;
 
-	if (figura->getTipo() == RETA || figura->getTipo() == POLIGONO)
+	if (figura->getTipo() == RETA || figura->getTipo() == POLIGONO){
 		linhasVert = "l";
-	else if (figura->getTipo() == PONTO)
+		escreveCoords(coords, texto, linhasVert, linha);
+	} else if (figura->getTipo() == PONTO) {
 		linhasVert = "p";
-	else if (figura->getTipo() == BEZIER) {
+		escreveCoords(coords, texto, linhasVert, linha);
+	} else if (figura->getTipo() == BEZIER) {
 		linhasVert = "cstype bezier\ncurv";
 		Curva *b = (Curva*) figura;
 		coords = &b->getControle();
+		escreveCoords(coords, texto, linhasVert, linha);
 	} else if (figura->getTipo() == BSPLINE) {
 		linhasVert = "cstype bspline\ncurv";
 		Curva *b = (Curva*) figura;
 		coords = &b->getControle();
+		escreveCoords(coords, texto, linhasVert, linha);
+	} else if(figura->getTipo() == FIGURA3D){
+		linhasVert = "surf";
+		Figura3D *f3D = (Figura3D*) figura;
+		for (int i = 0; i < f3D->numSuperficies(); i++) {
+			coords = &f3D->getSuperficie(i);
+			escreveCoords(coords, texto, linhasVert, linha);
+		}
 	}
+
+}
+
+void DescritorObj::escreveCoords(ListaEnc<Coordenada>* coords, string& texto, string linhasVert,int& linha) {
+	Coordenada coord;
 	for (int i = 0; i < coords->tamanho(); ++i) {
 		coord = coords->retornaDado(i);
 		texto += "v " + to_string(coord.getX()) + " " + to_string(coord.getY())
@@ -99,6 +114,7 @@ Figura* DescritorObj::leObjeto(ifstream& arquivo, string& linhaInicial,
 	bool bezier = true;
 	Figura *f = nullptr;
 	ListaEnc<Coordenada> *listaCoords;
+	ListaEnc<Poligono*> superficies;
 	Coordenada coord;
 	linha = linhaInicial;
 	if (!linha.compare(0, 1, "o")) {
@@ -126,6 +142,20 @@ Figura* DescritorObj::leObjeto(ifstream& arquivo, string& linhaInicial,
 				bezier = true;
 			else if(linha.find("bspline") < linha.size())
 				bezier = false;
+		} else if(!linha.compare(0, 4, "surf")) {
+			ios_base::seekdir linhaAnterior;
+			while(!linha.compare(0, 4, "surf") || !linha.compare(0, 1, "v")){
+				if(!linha.compare(0, 4, "surf")){
+					listaCoords = listaCoordsFigura(linha, coords);
+					superficies.adiciona(new Poligono("", *listaCoords));
+					delete listaCoords;
+				}
+				linhaAnterior = arquivo.cur;
+				getline(arquivo, linha);
+			}
+			arquivo.clear();
+			arquivo.seekg(0, linhaAnterior);
+			return new Figura3D(nome, superficies);
 		}
 	}
 	delete listaCoords;
@@ -137,7 +167,7 @@ map<int, Coordenada>* DescritorObj::leTodasCoords(ifstream& arquivo) {
 	int linhaArq = 1;
 	map<int, Coordenada> *coords = new map<int, Coordenada>();
 	while (getline(arquivo, linha)) {
-		if (!linha.compare(0, 1, "v")) {
+		if (!linha.compare(0, 2, "v ")) {
 			coords->insert(pair<int, Coordenada>(linhaArq, leCoord(linha)));
 		}
 		linhaArq++;
