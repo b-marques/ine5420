@@ -27,17 +27,19 @@ void DescritorObj::salvaMundo(string nomeArquivo) {
 	ofstream arq;
 	string textoArq;
 	int linha = 1;
-	arq.open(nomeArquivo.c_str());
 	ListaEnc<Figura*>* figs = mundo->getFiguras();
 	Figura *f;
-	if (arq.is_open()) {
-		for (int i = 0; i < figs->tamanho(); i++) {
-			f = figs->retornaDado(i);
-			escreveFigura(textoArq, f, linha);
+	if (figs->tamanho() > 0) {
+		arq.open(nomeArquivo.c_str());
+		if (arq.is_open()) {
+			for (int i = 0; i < figs->tamanho(); i++) {
+				f = figs->retornaDado(i);
+				escreveFigura(textoArq, f, linha);
+			}
+			textoArq.erase(textoArq.size() - 1);
+			arq << textoArq;
+			arq.close();
 		}
-		textoArq.erase(textoArq.size() - 1);
-		arq << textoArq;
-		arq.close();
 	}
 }
 
@@ -47,7 +49,7 @@ void DescritorObj::escreveFigura(string& texto, Figura* figura, int& linha) {
 	string linhasVert;
 	ListaEnc<Coordenada>* coords = &figura->getCoord();
 
-	if (figura->getTipo() == RETA || figura->getTipo() == POLIGONO){
+	if (figura->getTipo() == RETA || figura->getTipo() == POLIGONO) {
 		linhasVert = "l";
 		escreveCoords(coords, texto, linhasVert, linha);
 	} else if (figura->getTipo() == PONTO) {
@@ -63,7 +65,7 @@ void DescritorObj::escreveFigura(string& texto, Figura* figura, int& linha) {
 		Curva *b = (Curva*) figura;
 		coords = &b->getControle();
 		escreveCoords(coords, texto, linhasVert, linha);
-	} else if(figura->getTipo() == FIGURA3D){
+	} else if (figura->getTipo() == FIGURA3D) {
 		linhasVert = "surf";
 		Figura3D *f3D = (Figura3D*) figura;
 		for (int i = 0; i < f3D->numSuperficies(); i++) {
@@ -74,7 +76,8 @@ void DescritorObj::escreveFigura(string& texto, Figura* figura, int& linha) {
 
 }
 
-void DescritorObj::escreveCoords(ListaEnc<Coordenada>* coords, string& texto, string linhasVert,int& linha) {
+void DescritorObj::escreveCoords(ListaEnc<Coordenada>* coords, string& texto,
+		string linhasVert, int& linha) {
 	Coordenada coord;
 	for (int i = 0; i < coords->tamanho(); ++i) {
 		coord = coords->retornaDado(i);
@@ -133,19 +136,19 @@ Figura* DescritorObj::leObjeto(ifstream& arquivo, string& linhaInicial,
 			f = new Ponto(nome, *listaCoords);
 		} else if (!linha.compare(0, 4, "curv")) {
 			listaCoords = listaCoordsFigura(linha, coords);
-			if(bezier)
+			if (bezier)
 				f = new Bezier(nome, *listaCoords);
 			else
 				f = new BSpline(nome, *listaCoords);
-		} else if(!linha.compare(0, 6, "cstype")){
-			if(linha.find("bezier") < linha.size())
+		} else if (!linha.compare(0, 6, "cstype")) {
+			if (linha.find("bezier") < linha.size())
 				bezier = true;
-			else if(linha.find("bspline") < linha.size())
+			else if (linha.find("bspline") < linha.size())
 				bezier = false;
-		} else if(!linha.compare(0, 4, "surf")) {
+		} else if (!linha.compare(0, 4, "surf")) {
 			int linhaAnterior;
-			while(!linha.compare(0, 4, "surf") || !linha.compare(0, 1, "v")){
-				if(!linha.compare(0, 4, "surf")){
+			while (!linha.compare(0, 4, "surf") || !linha.compare(0, 1, "v")) {
+				if (!linha.compare(0, 4, "surf")) {
 					listaCoords = listaCoordsFigura(linha, coords);
 					superficies.adiciona(new Poligono("", *listaCoords));
 					delete listaCoords;
