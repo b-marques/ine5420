@@ -143,18 +143,18 @@ Figura* DescritorObj::leObjeto(ifstream& arquivo, string& linhaInicial,
 			else if(linha.find("bspline") < linha.size())
 				bezier = false;
 		} else if(!linha.compare(0, 4, "surf")) {
-			ios_base::seekdir linhaAnterior;
+			int linhaAnterior;
 			while(!linha.compare(0, 4, "surf") || !linha.compare(0, 1, "v")){
 				if(!linha.compare(0, 4, "surf")){
 					listaCoords = listaCoordsFigura(linha, coords);
 					superficies.adiciona(new Poligono("", *listaCoords));
 					delete listaCoords;
 				}
-				linhaAnterior = arquivo.cur;
+				linhaAnterior = arquivo.tellg();
 				getline(arquivo, linha);
 			}
 			arquivo.clear();
-			arquivo.seekg(0, linhaAnterior);
+			arquivo.seekg(linhaAnterior, ios::beg);
 			return new Figura3D(nome, superficies);
 		}
 	}
