@@ -16,7 +16,6 @@
 #include "Figura3D.hpp"
 DescritorObj::DescritorObj() {
 	// TODO Auto-generated constructor stub
-
 }
 
 DescritorObj::DescritorObj(Mundo* mundo) {
@@ -66,7 +65,7 @@ void DescritorObj::escreveFigura(string& texto, Figura* figura, int& linha) {
 		coords = &b->getControle();
 		escreveCoords(coords, texto, linhasVert, linha);
 	} else if (figura->getTipo() == FIGURA3D) {
-		linhasVert = "surf";
+		linhasVert = "f";
 		Figura3D *f3D = (Figura3D*) figura;
 		for (int i = 0; i < f3D->numSuperficies(); i++) {
 			coords = &f3D->getSuperficie(i);
@@ -145,10 +144,10 @@ Figura* DescritorObj::leObjeto(ifstream& arquivo, string& linhaInicial,
 				bezier = true;
 			else if (linha.find("bspline") < linha.size())
 				bezier = false;
-		} else if (!linha.compare(0, 4, "surf")) {
+		} else if (!linha.compare(0, 2, "f ")) {
 			int linhaAnterior;
-			while (!linha.compare(0, 4, "surf") || !linha.compare(0, 1, "v")) {
-				if (!linha.compare(0, 4, "surf")) {
+			while (!linha.compare(0, 2, "f ") || !linha.compare(0, 1, "v")) {
+				if (!linha.compare(0, 2, "f ")) {
 					listaCoords = listaCoordsFigura(linha, coords);
 					superficies.adiciona(new Poligono("", *listaCoords));
 					delete listaCoords;
