@@ -259,9 +259,9 @@ template<typename T> inline void ListaEnc<T>::adicionaNaPosicao(const T& dado,
 
 template<typename T> inline int ListaEnc<T>::posicao(const T& dado) const {
 	Elemento<T> *auxPointer = head;
-
+	T infoAux;
 	for (int var = 0; var < size; var++) {
-		T infoAux = auxPointer->getInfo();
+		infoAux = auxPointer->getInfo();
 		if (dado == infoAux) {
 			// delete auxPointer;
 			return var;

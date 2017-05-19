@@ -6,7 +6,8 @@
  */
 
 #include "Coordenada.hpp"
-
+#include <limits>
+#include <cmath>
 Coordenada::Coordenada() {
 	x = 0;
 	y = 0;
@@ -132,7 +133,10 @@ bool Coordenada::yIguais(const Coordenada& c2) {
 }
 
 bool Coordenada::operator ==(const Coordenada& c2) const{
-	return this->x == c2.getX() && this->y == c2.getY() && this->z == c2.getZ();
+	double epsilon = numeric_limits<double>::epsilon();
+	return abs(this->x - c2.getX()) < epsilon&&
+			abs(this->y - c2.getY()) < epsilon &&
+			abs(this->z - c2.getZ()) < epsilon;
 }
 
 void Coordenada::operator +=(const Coordenada& c2) {

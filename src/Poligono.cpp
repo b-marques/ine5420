@@ -7,6 +7,8 @@
 
 #include "Poligono.hpp"
 #include "defineCohenSutherland.hpp"
+#include <math.h>
+#include <limits>
 Poligono::Poligono(string nome, ListaEnc<Coordenada>& coord) :
 		Figura(nome, coord, POLIGONO) {
 }
@@ -131,7 +133,7 @@ bool* Poligono::entradaESaidaEForaTela(Coordenada& p1, Coordenada& p2,
 		double xEsq, double xDir, double yCima, double yBaixo) {
 	int RC1, RC2;
 	bool p1mudou = false, p2mudou = false, foraTela = false;
-	double deltaX, x, y, m;
+	double deltaX, deltaY, x, y, m;
 	while (1) {
 		RC1 = getCode(p1, xEsq, xDir, yCima, yBaixo);
 		RC2 = getCode(p2, xEsq, xDir, yCima, yBaixo);
@@ -145,7 +147,8 @@ bool* Poligono::entradaESaidaEForaTela(Coordenada& p1, Coordenada& p2,
 		} else if (RC1 != RC2) {
 			int fora = RC1 ? RC1 : RC2;
 			deltaX = (p1.getX() - p2.getX());
-			m = (p1.getY() - p2.getY()) / deltaX;
+			deltaY = (p1.getY() - p2.getY());
+			m = deltaY / deltaX;
 			if (fora & TOPO) {
 				x = deltaX ? p1.getX() + (yCima - p1.getY()) / m : p1.getX();
 				y = yCima;

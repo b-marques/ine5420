@@ -182,8 +182,12 @@ Coordenada DescritorObj::leCoord(string& linha) {
 	linha.erase(0, 2);
 	int size = linha.find(" ");
 	x = atof(linha.substr(0, size).c_str());
-	y = atof(linha.substr(size + 1, 2 * size).c_str());
-	z = atof(linha.substr(2 * size + 1, 3 * size).c_str());
+	linha.erase(0, size+1);
+	size = linha.find(" ");
+	y = atof(linha.substr(0, size).c_str());
+	linha.erase(0, size+1);
+	size = linha.find(" ");
+	z = atof(linha.substr(0, size).c_str());
 	return Coordenada(x, y, z);
 }
 

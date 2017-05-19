@@ -6,7 +6,7 @@
  */
 
 #include "Figura.hpp"
-
+#include <limits>
 #include <math.h>
 Figura::Figura(string nome, TipoFigura tipo) {
 	this->nome = nome;
@@ -153,15 +153,20 @@ const ListaEnc<Coordenada>* Figura::getCoordTela(bool projOrtogonal, double foco
 	if(projOrtogonal)
 		return &coordenadasTela;
 	else {
-		Coordenada COP = centroDesenho;
+		Coordenada COP = centroDesenho, aux;
 		ListaEnc<Coordenada>* coordsProj = new ListaEnc<Coordenada>();
 		double zSobreFoco, xp, yp;
 		for (int i = 0; i < coordenadasTela.tamanho(); i++) {
-			Coordenada aux = coordenadasTela.retornaDado(i);
+			aux = coordenadasTela.retornaDado(i);
 			aux -= COP;
 			zSobreFoco = (aux.getZ()) / focoProj;
-			xp = aux.getX() / zSobreFoco;
-			yp = aux.getY() / zSobreFoco;
+			if(zSobreFoco != 0){
+				xp = aux.getX() / zSobreFoco;
+				yp = aux.getY() / zSobreFoco;
+			} else {
+				xp = aux.getX() > 0 ? numeric_limits<double>::max() : -numeric_limits<double>::max();
+				yp = aux.getY() > 0 ? numeric_limits<double>::max() : -numeric_limits<double>::max();
+			}
 			aux.setX(xp);
 			aux.setY(yp);
 			aux.setZ(focoProj);
