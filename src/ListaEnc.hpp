@@ -181,7 +181,7 @@ public:
 	void destroiLista();
 	int tamanho() const;
 	T retornaDado(int pos) const;
-	void operator=(ListaEnc<T>& l2);
+	void operator=(const ListaEnc<T>& l2);
 	T operator[](const int& pos);
 };
 
@@ -405,7 +405,7 @@ template<typename T> inline T ListaEnc<T>::retornaDado(int pos) const{
 	}
 }
 
-template<typename T> inline void ListaEnc<T>::operator =(ListaEnc<T>& l2) {
+template<typename T> inline void ListaEnc<T>::operator =(const ListaEnc<T>& l2) {
 	destroiLista();
 	ListaEnc<T>();
 	if (l2.tamanho() > 0) {

@@ -24,7 +24,7 @@ public:
 	ListaEnc<Figura*>* getFiguras();
 	Coordenada getDeslocamento();
 	Coordenada getZoom();
-	Coordenada getCentroDesenho();
+	Coordenada& getCentroDesenho();
 	Coordenada getCentroMundo();
 	void adicionaFigura(Figura *f);
 	Figura* adicionaPonto(string nome, ListaEnc<Coordenada>& coord);

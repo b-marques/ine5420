@@ -23,7 +23,7 @@ public:
 		double x = deslocamento.getX()+ escala.getX()*((coord.getX() - eixo.getX())*cos(anguloRad)+(coord.getY()-eixo.getY())*sin(anguloRad)) + eixo.getX();
 		double y = deslocamento.getY()+ escala.getY()*((coord.getY() - eixo.getY())*cos(anguloRad)-(coord.getX()-eixo.getX())*sin(anguloRad)) + eixo.getY();
 
-		return Coordenada(x, y);
+		return Coordenada(x, y, coord.getZ());
 	};
 
 	static Coordenada giraCoord(Coordenada& coord, Coordenada eixo, double grau){
@@ -34,7 +34,7 @@ public:
 				- coordRel.getY() * senAngulo;
 		double y = coordRel.getX() * senAngulo
 				+ coordRel.getY() * cosAngulo;
-		return Coordenada(x, y) + eixo;
+		return Coordenada(x, y, coord.getZ()) + eixo;
 	}
 
 	static void rotaciona3d(Coordenada& coord, Coordenada& eixo0, double& sinA, double& cosA, double& sinB, double& cosB, double& sinSig, double& cosSig){

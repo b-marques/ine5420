@@ -12,8 +12,9 @@
 class Ponto: public Figura {
 public:
 	Ponto(string nome, ListaEnc<Coordenada>& coord);
-	ListaEnc<ListaEnc<Coordenada>*>* getCoordTelaClip(double xEsq, double xDir,
-			double yCima, double yBaixo, int tipoClip);
+	ListaEnc<ListaEnc<Coordenada>*>* getCoordTelaClip(double xEsq,
+			double xDir, double yCima, double yBaixo, int tipoClip, bool projOrtogonal,
+			double focoProj, const Coordenada& centroDesenho);
 	virtual ~Ponto();
 };
 

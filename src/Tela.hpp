@@ -30,13 +30,14 @@ private:
 	GtkBuilder *gtkBuilder;
 	GtkWidget* adicionarWindow;
 	DescritorObj* descritor;
+	bool projOrtogonal;
 
 	void redesenhaTudo();
 	void moveCima();
 	void moveBaixo();
 	void moveDireita();
 	void moveEsquerda();
-	void redesenhaFigura(Figura *f);
+	void redesenhaFigura(Figura *f, double focoProj);
 	string getEntryText(string nomeEntry);
 	double getPasso();
 	string getNomeFigAdd();
@@ -49,7 +50,7 @@ private:
 	void limpaListaObjetos();
 	int tipoClipping();
 	void redesenhaFiguraClip(Figura* f, int tipoClip, int xDirVP,
-			int yCimaVP);
+			int yCimaVP, double focoProj);
 public:
 	void escreveTerminal(string texto);
 	Tela();
@@ -82,6 +83,8 @@ public:
 	void giraTelaHora();
 	void giraTelaAntiHora();
 	void tamanhoDrawMudou(GdkRectangle *novoTam);
+	void ativaProjOrtogonal();
+	void ativaProjPerspectiva();
 };
 
 #endif /* TELA_HPP_ */

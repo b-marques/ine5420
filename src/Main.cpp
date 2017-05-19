@@ -111,6 +111,14 @@ void resizeDraw(GtkWidget *widget, GdkRectangle *allocation,
 		gpointer user_data) {
 	tela->tamanhoDrawMudou(allocation);
 }
+
+void projOrtogonal(GtkToggleButton *togglebutton, gpointer user_data){
+	tela->ativaProjOrtogonal();
+}
+
+void projPerspectiva(GtkToggleButton *togglebutton, gpointer user_data){
+	tela->ativaProjPerspectiva();
+}
 }
 
 int main(int argc, char *argv[]) {

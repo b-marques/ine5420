@@ -59,7 +59,7 @@ Coordenada Mundo::getZoom() {
 	return zoom;
 }
 
-Coordenada Mundo::getCentroDesenho() {
+Coordenada& Mundo::getCentroDesenho() {
 	return centroDesenho;
 }
 

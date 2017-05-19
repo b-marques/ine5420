@@ -12,13 +12,13 @@ Reta::Reta(string nomeReta, ListaEnc<Coordenada>& coordReta) :
 }
 
 ListaEnc<ListaEnc<Coordenada>*>* Reta::clipCs(double xEsq, double xDir,
-		double yCima, double yBaixo) {
+		double yCima, double yBaixo, const ListaEnc<Coordenada>* coordsTelaProj) {
 	int RC1, RC2;
 	double m, x, y, deltaX;
 	ListaEnc<ListaEnc<Coordenada>*>* lista;
 	ListaEnc<Coordenada> *listaCoords;
-	Coordenada p1 = coordenadasTela.retornaDado(0);
-	Coordenada p2 = coordenadasTela.retornaDado(1);
+	Coordenada p1 = coordsTelaProj->retornaDado(0);
+	Coordenada p2 = coordsTelaProj->retornaDado(1);
 	while (1) {
 		RC1 = getCode(p1, xEsq, xDir, yCima, yBaixo);
 		RC2 = getCode(p2, xEsq, xDir, yCima, yBaixo);
@@ -60,14 +60,20 @@ ListaEnc<ListaEnc<Coordenada>*>* Reta::clipCs(double xEsq, double xDir,
 }
 
 ListaEnc<ListaEnc<Coordenada> *>* Reta::getCoordTelaClip(double xEsq,
-		double xDir, double yCima, double yBaixo, int tipoClip) {
+		double xDir, double yCima, double yBaixo, int tipoClip, bool projOrtogonal,
+		double focoProj, const Coordenada& centroDesenho) {
+	const ListaEnc<Coordenada>* coordsTelaProj = getCoordTela(projOrtogonal, focoProj, centroDesenho);
+	ListaEnc<ListaEnc<Coordenada>*>* listaClip;
 	if (tipoClip == 1)
-		return clipCs(xEsq, xDir, yCima, yBaixo);
+		listaClip = clipCs(xEsq, xDir, yCima, yBaixo, coordsTelaProj);
 	else if (tipoClip == 2) {
-		return clipLb(xEsq, xDir, yCima, yBaixo);
+		listaClip = clipLb(xEsq, xDir, yCima, yBaixo, coordsTelaProj);
 	} else {
-		return nullptr;
+		listaClip = nullptr;
 	}
+	if(!projOrtogonal)
+		delete coordsTelaProj;
+	return listaClip;
 }
 
 int Reta::getCode(Coordenada& coord, double xEsq, double xDir, double yCima,
@@ -77,13 +83,13 @@ int Reta::getCode(Coordenada& coord, double xEsq, double xDir, double yCima,
 }
 
 ListaEnc<ListaEnc<Coordenada> *>* Reta::clipLb(double xEsq, double xDir,
-		double yCima, double yBaixo) {
+		double yCima, double yBaixo, const ListaEnc<Coordenada>* coordsTelaProj) {
 
 	ListaEnc<Coordenada>* coordenadasClipadas = new ListaEnc<Coordenada>();
 	ListaEnc<ListaEnc<Coordenada>*>* lista = new ListaEnc<ListaEnc<Coordenada>*>();
 
-	Coordenada ponto1 = coordenadasTela.retornaDado(0);
-	Coordenada ponto2 = coordenadasTela.retornaDado(1);
+	Coordenada ponto1 = coordsTelaProj->retornaDado(0);
+	Coordenada ponto2 = coordsTelaProj->retornaDado(1);
 	
 	double t0 = 0.0;    double t1 = 1.0;
     double xdelta = ponto1.getX() - ponto2.getX();
@@ -117,7 +123,7 @@ ListaEnc<ListaEnc<Coordenada> *>* Reta::clipLb(double xEsq, double xDir,
     double newx2 = ponto1.getX() + t1*xdelta;
     double newy2 = ponto1.getY() + t1*ydelta;
 
-    coordenadasClipadas->adiciona(Coordenada(newx1,newy1));
+    coordenadasClipadas->adiciona(Coordenada(newx1, newy1));
     coordenadasClipadas->adiciona(Coordenada(newx2, newy2));
     lista->adiciona(coordenadasClipadas);
   	return lista;

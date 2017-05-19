@@ -16,26 +16,28 @@ Poligono::~Poligono() {
 }
 
 ListaEnc<ListaEnc<Coordenada> *>* Poligono::getCoordTelaClip(double xEsq,
-		double xDir, double yCima, double yBaixo, int tipoClip) {
+		double xDir, double yCima, double yBaixo, int tipoClip, bool projOrtogonal,
+		double focoProj, const Coordenada& centroDesenho) {
 	Coordenada entrante, doPoligono, daWindow;
 	bool poligonoPronto;
 	ListaEnc<Coordenada> *poligono, *entrantes, *temp;
+	const ListaEnc<Coordenada> *coordsProjTela = this->getCoordTela(projOrtogonal, focoProj, centroDesenho);
 	ListaEnc<ListaEnc<Coordenada>*> *listaPoligonos = new ListaEnc<
 			ListaEnc<Coordenada>*>();
 	ListaEspecialWindow *window = new ListaEspecialWindow(xEsq, xDir, yCima,
 			yBaixo);
 	poligono = new ListaEnc<Coordenada>();
 	entrantes = new ListaEnc<Coordenada>();
-	geraListasWeiler(window, poligono, entrantes, xEsq, xDir, yCima, yBaixo);
+	geraListasWeiler(window, poligono, entrantes, coordsProjTela, xEsq, xDir, yCima, yBaixo);
 	window->retiraInfEsqDuplicado();
 
 	if(entrantes->tamanho() == 0){
-		if(getCode(coordenadasTela.retornaDado(0), xEsq, xDir, yCima, yBaixo)){
+		if(getCode(coordsProjTela->retornaDado(0), xEsq, xDir, yCima, yBaixo)){
 			delete listaPoligonos;
 			listaPoligonos = nullptr;
 		} else {
 			temp = new ListaEnc<Coordenada>();
-			*temp = coordenadasTela;
+			*temp = *coordsProjTela;
 			listaPoligonos->adiciona(temp);
 		}
 	}
@@ -81,17 +83,20 @@ ListaEnc<ListaEnc<Coordenada> *>* Poligono::getCoordTelaClip(double xEsq,
 	delete poligono;
 	delete window;
 	delete entrantes;
+	if(!projOrtogonal)
+		delete coordsProjTela;
 	return listaPoligonos;
 }
 
 void Poligono::geraListasWeiler(ListaEspecialWindow* window,
 		ListaEnc<Coordenada>* poligono, ListaEnc<Coordenada>* entrantes,
+		const ListaEnc<Coordenada>* coordsProjTela,
 		double xEsq, double xDir, double yCima, double yBaixo) {
 	bool* mudancas;
 	Coordenada p1, p2;
 	ListaEnc<Coordenada> *coordsTela = new ListaEnc<Coordenada>();
-	*coordsTela = coordenadasTela;
-	coordsTela->adiciona(coordenadasTela.retornaDado(0));
+	*coordsTela = *coordsProjTela;
+	coordsTela->adiciona(coordsProjTela->retornaDado(0));
 	for (int i = 0; i < coordsTela->tamanho() - 1; i++) {
 		p1 = coordsTela->retornaDado(i);
 		p2 = coordsTela->retornaDado(i + 1);

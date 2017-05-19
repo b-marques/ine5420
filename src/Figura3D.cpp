@@ -63,13 +63,14 @@ void Figura3D::rotacionaTela(Coordenada& centroDesenho, double angulo) {
 }
 
 ListaEnc<ListaEnc<Coordenada> *>* Figura3D::getCoordTelaClip(double xEsq,
-		double xDir, double yCima, double yBaixo, int tipoClip) {
+		double xDir, double yCima, double yBaixo, int tipoClip, bool projOrtogonal,
+		double focoProj, const Coordenada& centroDesenho) {
 	ListaEnc<ListaEnc<Coordenada> *>* poligonosClipados = new ListaEnc<ListaEnc<Coordenada> *>();
 	ListaEnc<ListaEnc<Coordenada> *>* superficieClip;
 	Poligono *p;
 	for (int i = 0; i < superficies.tamanho(); i++) {
 		p = superficies.retornaDado(i);
-		superficieClip = p->getCoordTelaClip(xEsq, xDir, yCima, yBaixo, tipoClip);
+		superficieClip = p->getCoordTelaClip(xEsq, xDir, yCima, yBaixo, tipoClip, projOrtogonal, focoProj, centroDesenho);
 		if(superficieClip != nullptr)
 			for (int j = 0; j < superficieClip->tamanho(); j++) {
 				poligonosClipados->adiciona(superficieClip->retiraDoInicio());
@@ -84,7 +85,11 @@ ListaEnc<ListaEnc<Coordenada> *>* Figura3D::getCoordTelaClip(double xEsq,
 }
 
 ListaEnc<Coordenada>& Figura3D::getSuperficie(int idSuper) {
-	return superficies.retornaDado(idSuper)->getCoordTela();
+	return superficies.retornaDado(idSuper)->getCoord();
+}
+
+const ListaEnc<Coordenada>* Figura3D::getSuperficieTela(int idSuper, bool projOrtogonal, double focoProj, const Coordenada& centroDesenho) {
+	return superficies.retornaDado(idSuper)->getCoordTela(projOrtogonal, focoProj,centroDesenho);
 }
 
 int Figura3D::numSuperficies() {

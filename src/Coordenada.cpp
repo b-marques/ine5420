@@ -141,6 +141,12 @@ void Coordenada::operator +=(const Coordenada& c2) {
 	this->z += c2.z;
 }
 
+void Coordenada::operator -=(const Coordenada& c2) {
+	this->x -= c2.x;
+	this->y -= c2.y;
+	this->z -= c2.z;
+}
+
 Coordenada Coordenada::operator *(const double mult) {
 	double x, y, z;
 	x = this->x*mult;

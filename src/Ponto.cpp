@@ -16,13 +16,18 @@ Ponto::~Ponto() {
 }
 
 ListaEnc<ListaEnc<Coordenada> *>* Ponto::getCoordTelaClip(double xEsq,
-		double xDir, double yCima, double yBaixo, int tipoClip) {
+		double xDir, double yCima, double yBaixo, int tipoClip, bool projOrtogonal,
+		double focoProj, const Coordenada& centroDesenho) {
 	ListaEnc<ListaEnc<Coordenada>*>* lista;
 	ListaEnc<Coordenada> *listaCoords;
-	Coordenada p1 = coordenadasTela.retornaDado(0);
+	const ListaEnc<Coordenada> *coordsTela;
+	coordsTela = getCoordTela(projOrtogonal, focoProj, centroDesenho);
+	Coordenada p1 = coordsTela->retornaDado(0);
 	lista = new ListaEnc<ListaEnc<Coordenada>*>();
 	listaCoords = new ListaEnc<Coordenada>();
 	listaCoords->adiciona(p1);
 	lista->adiciona(listaCoords);
+	if(!projOrtogonal)
+		delete coordsTela;
 	return lista;
 }

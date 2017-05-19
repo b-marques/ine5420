@@ -31,7 +31,7 @@ gboolean Desenhador::redraw(cairo_t* cr) {
 	return FALSE;
 }
 
-void Desenhador::desenhaPonto(ListaEnc<Coordenada>& coordLista) {
+void Desenhador::desenhaPonto(const ListaEnc<Coordenada>& coordLista) {
 	cairo_t* cr = cairo_create(surface);
 	Coordenada coord = transViewPort(coordLista.retornaDado(0));
 	cairo_move_to(cr, coord.getX(), coord.getY());
@@ -51,7 +51,7 @@ void Desenhador::desenhaViewPort() {
 	desenhaPoligonoRetaCurva(coordsView, true);
 }
 
-void Desenhador::desenhaPoligonoRetaCurva(ListaEnc<Coordenada>& coordLista, bool poligono) {
+void Desenhador::desenhaPoligonoRetaCurva(const ListaEnc<Coordenada>& coordLista, bool poligono) {
 	cairo_t* cr = cairo_create(surface);
 	Coordenada coord1, coord2;
 	coord1 = transViewPort(coordLista.retornaDado(0));

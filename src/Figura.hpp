@@ -32,9 +32,10 @@ public:
 	Figura(string nome, TipoFigura tipo);
 	Figura(string nome, ListaEnc<Coordenada>& coord, TipoFigura tipo);
 	ListaEnc<Coordenada>& getCoord();
-	ListaEnc<Coordenada>& getCoordTela();
+	const ListaEnc<Coordenada>* getCoordTela(bool projOrtogonal = true, double focoProj = 0, const Coordenada& centroDesenho = Coordenada(0, 0));
 	virtual ListaEnc<ListaEnc<Coordenada>*>* getCoordTelaClip(double xEsq,
-			double xDir, double yCima, double yBaixo, int tipoClip) = 0;
+			double xDir, double yCima, double yBaixo, int tipoClip, bool projOrtogonal,
+			double focoProj, const Coordenada& centroDesenho) = 0;
 	string getNome();
 	Coordenada calculaCentro(ListaEnc<Coordenada>& coords);
 	virtual void translada(Coordenada& desloc, Coordenada& zoomAcumumlado,

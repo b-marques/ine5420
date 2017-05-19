@@ -19,9 +19,9 @@ public:
 	Desenhador(GtkWidget *drawArea);
 	gboolean criaSurface(GtkWidget *drawArea);
 	gboolean redraw(cairo_t* cr);
-	void desenhaPonto(ListaEnc<Coordenada>& coordLista);
+	void desenhaPonto(const ListaEnc<Coordenada>& coordLista);
 	void desenhaViewPort();
-	void desenhaPoligonoRetaCurva(ListaEnc<Coordenada>& coordLista, bool poligono);
+	void desenhaPoligonoRetaCurva(const ListaEnc<Coordenada>& coordLista, bool poligono);
 	void limpaDesenho();
 	Coordenada transViewPort(Coordenada coord);
 	virtual ~Desenhador();

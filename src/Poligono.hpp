@@ -24,11 +24,13 @@ private:
 	bool intersecTemMesmoY(Coordenada& inter, Coordenada& w1, Coordenada& w2);
 	void geraListasWeiler(ListaEspecialWindow* window,
 			ListaEnc<Coordenada>* poligono, ListaEnc<Coordenada>* entrantes,
+			const ListaEnc<Coordenada>* coordsProjTela,
 			double xEsq, double xDir, double yCima, double yBaixo);
 public:
 	Poligono(string nome, ListaEnc<Coordenada>& coord);
-	ListaEnc<ListaEnc<Coordenada>*>* getCoordTelaClip(double xEsq, double xDir,
-			double yCima, double yBaixo, int tipoClip);
+	ListaEnc<ListaEnc<Coordenada>*>* getCoordTelaClip(double xEsq,
+			double xDir, double yCima, double yBaixo, int tipoClip, bool projOrtogonal,
+			double focoProj, const Coordenada& centroDesenho);
 	virtual ~Poligono();
 };
 

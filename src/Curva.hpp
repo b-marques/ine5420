@@ -18,7 +18,8 @@ protected:
 public:
 	Curva(string nome, TipoFigura tipo, ListaEnc<Coordenada>& controle);
 	ListaEnc<ListaEnc<Coordenada>*>* getCoordTelaClip(double xEsq,
-				double xDir, double yCima, double yBaixo, int tipoClip);
+			double xDir, double yCima, double yBaixo, int tipoClip, bool projOrtogonal,
+			double focoProj, const Coordenada& centroDesenho);
 	ListaEnc<Coordenada>& getControle();
 	virtual ~Curva();
 };

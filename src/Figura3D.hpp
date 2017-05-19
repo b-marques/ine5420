@@ -27,9 +27,11 @@ public:
 	void daZoom(Coordenada& zoom, Coordenada& centroDesenho);
 	void deslocaNaTela(Coordenada& desloc);
 	void rotacionaTela(Coordenada& centroDesenho, double angulo);
-	ListaEnc<ListaEnc<Coordenada>*>* getCoordTelaClip(double xEsq, double xDir,
-			double yCima, double yBaixo, int tipoClip);
+	ListaEnc<ListaEnc<Coordenada>*>* getCoordTelaClip(double xEsq,
+			double xDir, double yCima, double yBaixo, int tipoClip, bool projOrtogonal,
+			double focoProj, const Coordenada& centroDesenho);
 	ListaEnc<Coordenada>& getSuperficie(int idSuper);
+	const ListaEnc<Coordenada>* getSuperficieTela(int idSuper, bool projOrtogonal, double focoProj, const Coordenada& centroDesenho);
 	int numSuperficies();
 	virtual ~Figura3D();
 };

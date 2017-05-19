@@ -30,12 +30,14 @@ Tela::Tela() {
 
 	g_signal_connect_swapped(G_OBJECT(window_widget), "destroy",
 			G_CALLBACK(gtk_main_quit), NULL);
+	projOrtogonal = true;
 	gtk_builder_connect_signals(gtkBuilder, NULL);
 	gtk_widget_show_all(window_widget);
 }
 
 void Tela::adicionaFigura(string nome, TipoFigura tipo) {
 	Figura* f;
+	double focoProj;
 	int tipoClip;
 	int xDirVP = gtk_widget_get_allocated_width(drawArea) - VPOffset;
 	int yCimaVP = gtk_widget_get_allocated_height(drawArea) - VPOffset;
@@ -62,10 +64,11 @@ void Tela::adicionaFigura(string nome, TipoFigura tipo) {
 		break;
 	}
 	tipoClip = tipoClipping();
+	focoProj = getSpinButtonValue("focoProjecao");
 	if(!tipoClip)
-		redesenhaFigura(f);
+		redesenhaFigura(f, focoProj);
 	else
-		redesenhaFiguraClip(f, tipoClip, xDirVP, yCimaVP);
+		redesenhaFiguraClip(f, tipoClip, xDirVP, yCimaVP, focoProj);
 	escreveTerminal("Figura adicionada: " + nome + coordenadasTxt(coordTemp));
 	escreveListaObjetos(nome);
 	limpaListaCoord();
@@ -178,26 +181,27 @@ void Tela::redesenhaTudo() {
 	ListaEnc<Figura*>* figLista = mundo->getFiguras();
 	desenhador->limpaDesenho();
 	int tipoClip = tipoClipping();
+	double focoProj = getSpinButtonValue("focoProjecao");
 	if (tipoClip != 0) {
 		desenhador->desenhaViewPort();
 		int xDirVP = gtk_widget_get_allocated_width(drawArea) - VPOffset;
 		int yCimaVP = gtk_widget_get_allocated_height(drawArea) - VPOffset;
 		for (int i = 0; i < figLista->tamanho(); i++) {
 			redesenhaFiguraClip(figLista->retornaDado(i), tipoClip, xDirVP,
-					yCimaVP);
+					yCimaVP, focoProj);
 		}
 	} else {
 		for (int i = 0; i < figLista->tamanho(); i++) {
-			redesenhaFigura(figLista->retornaDado(i));
+			redesenhaFigura(figLista->retornaDado(i), focoProj);
 		}
 	}
 }
 
 void Tela::redesenhaFiguraClip(Figura* f, int tipoClip, int xDirVP,
-		int yCimaVP) {
+		int yCimaVP, double focoProj) {
 	ListaEnc<Coordenada> *coordsFig;
 	ListaEnc<ListaEnc<Coordenada>*> *coords;
-	coords = f->getCoordTelaClip(VPOffset, xDirVP, yCimaVP, VPOffset, tipoClip);
+	coords = f->getCoordTelaClip(VPOffset, xDirVP, yCimaVP, VPOffset, tipoClip, projOrtogonal, focoProj, mundo->getCentroDesenho());
 	TipoFigura tipo = f->getTipo();
 	if (coords != nullptr) {
 		for (int i = 0; i < coords->tamanho(); i++) {
@@ -214,22 +218,25 @@ void Tela::redesenhaFiguraClip(Figura* f, int tipoClip, int xDirVP,
 	}
 }
 
-void Tela::redesenhaFigura(Figura* f) {
-	ListaEnc<Coordenada> coordsFig;
-	coordsFig = f->getCoordTela();
+void Tela::redesenhaFigura(Figura* f, double focoProj) {
+	const ListaEnc<Coordenada>* coordsFig;
+	const Coordenada centroDesenho = mundo->getCentroDesenho();
+	coordsFig = f->getCoordTela(projOrtogonal, focoProj, centroDesenho);
 	TipoFigura tipo = f->getTipo();
 	if(tipo == RETA || tipo == BEZIER || tipo == BSPLINE)
-		desenhador->desenhaPoligonoRetaCurva(coordsFig, false);
+		desenhador->desenhaPoligonoRetaCurva(*coordsFig, false);
 	else if(tipo == POLIGONO)
-		desenhador->desenhaPoligonoRetaCurva(coordsFig, true);
+		desenhador->desenhaPoligonoRetaCurva(*coordsFig, true);
 	else if(tipo == PONTO)
-		desenhador->desenhaPonto(coordsFig);
+		desenhador->desenhaPonto(*coordsFig);
 	else {
 		Figura3D *fig = (Figura3D*) f;
 		for (int i = 0; i < fig->numSuperficies(); i++) {
-			desenhador->desenhaPoligonoRetaCurva(fig->getSuperficie(i), true);
+			desenhador->desenhaPoligonoRetaCurva(*(fig->getSuperficieTela(i, projOrtogonal, focoProj, centroDesenho)), true);
 		}
 	}
+	if(!projOrtogonal)
+		delete coordsFig;
 }
 
 gboolean Tela::redraw(GtkWidget* widget, cairo_t* cr) {
@@ -522,4 +529,13 @@ void Tela::addSuperficie(){
 		ListaEnc<Coordenada> novaLista;
 		coordTemp = novaLista;
 	}	
+
+}
+
+void Tela::ativaProjOrtogonal() {
+	projOrtogonal = true;
+}
+
+void Tela::ativaProjPerspectiva() {
+	projOrtogonal = false;
 }

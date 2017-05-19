@@ -149,8 +149,29 @@ Coordenada Figura::getCentro() {
 	return this->centro;
 }
 
-ListaEnc<Coordenada>& Figura::getCoordTela() {
-	return coordenadasTela;
+const ListaEnc<Coordenada>* Figura::getCoordTela(bool projOrtogonal, double focoProj, const Coordenada& centroDesenho) {
+	if(projOrtogonal)
+		return &coordenadasTela;
+	else {
+		Coordenada centroDes = centroDesenho;
+		centroDes.setZ(focoProj);
+		ListaEnc<Coordenada>* coordsProj = new ListaEnc<Coordenada>();
+		double zSobreFoco;
+		for (int i = 0; i < coordenadasTela.tamanho(); i++) {
+			Coordenada aux = coordenadasTela.retornaDado(i);
+			zAntigo = aux.getZ();
+			aux -= centroDes;
+			zSobreFoco = (aux.getZ()) / focoProj;
+			if(zSobreFoco == 0)
+				zSobreFoco = 1;
+			aux.setX(aux.getX() / zSobreFoco);
+			aux.setY(aux.getY() / zSobreFoco);
+			aux.setZ(zSobreFoco);
+			aux += centroDes;
+			coordsProj->adiciona(aux);
+		}
+		return coordsProj;
+	}
 }
 
 Figura::~Figura() {

@@ -18,19 +18,21 @@ int Curva::getCode(Coordenada& coord, double xEsq, double xDir, double yCima,
 }
 
 ListaEnc<ListaEnc<Coordenada> *>* Curva::getCoordTelaClip(double xEsq,
-		double xDir, double yCima, double yBaixo, int tipoClip) {
+		double xDir, double yCima, double yBaixo, int tipoClip, bool projOrtogonal,
+		double focoProj, const Coordenada& centroDesenho) {
 	int RC1, RC2, nVezes;
 	bool p2mudou;
 	double m, x, y, deltaX;
 	Coordenada p1, p2;
 	ListaEnc<ListaEnc<Coordenada>*>* lista;
 	ListaEnc<Coordenada> *listaCoords;
+	const ListaEnc<Coordenada> *coordsProjTela = getCoordTela(projOrtogonal, focoProj, centroDesenho);
 	listaCoords = new ListaEnc<Coordenada>();
 	lista = new ListaEnc<ListaEnc<Coordenada>*>();
-	nVezes = coordenadasTela.tamanho() - 1;
+	nVezes = coordsProjTela->tamanho() - 1;
 	for (int i = 0; i < nVezes; i++) {
-		p1 = coordenadasTela.retornaDado(i);
-		p2 = coordenadasTela.retornaDado(i + 1);
+		p1 = coordsProjTela->retornaDado(i);
+		p2 = coordsProjTela->retornaDado(i + 1);
 		p2mudou = false;
 		while (1) {
 			RC1 = getCode(p1, xEsq, xDir, yCima, yBaixo);
@@ -85,6 +87,8 @@ ListaEnc<ListaEnc<Coordenada> *>* Curva::getCoordTelaClip(double xEsq,
 			lista = nullptr;
 		}
 	}
+	if(!projOrtogonal)
+		delete coordsProjTela;
 	return lista;
 }
 
