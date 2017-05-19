@@ -159,7 +159,6 @@ const ListaEnc<Coordenada>* Figura::getCoordTela(bool projOrtogonal, double foco
 		double zSobreFoco;
 		for (int i = 0; i < coordenadasTela.tamanho(); i++) {
 			Coordenada aux = coordenadasTela.retornaDado(i);
-			zAntigo = aux.getZ();
 			aux -= centroDes;
 			zSobreFoco = (aux.getZ()) / focoProj;
 			if(zSobreFoco == 0)
