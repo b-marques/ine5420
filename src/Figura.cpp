@@ -153,20 +153,19 @@ const ListaEnc<Coordenada>* Figura::getCoordTela(bool projOrtogonal, double foco
 	if(projOrtogonal)
 		return &coordenadasTela;
 	else {
-		Coordenada centroDes = centroDesenho;
-		centroDes.setZ(focoProj);
+		Coordenada COP = centroDesenho;
 		ListaEnc<Coordenada>* coordsProj = new ListaEnc<Coordenada>();
-		double zSobreFoco;
+		double zSobreFoco, xp, yp;
 		for (int i = 0; i < coordenadasTela.tamanho(); i++) {
 			Coordenada aux = coordenadasTela.retornaDado(i);
-			aux -= centroDes;
+			aux -= COP;
 			zSobreFoco = (aux.getZ()) / focoProj;
-			if(zSobreFoco == 0)
-				zSobreFoco = 1;
-			aux.setX(aux.getX() / zSobreFoco);
-			aux.setY(aux.getY() / zSobreFoco);
-			aux.setZ(zSobreFoco);
-			aux += centroDes;
+			xp = aux.getX() / zSobreFoco;
+			yp = aux.getY() / zSobreFoco;
+			aux.setX(xp);
+			aux.setY(yp);
+			aux.setZ(focoProj);
+			aux += COP;
 			coordsProj->adiciona(aux);
 		}
 		return coordsProj;
