@@ -566,14 +566,14 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
-                  <object class="GtkButton" id="button_add_surface">
-                    <property name="label" translatable="yes">Adicionar superficie</property>
+                  <object class="GtkButton" id="button_add_face">
+                    <property name="label" translatable="yes">Adicionar face</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="resize_mode">immediate</property>
                     <property name="xalign">0.49999997019767761</property>
-                    <signal name="clicked" handler="adicionarSuperficie" swapped="no"/>
+                    <signal name="clicked" handler="adicionarFace" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -583,14 +583,14 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="button_remove_surfaces">
-                    <property name="label" translatable="yes">Remover superficies</property>
+                  <object class="GtkButton" id="button_remove_faces">
+                    <property name="label" translatable="yes">Remover faces</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="resize_mode">immediate</property>
                     <property name="xalign">0.49999997019767761</property>
-                    <signal name="clicked" handler="limparListaSuperficie" swapped="no"/>
+                    <signal name="clicked" handler="limparListaFace" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">True</property>

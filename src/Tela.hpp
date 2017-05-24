@@ -41,7 +41,7 @@ private:
 	string getEntryText(string nomeEntry);
 	double getPasso();
 	string getNomeFigAdd();
-	void escreveListaObjetos(string nome);
+	void escreveListaObjetos(string c);
 	int posicaoFigSelecionada();
 	string coordenadasTxt(const ListaEnc<Coordenada>& coords);
 	Coordenada FatorOuDeslocamento();
@@ -51,6 +51,7 @@ private:
 	int tipoClipping();
 	void redesenhaFiguraClip(Figura* f, int tipoClip, int xDirVP,
 			int yCimaVP, double focoProj);
+	void setCoordNumber(int number);
 public:
 	void escreveTerminal(string texto);
 	Tela();
@@ -72,9 +73,8 @@ public:
 	void adicionarBezier();
 	void adicionarBspline();
 	void adicionarObjeto3d();
-	void addSuperficie();
+	void addFace();
 	void addCord();
-	void clearCord();
 	void escalonaFigura();
 	void transladaFigura();
 	void rotacionaFigura();

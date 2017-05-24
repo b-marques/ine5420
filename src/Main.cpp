@@ -44,7 +44,7 @@ void clearCord(GtkWidget *button, gpointer user_data) {
 	tela->limpaListaCoord();
 }
 
-void limparListaSuperficie(GtkWidget *button, gpointer user_data) {
+void limparListaFace(GtkWidget *button, gpointer user_data) {
 	tela->limpaListaCoord();
 }
 void adicionarPonto(GtkWidget *button, gpointer user_data) {
@@ -71,8 +71,8 @@ void adicionarObjeto3d(GtkWidget *button, gpointer user_data) {
 	tela->adicionarObjeto3d();
 }
 
-void adicionarSuperficie(GtkWidget *button, gpointer user_data) {
-	tela->addSuperficie();
+void adicionarFace(GtkWidget *button, gpointer user_data) {
+	tela->addFace();
 }
 
 void abrirAdicionaFigura(GtkWidget *button, gpointer user_data) {

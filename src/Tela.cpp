@@ -77,10 +77,7 @@ void Tela::adicionaFigura(string nome, TipoFigura tipo) {
 void Tela::limpaListaCoord() {
 	ListaEnc<Coordenada> novaLista;
 	coordTemp = novaLista;
-	GtkLabel* label_coord = GTK_LABEL(
-			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_number"));
-	gtk_label_set_text(GTK_LABEL(label_coord), std::to_string(coordTemp.tamanho()).c_str());
-
+	setCoordNumber(0);
 	ListaEnc<Poligono*> novaSuperficie;
 	superficieTemp = novaSuperficie;
 }
@@ -520,7 +517,7 @@ void Tela::adicionarObjeto3d(){
 	}
 }
 
-void Tela::addSuperficie(){
+void Tela::addFace(){
 	if (coordTemp.tamanho() < 3) {
 		escreveTerminal(
 				"Número de pontos insuficientes para criação de superficie!");
@@ -528,6 +525,7 @@ void Tela::addSuperficie(){
 		superficieTemp.adiciona(new Poligono("superficie"+std::to_string(superficieTemp.tamanho()), coordTemp));
 		ListaEnc<Coordenada> novaLista;
 		coordTemp = novaLista;
+		setCoordNumber(0);
 	}	
 
 }
@@ -538,4 +536,10 @@ void Tela::ativaProjOrtogonal() {
 
 void Tela::ativaProjPerspectiva() {
 	projOrtogonal = false;
+}
+
+void Tela::setCoordNumber(int number) {
+	GtkLabel* label_coord = GTK_LABEL(
+			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_number"));
+	gtk_label_set_text(GTK_LABEL(label_coord), std::to_string(number).c_str());
 }
