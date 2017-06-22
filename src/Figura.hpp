@@ -15,7 +15,8 @@
 using namespace std;
 
 
-enum TipoFigura {PONTO, RETA, POLIGONO, BEZIER, BSPLINE, FIGURA3D};
+enum TipoFigura {PONTO, RETA, POLIGONO, BEZIER, BSPLINE, FIGURA3D,
+	SUPERBEZIER, SUPERBSPLINE};
 
 class Figura {
 protected:
@@ -52,7 +53,7 @@ public:
 	virtual void rotacionaTela(Coordenada& centroDesenho, double angulo);
 	TipoFigura getTipo();
 	Coordenada getCentro();
-	void recemAdicionada(Coordenada origemMundoTela, Coordenada& zoom, Coordenada& centroDesenho, double giroTela);
+	virtual void recemAdicionada(Coordenada origemMundoTela, Coordenada& zoom, Coordenada& centroDesenho, double giroTela);
 	virtual ~Figura();
 };
 

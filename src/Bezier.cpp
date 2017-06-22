@@ -13,6 +13,13 @@ Bezier::Bezier(string nome, ListaEnc<Coordenada>& controle) :
 	geraCurva(controle);
 }
 
+Bezier::Bezier(ListaEnc<Coordenada>& coords) : Curva(BEZIER) {
+	coordenadas = coords;
+	coordenadasTela = coords;
+	centro = calculaCentro(coordenadas);
+	centroRelTela = centro;
+}
+
 void Bezier::geraCurva(ListaEnc<Coordenada>& controle) {
 	double i, x, y, t2, t3, m1, m2, m3, m4;
 	Coordenada p1, p2, p3, p4, coordCurva;

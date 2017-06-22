@@ -11,6 +11,10 @@ Curva::Curva(string nome, TipoFigura tipo, ListaEnc<Coordenada>& controle) : Fig
 	this->controle = controle;
 }
 
+Curva::Curva(TipoFigura tipo) : Figura("", tipo){
+
+}
+
 int Curva::getCode(Coordenada& coord, double xEsq, double xDir, double yCima,
 		double yBaixo) {
 	return (coord.getX() < xEsq) | (coord.getX() > xDir) << 1

@@ -5,6 +5,8 @@
 #include <string>
 #include <stdlib.h>
 #include <math.h>
+
+#include "SuperficieBezier.hpp"
 #include "Tela.hpp"
 using namespace std;
 
@@ -119,10 +121,43 @@ void projOrtogonal(GtkToggleButton *togglebutton, gpointer user_data){
 void projPerspectiva(GtkToggleButton *togglebutton, gpointer user_data){
 	tela->ativaProjPerspectiva();
 }
+
+void adicionarSuperBezier(GtkWidget *button, gpointer user_data){
+	tela->adicionarSuperBezier();
+}
+
+void adicionarSuperBspline(GtkWidget *button, gpointer user_data){
+	tela->adicionarSuperBspline();
+}
 }
 
 int main(int argc, char *argv[]) {
 	gtk_init(&argc, &argv);
 	tela = new Tela();
 	gtk_main();
+	ListaEnc<Coordenada> c;
+
+	c.adiciona(Coordenada(0, 0, 0));
+	c.adiciona(Coordenada(5, 0, 0));
+	c.adiciona(Coordenada(10, 0, 0));
+	c.adiciona(Coordenada(15, 0, 0));
+
+	c.adiciona(Coordenada(0, 5, 0));
+	c.adiciona(Coordenada(5, 5, 20));
+	c.adiciona(Coordenada(10, 5, 30));
+	c.adiciona(Coordenada(15, 5, 0));
+
+	c.adiciona(Coordenada(0, 10, 0));
+	c.adiciona(Coordenada(5, 10, 20));
+	c.adiciona(Coordenada(10, 10, 30));
+	c.adiciona(Coordenada(15, 10, 0));
+
+	c.adiciona(Coordenada(0, 15, 0));
+	c.adiciona(Coordenada(5, 15, 0));
+	c.adiciona(Coordenada(10, 15, 0));
+	c.adiciona(Coordenada(15, 15, 0));
+
+	SuperficieBezier* n = new SuperficieBezier("Superficie", c);
+
+
 }

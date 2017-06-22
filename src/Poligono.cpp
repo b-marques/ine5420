@@ -8,7 +8,6 @@
 #include "Poligono.hpp"
 #include "defineCohenSutherland.hpp"
 #include <math.h>
-#include <limits>
 Poligono::Poligono(string nome, ListaEnc<Coordenada>& coord) :
 		Figura(nome, coord, POLIGONO) {
 }

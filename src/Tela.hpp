@@ -85,6 +85,8 @@ public:
 	void tamanhoDrawMudou(GdkRectangle *novoTam);
 	void ativaProjOrtogonal();
 	void ativaProjPerspectiva();
+	void adicionarSuperBezier();
+	void adicionarSuperBspline();
 };
 
 #endif /* TELA_HPP_ */

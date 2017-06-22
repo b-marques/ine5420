@@ -1,20 +1,21 @@
 /*
- * Figura3D.hpp
+ * Superficie.hpp
  *
- *  Created on: 4 de mai de 2017
+ *  Created on: 17 de jun de 2017
  *      Author: johann
  */
 
-#ifndef FIGURA3D_HPP_
-#define FIGURA3D_HPP_
+#ifndef SUPERFICIEBICUBICA_HPP_
+#define SUPERFICIEBICUBICA_HPP_
+#include "Curva.hpp"
 
-#include "Poligono.hpp"
+class SuperficieBicubica : public Figura{
+protected:
+	ListaEnc<Curva*> curvas;
 
-class Figura3D: public Figura {
-private:
-	ListaEnc<Poligono*> superficies;
 public:
-	Figura3D(string nome, ListaEnc<Poligono*>& superficies);
+	SuperficieBicubica(string nome, TipoFigura tipo);
+	virtual ~SuperficieBicubica();
 	void translada(Coordenada& desloc, Coordenada& zoomAcumumlado,
 			double giroTelaAcumulado);
 	void escalona(Coordenada& escala);
@@ -28,13 +29,12 @@ public:
 	void deslocaNaTela(Coordenada& desloc);
 	void rotacionaTela(Coordenada& centroDesenho, double angulo);
 	void recemAdicionada(Coordenada origemMundoTela, Coordenada& zoom, Coordenada& centroDesenho, double giroTela);
+	ListaEnc<Coordenada>& getCurva(int idCurva);
+	const ListaEnc<Coordenada>* getCurvaTela(int idSuper, bool projOrtogonal, double focoProj, const Coordenada& centroDesenho);
+	int numCurvas();
 	ListaEnc<ListaEnc<Coordenada>*>* getCoordTelaClip(double xEsq,
-			double xDir, double yCima, double yBaixo, int tipoClip, bool projOrtogonal,
-			double focoProj, const Coordenada& centroDesenho);
-	ListaEnc<Coordenada>& getSuperficie(int idSuper);
-	const ListaEnc<Coordenada>* getSuperficieTela(int idSuper, bool projOrtogonal, double focoProj, const Coordenada& centroDesenho);
-	int numSuperficies();
-	virtual ~Figura3D();
+				double xDir, double yCima, double yBaixo, int tipoClip, bool projOrtogonal,
+				double focoProj, const Coordenada& centroDesenho);
 };
 
-#endif /* FIGURA3D_HPP_ */
+#endif /* SUPERFICIEBICUBICA_HPP_ */

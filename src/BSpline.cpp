@@ -13,6 +13,13 @@ BSpline::BSpline(string nome, ListaEnc<Coordenada>& controle) : Curva(nome, BSPL
 	geraCurva(controle);
 }
 
+BSpline::BSpline(ListaEnc<Coordenada>& coords) : Curva(BSPLINE) {
+	coordenadas = coords;
+	coordenadasTela = coords;
+	centro = calculaCentro(coordenadas);
+	centroRelTela = centro;
+}
+
 void BSpline::geraCurva(ListaEnc<Coordenada>& controle) {
 	double k2 = pow(k, 2), k3 = pow(k, 3), nPassos = 1/k;
 	double cx[4], cy[4];

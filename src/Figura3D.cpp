@@ -96,6 +96,13 @@ int Figura3D::numSuperficies() {
 	return superficies.tamanho();
 }
 
+void Figura3D::recemAdicionada(Coordenada origemMundoTela, Coordenada& zoom,
+		Coordenada& centroDesenho, double giroTela) {
+	for (int i = 0; i < superficies.tamanho(); i++) {
+		superficies.retornaDado(i)->recemAdicionada(origemMundoTela, zoom, centroDesenho, giroTela);
+	}
+}
+
 Figura3D::~Figura3D() {
 	for (int i = 0; i < superficies.tamanho(); i++) {
 		delete superficies.retiraDoInicio();

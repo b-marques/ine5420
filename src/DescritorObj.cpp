@@ -14,6 +14,8 @@
 #include "Bezier.hpp"
 #include "BSpline.hpp"
 #include "Figura3D.hpp"
+#include "SuperficieBezier.hpp"
+#include "SuperficieBspline.hpp"
 DescritorObj::DescritorObj() {
 	// TODO Auto-generated constructor stub
 }
@@ -144,6 +146,12 @@ Figura* DescritorObj::leObjeto(ifstream& arquivo, string& linhaInicial,
 				bezier = true;
 			else if (linha.find("bspline") < linha.size())
 				bezier = false;
+		} else if(!linha.compare(0, 4, "surf")){
+			listaCoords = listaCoordsFigura(linha, coords);
+			if(bezier)
+				f = new SuperficieBezier(nome, *listaCoords);
+			else
+				f = new SuperficieBspline(nome, *listaCoords);
 		} else if (!linha.compare(0, 2, "f ")) {
 			int linhaAnterior;
 			while (!linha.compare(0, 2, "f ") || !linha.compare(0, 1, "v")) {

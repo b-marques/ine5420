@@ -16,6 +16,7 @@ private:
 	void fwdDif(double n, double *dx, double *dy);
 public:
 	BSpline(string nome, ListaEnc<Coordenada>& controle);
+	BSpline(ListaEnc<Coordenada>& coords);
 	virtual ~BSpline();
 };
 

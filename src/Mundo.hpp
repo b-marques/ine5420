@@ -33,6 +33,8 @@ public:
 	Figura* adicionaBezier(string nome, ListaEnc<Coordenada>& controle);
 	Figura* adicionaBspline(string nome, ListaEnc<Coordenada>& controle);
 	Figura* adicionaFigura3D(string nome, ListaEnc<Poligono*>& superficies);
+	Figura* adicionaSuperBezier(string nome, ListaEnc<Coordenada>& controle);
+	Figura* adicionaSuperBspline(string nome, ListaEnc<Coordenada>& controle);
 	void transladaFigura(int posicaoLista, Coordenada desloc);
 	void escalonaFigura(int posicaoLista, Coordenada escala);
 	void rotacionaFiguraCentroMundo(Coordenada eixo1, int posicaoLista, double anguloGraus);

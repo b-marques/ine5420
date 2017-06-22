@@ -16,6 +16,7 @@ private:
 	void geraCurva(ListaEnc<Coordenada>& controle);
 public:
 	Bezier(string nome, ListaEnc<Coordenada>& controle);
+	Bezier(ListaEnc<Coordenada>& coords);
 	virtual ~Bezier();
 };
 

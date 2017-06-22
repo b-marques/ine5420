@@ -8,6 +8,7 @@
 #include "Tela.hpp"
 #include "ViewPortOffset.hpp"
 #include "Figura3D.hpp"
+#include "SuperficieBicubica.hpp"
 
 Tela::Tela() {
 	GtkWidget *window_widget;
@@ -59,6 +60,12 @@ void Tela::adicionaFigura(string nome, TipoFigura tipo) {
 		break;
 	case FIGURA3D:
 		f = mundo->adicionaFigura3D(nome, superficieTemp);
+		break;
+	case SUPERBEZIER:
+		f = mundo->adicionaSuperBezier(nome, coordTemp);
+		break;
+	case SUPERBSPLINE:
+		f = mundo->adicionaSuperBspline(nome, coordTemp);
 		break;
 	default:
 		break;
@@ -203,7 +210,8 @@ void Tela::redesenhaFiguraClip(Figura* f, int tipoClip, int xDirVP,
 	if (coords != nullptr) {
 		for (int i = 0; i < coords->tamanho(); i++) {
 			coordsFig = coords->retornaDado(i);
-			if(tipo == RETA || tipo == BEZIER || tipo == BSPLINE)
+			if(tipo == RETA || tipo == BEZIER || tipo == BSPLINE ||
+					tipo == SUPERBEZIER || tipo == SUPERBSPLINE)
 				desenhador->desenhaPoligonoRetaCurva(*coordsFig, false);
 			else if(tipo == POLIGONO || tipo == FIGURA3D)
 				desenhador->desenhaPoligonoRetaCurva(*coordsFig, true);
@@ -226,6 +234,12 @@ void Tela::redesenhaFigura(Figura* f, double focoProj) {
 		desenhador->desenhaPoligonoRetaCurva(*coordsFig, true);
 	else if(tipo == PONTO)
 		desenhador->desenhaPonto(*coordsFig);
+	else if(tipo == SUPERBEZIER || tipo == SUPERBSPLINE){
+		SuperficieBicubica* sup = (SuperficieBicubica*) f;
+		for (int i = 0; i < sup->numCurvas(); i++) {
+			desenhador->desenhaPoligonoRetaCurva(*(sup->getCurvaTela(i, projOrtogonal, focoProj, centroDesenho)), false);
+		}
+	}
 	else {
 		Figura3D *fig = (Figura3D*) f;
 		for (int i = 0; i < fig->numSuperficies(); i++) {
@@ -542,4 +556,28 @@ void Tela::setCoordNumber(int number) {
 	GtkLabel* label_coord = GTK_LABEL(
 			gtk_builder_get_object( GTK_BUILDER(gtkBuilder), "coord_number"));
 	gtk_label_set_text(GTK_LABEL(label_coord), std::to_string(number).c_str());
+}
+
+void Tela::adicionarSuperBezier() {
+	string nomeFigura = getNomeFigAdd();
+	int tam = coordTemp.tamanho();
+	if (tam % 12 != 4 || tam < 12) {
+		escreveTerminal(
+				"Número de pontos incorreto para manter continuidade BEZIER!");
+	} else {
+		adicionaFigura(nomeFigura, SUPERBEZIER);
+		limpaListaCoord();
+	}
+
+}
+
+void Tela::adicionarSuperBspline() {
+	string nomeFigura = getNomeFigAdd();
+	if (coordTemp.tamanho() % 15 != 1) {
+		escreveTerminal(
+				"Número de pontos incorreto para manter continuidade");
+	} else {
+		adicionaFigura(nomeFigura, SUPERBSPLINE);
+		limpaListaCoord();
+	}
 }

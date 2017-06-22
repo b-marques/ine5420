@@ -17,6 +17,7 @@ protected:
 			double yBaixo);
 public:
 	Curva(string nome, TipoFigura tipo, ListaEnc<Coordenada>& controle);
+	Curva(TipoFigura tipo);
 	ListaEnc<ListaEnc<Coordenada>*>* getCoordTelaClip(double xEsq,
 			double xDir, double yCima, double yBaixo, int tipoClip, bool projOrtogonal,
 			double focoProj, const Coordenada& centroDesenho);

@@ -15,6 +15,8 @@
 #include "Bezier.hpp"
 #include "BSpline.hpp"
 #include "Figura3D.hpp"
+#include "SuperficieBezier.hpp"
+#include "SuperficieBspline.hpp"
 
 Mundo::Mundo(double larguraArea, double alturaArea) {
 	this->larguraArea = larguraArea;
@@ -108,6 +110,20 @@ Figura* Mundo::adicionaBspline(string nome, ListaEnc<Coordenada>& controle) {
 
 Figura* Mundo::adicionaFigura3D(string nome, ListaEnc<Poligono*>& superficies) {
 	Figura3D *f = new Figura3D(nome, superficies);
+	figuras->adiciona(f);
+	inicializaFigura(f);
+	return f;
+}
+
+Figura* Mundo::adicionaSuperBezier(string nome, ListaEnc<Coordenada>& controle) {
+	SuperficieBezier *f = new SuperficieBezier(nome, controle);
+	figuras->adiciona(f);
+	inicializaFigura(f);
+	return f;
+}
+
+Figura* Mundo::adicionaSuperBspline(string nome, ListaEnc<Coordenada>& controle) {
+	SuperficieBspline *f = new SuperficieBspline(nome, controle);
 	figuras->adiciona(f);
 	inicializaFigura(f);
 	return f;
