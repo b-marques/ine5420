@@ -573,7 +573,8 @@ void Tela::adicionarSuperBezier() {
 
 void Tela::adicionarSuperBspline() {
 	string nomeFigura = getNomeFigAdd();
-	if (coordTemp.tamanho() % 15 != 1) {
+	int tam = coordTemp.tamanho();
+	if (tam % 12 != 4 || tam < 12) {
 		escreveTerminal(
 				"Número de pontos incorreto para manter continuidade");
 	} else {

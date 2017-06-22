@@ -18,44 +18,48 @@ SuperficieBspline::SuperficieBspline(string nome, ListaEnc<Coordenada>& controle
 void SuperficieBspline::geraSuperficie(ListaEnc<Coordenada>& controle) {
 	double s, s2, s3, t, t2, t3, x[16], y[16], z[16], xResult, yResult,
 	zResult;
+	int numSupers;
 	Coordenada coordControle;
 	ListaEnc<Coordenada>* curva = new ListaEnc<Coordenada>();
-	for (int i = 0; i < controle.tamanho(); i++) {
-		coordControle = controle.retornaDado(i);
-		x[i] = coordControle.getX();
-		y[i] = coordControle.getY();
-		z[i] = coordControle.getZ();
-	}
-
-	for (double s = 0; s <= 1.0; s += deltaS) {
-		s2 = pow(s, 2);
-		s3 = pow(s, 2);
-		for (double i = 0; i <= passoCurva; i++) {
-			t = (double) i/passoCurva;
-			t2 = pow(t, 2);
-			t3 = pow(t, 3);
-			xResult = calculaCoordSuperficie(x, s, s2, s3, t, t2, t3);
-			yResult = calculaCoordSuperficie(y, s, s2, s3, t, t2, t3);
-			zResult = calculaCoordSuperficie(z, s, s2, s3, t, t2, t3);
-			curva->adiciona(Coordenada(xResult, yResult, zResult));
+	numSupers = (controle.tamanho() - 4)/12;
+	for (int iteracao = 0; iteracao < numSupers; iteracao++) {
+		for (int i = iteracao*12; i < 16+(12*iteracao); i++) {
+			coordControle = controle.retornaDado(i);
+			x[i] = coordControle.getX();
+			y[i] = coordControle.getY();
+			z[i] = coordControle.getZ();
 		}
-		curvas.adiciona(new BSpline(*curva));
-		curva->destroiLista();
-	}
-	for (double t = 0; t <= 1.0; t += deltaT) {
-		t2 = pow(t, 2);
-		t3 = pow(t, 3);
-		for (double i = 0; i <= passoCurva; i++) {
-			s = (double) i/passoCurva;
+
+		for (double s = 0; s <= 1.0; s += deltaS) {
 			s2 = pow(s, 2);
 			s3 = pow(s, 2);
-			xResult = calculaCoordSuperficie(x, s, s2, s3, t, t2, t3);
-			yResult = calculaCoordSuperficie(y, s, s2, s3, t, t2, t3);
-			zResult = calculaCoordSuperficie(z, s, s2, s3, t, t2, t3);
-			curva->adiciona(Coordenada(xResult, yResult, zResult));
+			for (double i = 0; i <= passoCurva; i++) {
+				t = (double) i/passoCurva;
+				t2 = pow(t, 2);
+				t3 = pow(t, 3);
+				xResult = calculaCoordSuperficie(x, s, s2, s3, t, t2, t3);
+				yResult = calculaCoordSuperficie(y, s, s2, s3, t, t2, t3);
+				zResult = calculaCoordSuperficie(z, s, s2, s3, t, t2, t3);
+				curva->adiciona(Coordenada(xResult, yResult, zResult));
+			}
+			curvas.adiciona(new BSpline(*curva));
+			curva->destroiLista();
 		}
-		curvas.adiciona(new BSpline(*curva));
-		curva->destroiLista();
+		for (double t = 0; t <= 1.0; t += deltaT) {
+			t2 = pow(t, 2);
+			t3 = pow(t, 3);
+			for (double i = 0; i <= passoCurva; i++) {
+				s = (double) i/passoCurva;
+				s2 = pow(s, 2);
+				s3 = pow(s, 2);
+				xResult = calculaCoordSuperficie(x, s, s2, s3, t, t2, t3);
+				yResult = calculaCoordSuperficie(y, s, s2, s3, t, t2, t3);
+				zResult = calculaCoordSuperficie(z, s, s2, s3, t, t2, t3);
+				curva->adiciona(Coordenada(xResult, yResult, zResult));
+			}
+			curvas.adiciona(new BSpline(*curva));
+			curva->destroiLista();
+		}
 	}
 	delete curva;
 }
