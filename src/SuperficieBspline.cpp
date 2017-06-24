@@ -7,8 +7,8 @@
 
 #include "SuperficieBspline.hpp"
 #include "BSpline.hpp"
-#define deltaT 0.05
-#define deltaS 0.05
+#define nt 20
+#define ns 20
 #define passoCurva 100
 
 SuperficieBspline::SuperficieBspline(string nome, ListaEnc<Coordenada>& controle) : SuperficieBicubica(nome, SUPERBSPLINE) {
@@ -30,11 +30,12 @@ void SuperficieBspline::geraSuperficie(ListaEnc<Coordenada>& controle) {
 			z[i] = coordControle.getZ();
 		}
 
-		for (double s = 0; s <= 1.0; s += deltaS) {
+		for (double j = 0; j <= ns; j++) {
+			s = j / ns;
 			s2 = pow(s, 2);
 			s3 = pow(s, 2);
 			for (double i = 0; i <= passoCurva; i++) {
-				t = (double) i/passoCurva;
+				t = i/passoCurva;
 				t2 = pow(t, 2);
 				t3 = pow(t, 3);
 				xResult = calculaCoordSuperficie(x, s, s2, s3, t, t2, t3);
@@ -45,11 +46,12 @@ void SuperficieBspline::geraSuperficie(ListaEnc<Coordenada>& controle) {
 			curvas.adiciona(new BSpline(*curva));
 			curva->destroiLista();
 		}
-		for (double t = 0; t <= 1.0; t += deltaT) {
+		for (double j = 0; j <= nt; j++) {
+			t = j / nt;
 			t2 = pow(t, 2);
 			t3 = pow(t, 3);
 			for (double i = 0; i <= passoCurva; i++) {
-				s = (double) i/passoCurva;
+				s = i/passoCurva;
 				s2 = pow(s, 2);
 				s3 = pow(s, 2);
 				xResult = calculaCoordSuperficie(x, s, s2, s3, t, t2, t3);
